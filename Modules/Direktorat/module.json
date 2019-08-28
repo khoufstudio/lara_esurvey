@@ -1,0 +1,14 @@
+{
+    "name": "Direktorat",
+    "alias": "direktorat",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Direktorat\\Providers\\DirektoratServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

@@ -1,0 +1,25 @@
+{
+    "name": "nwidart/imagelibrary",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\ImageLibrary\\Providers\\ImageLibraryServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\ImageLibrary\\": ""
+        }
+    }
+}

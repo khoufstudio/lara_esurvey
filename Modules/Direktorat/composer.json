@@ -1,0 +1,25 @@
+{
+    "name": "nwidart/direktorat",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\Direktorat\\Providers\\DirektoratServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Direktorat\\": ""
+        }
+    }
+}

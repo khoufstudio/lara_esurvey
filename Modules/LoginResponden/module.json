@@ -1,0 +1,14 @@
+{
+    "name": "LoginResponden",
+    "alias": "loginresponden",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\LoginResponden\\Providers\\LoginRespondenServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

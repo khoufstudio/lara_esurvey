@@ -1,0 +1,10 @@
+● fancontrol.service - Start fan control, if configured
+   Loaded: loaded (/usr/lib/systemd/system/fancontrol.service; enabled; vendor preset: disabled)
+   Active: inactive (dead)
+Condition: start [0;1;33mcondition failed[0m at Tue 2019-05-14 11:33:05 WIB; 5s ago
+           └─ ConditionFileNotEmpty=/etc/fancontrol was not met
+
+Mei 14 10:49:24 SETIAWAN-YNN systemd[1]: [0;1;39m[0;1;31m[0;1;39m/usr/lib/systemd/system/fancontrol.service:7: PIDFile= references a path below legacy directory /var/run/, updating /var/run/fancontrol.pid → /run/fancontrol.pid; please update the unit file accordingly.[0m
+Mei 14 10:49:33 SETIAWAN-YNN systemd[1]: Condition check resulted in Start fan control, if configured being skipped.
+Mei 14 11:26:48 SETIAWAN-YNN systemd[1]: [0;1;39m[0;1;31m[0;1;39m/usr/lib/systemd/system/fancontrol.service:7: PIDFile= references a path below legacy directory /var/run/, updating /var/run/fancontrol.pid → /run/fancontrol.pid; please update the unit file accordingly.[0m
+Mei 14 11:33:05 SETIAWAN-YNN systemd[1]: Condition check resulted in Start fan control, if configured being skipped.

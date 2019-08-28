@@ -1,0 +1,14 @@
+{
+    "name": "CmsWeb",
+    "alias": "cmsweb",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\CmsWeb\\Providers\\CmsWebServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

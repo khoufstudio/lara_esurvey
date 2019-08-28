@@ -1,0 +1,14 @@
+{
+    "name": "Responden",
+    "alias": "responden",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\Responden\\Providers\\RespondenServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

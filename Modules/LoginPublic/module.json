@@ -1,0 +1,14 @@
+{
+    "name": "LoginPublic",
+    "alias": "loginpublic",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\LoginPublic\\Providers\\LoginPublicServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

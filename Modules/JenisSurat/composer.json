@@ -1,0 +1,25 @@
+{
+    "name": "nwidart/jenissurat",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\JenisSurat\\Providers\\JenisSuratServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\JenisSurat\\": ""
+        }
+    }
+}

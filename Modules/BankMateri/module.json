@@ -1,0 +1,14 @@
+{
+    "name": "BankMateri",
+    "alias": "bankmateri",
+    "description": "",
+    "keywords": [],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Modules\\BankMateri\\Providers\\BankMateriServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

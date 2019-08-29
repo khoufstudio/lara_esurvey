@@ -37,11 +37,11 @@
 <div class="col-md-12">
   @if ($errors->any())
     <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+      <ul>
+        @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+        @endforeach
+      </ul>
     </div>
   @endif
   <div class="card">
@@ -80,7 +80,7 @@
 
           <div class="button-add clearfix mb-2">
             <div class="btn-group float-right">
-              <button type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><b><i class="icon-reading"></i></b> Tambah Pertanyaan</button>
+              <button type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><b><i class="icon-compose"></i></b> Tambah Pertanyaan</button>
               <div id="add_question" class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(142px, 36px, 0px);">
                 <a href="#" class="dropdown-item item-question">Text</a>
                 <a href="#" class="dropdown-item item-question">Checkbox</a>
@@ -103,13 +103,12 @@
     </div>
   </div>
 
-
+  {{-- Button Submit --}}
   <div class="card">
     <div class="card-body">
       <button name="button_submit" type="submit" onclick="alert('Fungsi belum berjalan')" class="btn bg-teal-400 mr-3" value="0">Submit <i class="icon-paperplane ml-2"></i></button>
     </div>
   </div>
-
 
 </div>
 
@@ -125,25 +124,24 @@
       
       <div class="modal-body">
         @csrf
-          <div class="form-group">
-            <label>Pertanyaan</label>
-            <input type="text" name="modal_text_pertanyaan" id="modal_text_pertanyaan" class="form-control" required="" placeholder="Silahkan isi pertanyaan">
-          </div>
-
-          <div class="form-group">
-            <label class="">Tipe Input</label>
-            <select name="id_user_group" id="id_user_group" class="form-control" required="" placeholder="Pilih">
-              <option value="" disabled="" selected="">Pilih</option>
-                  <option value="1">Text</option>
-                  <option value="2">Number</option>
-                  <option value="3">Date</option>
-                  <option value="4">Time</option>
-            </select>
-          </div>
+        <div class="form-group">
+          <label>Pertanyaan</label>
+          <input type="text" name="modal_text_pertanyaan" id="modal_text_pertanyaan" class="form-control" required="" placeholder="Silahkan isi pertanyaan">
+        </div>
+        <div class="form-group">
+          <label class="">Tipe Input</label>
+          <select name="modal_text_input_tipe" id="modal_text_input_tipe" class="form-control" placeholder="Pilih">
+            <option value="" disabled="" selected="">Pilih</option>
+            <option value="text">Text</option>
+            <option value="number">Number</option>
+            <option value="date">Date</option>
+            <option value="time">Time</option>
+          </select>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-link" data-dismiss="modal">Tutup</button>
-        <button type="submit" class="btn bg-info btn-action" onclick="alert('fungsi belum jalan')">Simpan</button>
+        <button type="submit" class="btn bg-info btn-action modal-text-simpan">Simpan</button>
         {{-- <button type="submit" class="btn bg-info btn-action" onclick="return confirm('Apakah anda yakin?')">Simpan</button> --}}
       </div>
     </div>
@@ -151,59 +149,58 @@
 </div>
 
 <!-- Modal Edit Pertanyaan Radio dan Checkbox -->
-<div class="modal fade" id="modal_edit_question_checkbox_radio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal_cb" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header bg-info">
-          {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> --}}
-          <h6 class="modal-title">EDIT PERTANYAAN</h6>
-          <button type="button" class="close" data-dismiss="modal">×</button>
-        </div>
-        <div class="modal-body">
-          <div role="tabpanel">
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" role="tablist">
-              <li role="presentation" class="nav-item">
-                <a href="#generalTab" class="nav-link active show" aria-controls="generalTab" role="tab" data-toggle="tab">General</a>
-              </li>
-              <li role="presentation" class="nav-item">
-                <a href="#choicesTab" class="nav-link" aria-controls="choicesTab" role="tab" data-toggle="tab">Choices</a>
-              </li>
-              <li role="presentation" class="nav-item">
-                <a href="#jumpingTab" class="nav-link" aria-controls="#jumpingTab" role="tab" data-toggle="tab">Jumping</a>
-              </li>
-            </ul>
-            <!-- Tab panes -->
-            <div class="tab-content">
-              <div role="tabpanel" class="tab-pane active" id="generalTab">
-                <div class="form-group">
-                  <label>Pertanyaan</label>
-                  <input type="text" name="name" id="name" class="form-control" required="" placeholder="Silahkan isi pertanyaan">
-                </div>
+    <div class="modal-content">
+      <div class="modal-header bg-info">
+        {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> --}}
+        <h6 class="modal-title">EDIT PERTANYAAN</h6>
+        <button type="button" class="close" data-dismiss="modal">×</button>
+      </div>
+      <div class="modal-body">
+        <div role="tabpanel">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="nav-item">
+              <a href="#generalTab" class="nav-link active show" aria-controls="generalTab" role="tab" data-toggle="tab">General</a>
+            </li>
+            <li role="presentation" class="nav-item">
+              <a href="#choicesTab" class="nav-link" aria-controls="choicesTab" role="tab" data-toggle="tab">Choices</a>
+            </li>
+            <li role="presentation" class="nav-item">
+              <a href="#jumpingTab" class="nav-link" aria-controls="#jumpingTab" role="tab" data-toggle="tab">Jumping</a>
+            </li>
+          </ul>
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="generalTab">
+              <div class="form-group">
+                <label>Pertanyaan</label>
+                <input type="text" name="modal_cb_pertanyaan" id="modal_cb_pertanyaan" class="form-control" required="" placeholder="Silahkan isi pertanyaan">
               </div>
-              <div role="tabpanel" class="tab-pane" id="choicesTab">
-                <div id="container-choices">
-                  <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Tambah jawaban" id="textjawaban">
-                    <div class="input-group-append">
-                      <button class="btn btn-success" type="button" id="btntambahjawaban"><i class="icon-plus2"></i></button>
-                    </div>
-                  </div>
-                  <div id="container-answer"></div>
-                </div>
-                          
-              </div>
-              <div role="tabpanel" class="tab-pane" id="jumpingTab">Under Construction</div>
             </div>
+            <div role="tabpanel" class="tab-pane" id="choicesTab">
+              <div id="container-choices">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="Tambah jawaban" id="textjawaban">
+                  <div class="input-group-append">
+                    <button class="btn btn-success" type="button" id="btntambahjawaban"><i class="icon-plus2"></i></button>
+                  </div>
+                </div>
+                <div id="container-answer"></div>
+              </div>              
+            </div>
+            <div role="tabpanel" class="tab-pane" id="jumpingTab">Under Construction</div>
           </div>
         </div>
-        <div class="modal-footer">
-          {{-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary save">Save changes</button> --}}
-          <button type="button" class="btn btn-link" data-dismiss="modal">Tutup</button>
-          <button type="submit" class="btn bg-info btn-action" onclick="alert('fungsi belum jalan')">Simpan</button>
-        </div>
       </div>
+      <div class="modal-footer">
+        {{-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary save">Save changes</button> --}}
+        <button type="button" class="btn btn-link" data-dismiss="modal">Tutup</button>
+        <button type="submit" class="btn bg-info btn-action modal-cb-rb-simpan">Simpan</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -238,10 +235,10 @@
       $( "#sortable" ).append( `
         <li class="alert alert-primary border-0 alert-dismissible">
           <span class="editx actx"><i class="icon-pencil7"></i></span> &nbsp; <span class="closex actx"><i class="icon-close2"></i></span>
-          <span class="json_val">{"type": "text", "name": "Ini soal text", "isRequired": "true" }</span>
+          <span class="json_val">{"type": "text", "name": "Ini soal text", "isRequired": "true", "type_input": "text" }</span>
           <div class="form-group text-left">
-              <label><span class="nox">1.</span>  <span class="val">Soal text</span></label>
-              <input type="text" name="name" id="name" class="form-control" placeholder="Jawaban Text" disabled>
+              <label><span class="nox">1.</span>  <span class="val">Ini soal text</span></label>
+              <input type="text" name="name" id="name" class="form-control" placeholder="Tipe jawaban = text" disabled>
             </div>
         </li>` 
       );
@@ -251,8 +248,8 @@
         `<li class="alert alert-primary border-0 alert-dismissible">
           <span class="editx actx"><i class="icon-pencil7"></i></span> &nbsp; <span class="closex actx"><i class="icon-close2"></i></span>
           <span class="json_val">{"type": "checkbox", "name": "soal checkbox", "isRequired": "true", "visibleIf": "1 greater 0", "choices": ["pilihan1", "pilihan2", "pilihan3" ]}</span>
-          <div class="form-group text-left">
-            <label><span class="nox">1.</span>  <span class="val">Soal Checkbox</span></label>
+          <div id="choices-container" class="form-group text-left">
+            <label><span class="nox">1.</span>  <span class="val">soal checkbox</span></label>
             <div class="custom-control custom-checkbox">
               <input type="checkbox" class="custom-control-input" id="custom_checkbox_stacked_checked_disabled" checked="" disabled="">
               <label class="custom-control-label" for="custom_checkbox_stacked_checked_disabled">Pilihan 1</label>
@@ -273,8 +270,8 @@
         <li class="alert alert-primary border-0 alert-dismissible">
           <span class="editx actx"><i class="icon-pencil7"></i></span> &nbsp; <span class="closex actx"><i class="icon-close2"></i></span>
           <span class="json_val">{"type": "radiogroup", "name": "soal radio", "visibleIf": "1 greater 0", "isRequired": "true", "choices": ["pilihan1", "pilihan2", "pilihan3" ]}</span>
-          <div class="form-group text-left">
-            <label><span class="nox">1.</span>  <span class="val">Soal Radio</span></label>
+          <div id="choices-container" class="form-group text-left">
+            <label><span class="nox">1.</span>  <span class="val">soal radio</span></label>
             <div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="custom_radio_stacked_checked_disabled" checked="" disabled="">
               <label class="custom-control-label" for="custom_radio_stacked_checked_disabled">Pilihan 1</label>
@@ -296,36 +293,39 @@
   });
 
   $("#sortable").on("click",".editx", function(e){
-      e.preventDefault();
+    e.preventDefault();
 
-      var judul_soal = $(this).parent().find('.json_val').html();
-      var soal = JSON.parse(judul_soal);
+    liParent = $(this).parent('li').index();
 
-      console.log(soal);
-      // console.log(soal.type);
+    judul_soal = $(this).parent().find('.json_val').html();
+    soal = JSON.parse(judul_soal);
 
-      if (soal.type == 'text') {
-        $('#modal_text_pertanyaan').val(soal.name);
-        $('#modal_edit_question_text').modal('show');
-      } else {
-        $('#container-answer').empty();
-        var val = 'test';
+    console.log(soal);
+    // console.log(soal.type);
 
-        var isi = '';
+    if (soal.type == 'text') {
+      $('#modal_text_pertanyaan').val(soal.name);
+      $('#modal_text_input_tipe').val(soal.type_input);
 
-        soal.choices.forEach(element => {
-          isi += `<div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="Tambah jawaban" value="${element}">
-                  <div class="input-group-append">
-                    <button class="btn btn-danger delete-choice" type="button"><i class="icon-minus2"></i></button>
-                  </div>
-                </div>`;
-        });
+      $('#modal_edit_question_text').modal('show');
+    } else { 
+      // untuk checkbox dan radio button
+      $('#container-answer').empty();
+      $('#modal_cb_pertanyaan').val(soal.name);
+      var isi = '';
+      
+      soal.choices.forEach(element => {
+        isi += `<div class="input-group mb-3">
+                <input type="text" class="form-control choice-cb-rb" placeholder="Tambah jawaban" value="${element}">
+                <div class="input-group-append">
+                  <button class="btn btn-danger delete-choice" type="button"><i class="icon-minus2"></i></button>
+                </div>
+              </div>`;
+      });
 
-
-        $('#container-answer').append(isi);
-        $('#modal_edit_question_checkbox_radio').modal('show');
-      }
+      $('#container-answer').append(isi);
+      $('#modal_cb').modal('show');
+    }
 
   });
   
@@ -356,6 +356,67 @@
   $("#container-answer").on("click",".delete-choice", function(e){
     e.preventDefault(); 
     $(this).closest('.input-group').remove();
+  });
+
+  $('.modal-text-simpan').on('click', function(e) {
+    var textPertanyaan = $('#modal_text_pertanyaan').val();
+    var tipeinputPertanyaan = $('#modal_text_input_tipe').val();
+
+    soal.name = textPertanyaan;
+    soal.type_input = tipeinputPertanyaan;
+
+    // console.log(soal)
+    var soalSave = JSON.stringify(soal);
+    var placeholder = `Tipe jawaban = ${tipeinputPertanyaan}`;
+
+    $('li .val').eq(liParent).text(textPertanyaan);
+    $('li input').attr("placeholder", placeholder);
+
+    $('li .json_val').eq(liParent).text(soalSave);
+
+    $('#modal_edit_question_text').modal('hide');
+    // alert(textPertanyaan)
+  });
+
+  $('.modal-cb-rb-simpan').on('click', function(e) {
+    var choices = [];
+
+    $(".choice-cb-rb").each(function() {
+      choices.push($(this).val());      
+    });
+
+    var textPertanyaan = $('#modal_cb_pertanyaan').val();
+  
+    soal.name = textPertanyaan;
+    soal.choices = choices;
+
+    var soalSave = JSON.stringify(soal);
+
+    $('li .json_val').eq(liParent).text(soalSave);
+    $('li .val').eq(liParent).text(textPertanyaan);
+
+    var isi = '';
+
+    if (soal.type == 'checkbox') {
+      $('li #choices-container .custom-checkbox').eq(liParent).remove();
+      choices.forEach(element => {
+        isi += `<div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="custom_checkbox_stacked_checked_disabled" checked="" disabled="">
+                <label class="custom-control-label" for="custom_checkbox_stacked_checked_disabled">${element}</label>
+              </div>`;
+      });
+    } else if (soal.type == 'radio') {
+      $('li #choices-container .custom-radio').eq(liParent).remove();
+      choices.forEach(element => {       
+        isi += `<div class="custom-control custom-radio">
+              <input type="radio" class="custom-control-input" id="custom_radio_stacked_checked_disabled" checked="" disabled="">
+              <label class="custom-control-label" for="custom_radio_stacked_checked_disabled">${element}</label>
+            </div>`;
+      });
+    }
+
+    $('#choices-container').append(isi);  
+    $('#modal_cb').modal('hide')
   });
 
 

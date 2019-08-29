@@ -107,7 +107,9 @@
         <div id="surveyElement">
             <survey :survey='survey'/>
         </div>
-        {{-- <div id="surveyResult"></div> --}}
+        <div id="surveyResult">
+          <input type="button" value="Kembali ke dashboard" class=" btn sv_start_btn">
+        </div>
 
         <script>
 
@@ -188,7 +190,7 @@
               .add(function (result) {
                   document
                       .querySelector('#surveyResult')
-                      .textContent = "Result JSON:\n" + JSON.stringify(result.data, null, 3);
+                      // .textContent = "Result JSON:\n" + JSON.stringify(result.data, null, 3);
               });
 
           // custom css

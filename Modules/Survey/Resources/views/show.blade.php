@@ -7,25 +7,51 @@
         <script src="https://unpkg.com/vue/dist/vue.js"></script>
         <script src="https://surveyjs.azureedge.net/1.1.7/survey.vue.js"></script>
         <link href="https://surveyjs.azureedge.net/1.1.7/survey.css" type="text/css" rel="stylesheet"/>
-        {{-- <link rel="stylesheet" href="./index.css"> --}}
+        <link rel="stylesheet" href="./index.css"> 
         <style>
-          /* body {
-            margin: 0px !important;
-            padding: 0px !important;
-            background-color: #18a689;
-          } */
+          body {
+            background-image: linear-gradient(0deg, #08AEEA 0%, #2AF598 100%);
+            margin: 0;
+            padding: 0;
+          }
 
-          /* .sv_main {
+          #surveyElement {
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            position: relative;
+          }
+
+          .sv_main {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 400px;
+            width: 600px;
+            border-radius: 20px;
+            background-color: #E7E7E7;
+            /* padding: 20px; */
+            -webkit-box-shadow: 5px 7px 5px -3px rgba(101,153,101,0.55);
+            -moz-box-shadow: 5px 7px 5px -3px rgba(101,153,101,0.55);
+            box-shadow: 5px 7px 5px -3px rgba(101,153,101,0.55);
+          }
+
+          .sv_bootstrap_css {
+            /* height: 400px; */
+            width: 600px;
             text-align: center;
-            margin: 0; */
+            /* padding: 20px; */
+            /* margin: 0; */
+            /* background-image: linear-gradient(0deg, #08AEEA 0%, #2AF598 100%); */
 
             /* height: 100vh; */
             /* background-color: black; */
-          /* } */
-
-          .sv_custom_header {
-            padding: 30px;
           }
+
+          /* .sv_custom_header {
+            padding: 30px;
+          } */
 
           /* .panel-heading {
             padding: 30px; */
@@ -49,9 +75,29 @@
             /* margin-left: 20px; */
           /* } */
 
-          /* .sv_start_btn {
+          .panel-heading {
+            margin-top: 40px !important;
+          }
+
+          .sv_row {
+            margin-top: 40px !important;
+          }
+
+          .panel-footer .sv_start_btn {
+            margin-top: 15px;
+            padding: 10px 30px !important;
+            border-radius: 15px !important;
+            /* padding-left: 30px !important; */
+            /* padding-right: 30px !important; */
+          }
+
+          /* .btn .sv_start_btn {
             padding: 30px;
           } */
+
+          /* .sv_container { */
+            /* padding: 30px; */
+          /* } */
           
         
         </style>
@@ -61,14 +107,14 @@
         <div id="surveyElement">
             <survey :survey='survey'/>
         </div>
-        {{-- <div id="surveyResult"></div> --}}
+        <div id="surveyResult"></div>
 
         <script>
 
           Survey
               .StylesManager
-              // .applyTheme("bootstrap");
-              .applyTheme("stone");
+              .applyTheme("bootstrap");
+              // .applyTheme("stone");
 
           var myCss = {
             navigationButton: "button btn-lg",
@@ -76,7 +122,7 @@
           }
 
           var json = {
-              title: "E-Survey",
+              title: "Selamat Datang di Survey Example",
               showProgressBar: "bottom",
               showTimerPanel: "top",
               maxTimeToFinishPage: 10,

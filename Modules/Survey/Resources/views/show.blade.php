@@ -9,45 +9,49 @@
         <link href="https://surveyjs.azureedge.net/1.1.7/survey.css" type="text/css" rel="stylesheet"/>
         {{-- <link rel="stylesheet" href="./index.css"> --}}
         <style>
-          body {
+          /* body {
             margin: 0px !important;
             padding: 0px !important;
             background-color: #18a689;
-          }
-          .sv_main {
+          } */
+
+          /* .sv_main {
             text-align: center;
+            margin: 0; */
+
             /* height: 100vh; */
             /* background-color: black; */
-            margin: 0;
-          }
+          /* } */
 
           .sv_custom_header {
             padding: 30px;
           }
 
-          .panel-heading {
-            padding: 30px;
+          /* .panel-heading {
+            padding: 30px; */
+
             /* height: 100vh; */
+          /* } */
 
-          }
-
-          .sv_qstn .sq-root {
+          /* .sv_qstn .sq-root {
             border: 1px solid gray;
             border-left: 4px solid #18a689;
             border-radius: 5px;
+            background-color: black; */
+
             /* padding: 20px; */
             /* margin-bottom: 30px; */
-            background-color: black;
-          }
+          /* } */
 
-          .sq-title {
-            font-size: 80px;
+          /* .sq-title {
+            font-size: 80px; */
+
             /* margin-left: 20px; */
-          }
+          /* } */
 
-          .sv_start_btn {
+          /* .sv_start_btn {
             padding: 30px;
-          }
+          } */
           
         
         </style>
@@ -63,8 +67,8 @@
 
           Survey
               .StylesManager
-              .applyTheme("bootstrap");
-              // .applyTheme("stone");
+              // .applyTheme("bootstrap");
+              .applyTheme("stone");
 
           var myCss = {
             navigationButton: "button btn-lg",

@@ -187,7 +187,6 @@
                     <input type="text" class="form-control" placeholder="Tambah jawaban" id="textjawaban">
                     <div class="input-group-append">
                       <button class="btn btn-success" type="button" id="btntambahjawaban"><i class="icon-plus2"></i></button>
-                      {{-- <button class="btn btn-danger" type="button"><i class="icon-minus2"></i></button> --}}
                     </div>
                   </div>
                   <div id="container-answer"></div>
@@ -309,6 +308,21 @@
         $('#modal_text_pertanyaan').val(soal.name);
         $('#modal_edit_question_text').modal('show');
       } else {
+        var val = 'test';
+
+        var isi = '';
+
+        soal.choices.forEach(element => {
+          isi += `<div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="Tambah jawaban" value="${element}">
+                  <div class="input-group-append">
+                    <button class="btn btn-danger delete-choice" type="button"><i class="icon-minus2"></i></button>
+                  </div>
+                </div>`;
+        });
+
+
+        $('#container-answer').append(isi);
         $('#modal_edit_question_checkbox_radio').modal('show');
       }
 
@@ -328,13 +342,20 @@
     var val = $('#textjawaban').val();
     $('#textjawaban').val('');
 
-    var isi = `<div class="alert alert-primary border-0 alert-dismissible">
-                  <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
-                  ${val}
+    var isi = `<div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Tambah jawaban" value="${val}">
+                <div class="input-group-append">
+                  <button class="btn btn-danger delete-choice" type="button"><i class="icon-minus2"></i></button>
+                </div>
               </div>`;
 
     $('#container-answer').append(isi);
-  })
+  });
+
+  $("#container-answer").on("click",".delete-choice", function(e){
+    e.preventDefault(); 
+    $(this).closest('.input-group').remove();
+  });
 
 
   function noSoal() {

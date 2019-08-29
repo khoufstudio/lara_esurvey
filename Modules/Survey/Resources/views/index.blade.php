@@ -8,6 +8,7 @@
 
 @section('content')
 <div class="col-md-12">
+  {{-- @dump($role) --}}
   <div class="card">
     <div class="card-header header-elements-inline">
         <h5 class="card-title"><i class="icon-compose"></i> Survey</h5>
@@ -29,33 +30,38 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($pages as $page)
+          <tr>
+            <td>tets</td>
+            <td>26-08-2019</td>
+            <td>Private</td>
+            <td class="text-center">
+              <a href="http://localhost:8000/admin/survey/6/show" class="btn bg-primary-400 btn-icon rounded-round"><i class="icon-play4"></i></a>
+            </td>
+          </tr>
 
+          @foreach($pages as $page)
             <tr>
-                <td>{{ $page->nama }}</td>
-                <td>{{ date("d-m-Y", strtotime($page->created_at)) }}</td>
-                <td>{{ ($page->status == 0) ? 'Public' : 'Private' }}</td>
-                <td class="text-center">
-                    <a href="{{ route('cms.survey.edit', ['id' => $page->id]) }}" class="btn bg-success-400 btn-icon rounded-round"><i class="icon-pencil7"></i></a>
-
-                    <form method="POST" action="{{ route('cms.survey.delete', ['id' => $page->id]) }}"
-                          style="display: inline-block">
-                        {!! csrf_field() !!}
-                        <button onclick="return confirm('Apakah anda yakin?')" type="submit"
-                            class="btn bg-danger-400 btn-icon rounded-round">
-                            <i class="icon-trash"></i>
-                        </button>
-                    </form>
-
-                </td>
+              <td>{{ $page->nama }}</td>
+              <td>{{ date("d-m-Y", strtotime($page->created_at)) }}</td>
+              <td>{{ ($page->status == 0) ? 'Public' : 'Private' }}</td>
+              <td class="text-center">
+                <a href="{{ route('cms.survey.edit', ['id' => $page->id]) }}" class="btn bg-success-400 btn-icon rounded-round"><i class="icon-pencil7"></i></a>
+                <form method="POST" action="{{ route('cms.survey.delete', ['id' => $page->id]) }}" style="display: inline-block">
+                  {!! csrf_field() !!}
+                  <button onclick="return confirm('Apakah anda yakin?')" type="submit"
+                      class="btn bg-danger-400 btn-icon rounded-round">
+                      <i class="icon-trash"></i>
+                  </button>
+                </form>
+              </td>
             </tr>
-            @endforeach
+          @endforeach
 
-            <tr>
-                <td colspan="8">
-                    {{ $pages->links() }}
-                </td>
-            </tr>
+          <tr>
+            <td colspan="8">
+              {{ $pages->links() }}
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

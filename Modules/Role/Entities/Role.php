@@ -55,6 +55,7 @@ class Role extends Model
 							[
 								'id_user_group' => $id_user_group, 
 								'id_menu' => $id_menu,
+								'role' => 'A',
 								'created_at' =>  \Carbon\Carbon::now(), # \Datetime()
             		'updated_at' => \Carbon\Carbon::now(),  # \Datetime()
 							]

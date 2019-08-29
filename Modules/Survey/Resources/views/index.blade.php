@@ -35,7 +35,7 @@
             <td>26-08-2019</td>
             <td>Private</td>
             <td class="text-center">
-              <a href="http://localhost:8000/admin/survey/6/show" class="btn bg-primary-400 btn-icon rounded-round"><i class="icon-play4"></i></a>
+              <a href="{{ URL::to('/') }}/admin/survey/6/show" class="btn bg-primary-400 btn-icon rounded-round"><i class="icon-play4"></i></a>
             </td>
           </tr>
 

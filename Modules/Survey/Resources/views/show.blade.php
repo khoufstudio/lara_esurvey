@@ -107,7 +107,7 @@
         <div id="surveyElement">
             <survey :survey='survey'/>
         </div>
-        <div id="surveyResult"></div>
+        {{-- <div id="surveyResult"></div> --}}
 
         <script>
 

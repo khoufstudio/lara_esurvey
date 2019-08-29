@@ -193,7 +193,7 @@
                 </div>
                           
               </div>
-              <div role="tabpanel" class="tab-pane" id="jumpingTab">jumpingTab</div>
+              <div role="tabpanel" class="tab-pane" id="jumpingTab">Under Construction</div>
             </div>
           </div>
         </div>
@@ -308,6 +308,7 @@
         $('#modal_text_pertanyaan').val(soal.name);
         $('#modal_edit_question_text').modal('show');
       } else {
+        $('#container-answer').empty();
         var val = 'test';
 
         var isi = '';

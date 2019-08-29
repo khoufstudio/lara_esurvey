@@ -188,6 +188,69 @@ class GroupMenusTableSeeder extends Seeder
                 'created_at' => '2019-04-22 09:21:25',
                 'updated_at' => '2019-04-22 09:21:25',
             ),
+            19 => 
+            array (
+                'id' => 26,
+                'id_user_group' => 1,
+                'id_menu' => 22,
+                'role' => 'CRU',
+                'created_at' => '2019-08-26 04:44:40',
+                'updated_at' => '2019-08-26 04:44:45',
+            ),
+            20 => 
+            array (
+                'id' => 29,
+                'id_user_group' => 2,
+                'id_menu' => 24,
+                'role' => 'CRU',
+                'created_at' => '2019-08-27 03:57:49',
+                'updated_at' => '2019-08-27 03:57:54',
+            ),
+            21 => 
+            array (
+                'id' => 30,
+                'id_user_group' => 2,
+                'id_menu' => 4,
+                'role' => 'CRU',
+                'created_at' => '2019-08-27 04:01:15',
+                'updated_at' => '2019-08-27 04:01:20',
+            ),
+            22 => 
+            array (
+                'id' => 31,
+                'id_user_group' => 3,
+                'id_menu' => 4,
+                'role' => 'CRU',
+                'created_at' => '2019-08-27 04:36:19',
+                'updated_at' => '2019-08-27 04:36:23',
+            ),
+            23 => 
+            array (
+                'id' => 33,
+                'id_user_group' => 3,
+                'id_menu' => 25,
+                'role' => 'CRU',
+                'created_at' => '2019-08-27 04:43:24',
+                'updated_at' => '2019-08-27 04:43:27',
+            ),
+            24 => 
+            array (
+                'id' => 34,
+                'id_user_group' => 3,
+                'id_menu' => 22,
+                'role' => 'CRU',
+                'created_at' => '2019-08-27 06:42:03',
+                'updated_at' => '2019-08-27 06:42:07',
+            ),
+            25 => 
+            array (
+                'id' => 39,
+                'id_user_group' => 4,
+                'id_menu' => 22,
+                'role' => 'AR',
+                'created_at' => '2019-08-28 08:01:37',
+                'updated_at' => '2019-08-28 08:01:39',
+            ),
         ));
         
         

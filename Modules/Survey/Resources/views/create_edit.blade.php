@@ -248,20 +248,22 @@
         `<li class="alert alert-primary border-0 alert-dismissible">
           <span class="editx actx"><i class="icon-pencil7"></i></span> &nbsp; <span class="closex actx"><i class="icon-close2"></i></span>
           <span class="json_val">{"type": "checkbox", "name": "soal checkbox", "isRequired": "true", "visibleIf": "1 greater 0", "choices": ["pilihan1", "pilihan2", "pilihan3" ]}</span>
-          <div id="choices-container" class="form-group text-left">
+          <div class="form-group text-left">
             <label><span class="nox">1.</span>  <span class="val">soal checkbox</span></label>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="custom_checkbox_stacked_checked_disabled" checked="" disabled="">
-              <label class="custom-control-label" for="custom_checkbox_stacked_checked_disabled">Pilihan 1</label>
-            </div>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="custom_checkbox_stacked_checked_disabled" checked="" disabled="">
-              <label class="custom-control-label" for="custom_checkbox_stacked_checked_disabled">Pilihan 2</label>
-            </div>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="custom_checkbox_stacked_checked_disabled" checked="" disabled="">
-              <label class="custom-control-label" for="custom_checkbox_stacked_checked_disabled">Pilihan 3</label>
-            </div>
+            <div class="choices-container">
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="custom_checkbox_stacked_checked_disabled" checked="" disabled="">
+                <label class="custom-control-label" for="custom_checkbox_stacked_checked_disabled">Pilihan 1</label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="custom_checkbox_stacked_checked_disabled" checked="" disabled="">
+                <label class="custom-control-label" for="custom_checkbox_stacked_checked_disabled">Pilihan 2</label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="custom_checkbox_stacked_checked_disabled" checked="" disabled="">
+                <label class="custom-control-label" for="custom_checkbox_stacked_checked_disabled">Pilihan 3</label>
+              </div>
+            </div>  
           </div>
  				</li>` 
       );
@@ -270,20 +272,22 @@
         <li class="alert alert-primary border-0 alert-dismissible">
           <span class="editx actx"><i class="icon-pencil7"></i></span> &nbsp; <span class="closex actx"><i class="icon-close2"></i></span>
           <span class="json_val">{"type": "radiogroup", "name": "soal radio", "visibleIf": "1 greater 0", "isRequired": "true", "choices": ["pilihan1", "pilihan2", "pilihan3" ]}</span>
-          <div id="choices-container" class="form-group text-left">
+          <div class="form-group text-left">
             <label><span class="nox">1.</span>  <span class="val">soal radio</span></label>
-            <div class="custom-control custom-radio">
-              <input type="radio" class="custom-control-input" id="custom_radio_stacked_checked_disabled" checked="" disabled="">
-              <label class="custom-control-label" for="custom_radio_stacked_checked_disabled">Pilihan 1</label>
-            </div>
-            <div class="custom-control custom-radio">
-              <input type="radio" class="custom-control-input" id="custom_radio_stacked_checked_disabled" checked="" disabled="">
-              <label class="custom-control-label" for="custom_radio_stacked_checked_disabled">Pilihan 2</label>
-            </div>
-            <div class="custom-control custom-radio">
-              <input type="radio" class="custom-control-input" id="custom_radio_stacked_checked_disabled" checked="" disabled="">
-              <label class="custom-control-label" for="custom_radio_stacked_checked_disabled">Pilihan 3</label>
-            </div>
+            <div class="choices-container">
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="custom_radio_stacked_checked_disabled" checked="" disabled="">
+                <label class="custom-control-label" for="custom_radio_stacked_checked_disabled">Pilihan 1</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="custom_radio_stacked_checked_disabled" checked="" disabled="">
+                <label class="custom-control-label" for="custom_radio_stacked_checked_disabled">Pilihan 2</label>
+              </div>
+              <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="custom_radio_stacked_checked_disabled" checked="" disabled="">
+                <label class="custom-control-label" for="custom_radio_stacked_checked_disabled">Pilihan 3</label>
+              </div>
+            </div>    
           </div>
 				</span>
  				</li>` );
@@ -294,7 +298,6 @@
 
   $("#sortable").on("click",".editx", function(e){
     e.preventDefault();
-
     liParent = $(this).parent('li').index();
 
     judul_soal = $(this).parent().find('.json_val').html();
@@ -344,7 +347,7 @@
     $('#textjawaban').val('');
 
     var isi = `<div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Tambah jawaban" value="${val}">
+                <input type="text" class="form-control choice-cb-rb" placeholder="Tambah jawaban" value="${val}">
                 <div class="input-group-append">
                   <button class="btn btn-danger delete-choice" type="button"><i class="icon-minus2"></i></button>
                 </div>
@@ -385,6 +388,8 @@
       choices.push($(this).val());      
     });
 
+    console.log(choices)
+
     var textPertanyaan = $('#modal_cb_pertanyaan').val();
   
     soal.name = textPertanyaan;
@@ -398,15 +403,17 @@
     var isi = '';
 
     if (soal.type == 'checkbox') {
-      $('li #choices-container .custom-checkbox').eq(liParent).remove();
+      // $('li .choices-container .custom-checkbox').eq(liParent).remove();
+      // $('li .choices-container').eq(liParent).remove();
+      $('li .choices-container').eq(liParent).empty();
       choices.forEach(element => {
         isi += `<div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" id="custom_checkbox_stacked_checked_disabled" checked="" disabled="">
                 <label class="custom-control-label" for="custom_checkbox_stacked_checked_disabled">${element}</label>
               </div>`;
       });
-    } else if (soal.type == 'radio') {
-      $('li #choices-container .custom-radio').eq(liParent).remove();
+    } else if (soal.type == 'radiogroup') {
+      $('li .choices-container').eq(liParent).empty();
       choices.forEach(element => {       
         isi += `<div class="custom-control custom-radio">
               <input type="radio" class="custom-control-input" id="custom_radio_stacked_checked_disabled" checked="" disabled="">
@@ -415,8 +422,8 @@
       });
     }
 
-    $('#choices-container').append(isi);  
-    $('#modal_cb').modal('hide')
+    $('.choices-container').eq(liParent).append(isi);  
+    $('#modal_cb').modal('hide');
   });
 
 

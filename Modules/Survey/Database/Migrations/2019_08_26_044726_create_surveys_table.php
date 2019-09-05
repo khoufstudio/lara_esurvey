@@ -15,7 +15,6 @@ class CreateSurveysTable extends Migration
     {
         Schema::create('surveys', function (Blueprint $table) {
             $table->increments('id');
-            // $table->uuid('id')->primary();
             $table->string('nama')->nullable()->comment('judul survey');
             $table->text('deskripsi')->nullable()->comment('deskripsi survey');
             $table->boolean('status')->default(0)->comment('0 public, 1 private');

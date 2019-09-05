@@ -15,7 +15,10 @@ class CreateSurveyAnswersTable extends Migration
     {
         Schema::create('survey_answers', function (Blueprint $table) {
             $table->increments('id');
-
+            $table->integer('question_id');
+            $table->integer('urutan');
+            $table->string('jawaban');
+            $table->integer('bobot')->default(0);
             $table->timestamps();
         });
     }

@@ -7,6 +7,8 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Routing\Controller;
 use Modules\Survey\Entities\Survey;
+use Modules\Survey\Entities\SurveyQuestion;
+use Modules\Survey\Entities\SurveyAnswer;
 
 use Session;
 
@@ -51,13 +53,17 @@ class SurveyController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
+        $pertanyaan = json_decode($request->pertanyaan, true);
+        // dd($pertanyaan);
 
         // validasi input
         $request->validate([
             'nama_survey' => 'required',
             'deskripsi' => 'required',
-            'status' => 'required'
+            'status' => 'required',
+            'pertanyaan' => 'required'
         ]);
+
 
         $data = new Survey;
         $data->nama = $request->nama_survey;
@@ -65,6 +71,31 @@ class SurveyController extends Controller
         $data->status = $request->status;
         $data->user_id = Auth::user()->id;
         $data->save();
+
+				// masukan pertanyaan dan jawaban
+        foreach ($pertanyaan as $pt) {
+        	// masukan pertanyaan
+        	$sq = new SurveyQuestion;
+        	$sq->survey_id = $data["id"];
+        	$sq->pertanyaan = $pt["name"];
+        	$sq->tipe_pertanyaan = $pt["type"];
+        	$sq->save();
+
+        	// masukan jawaban	
+        	if (isset($pt["choices"])) {
+        		$urutan = 1;
+	        	foreach ($pt["choices"] as $co) {
+	        		$sa = new SurveyAnswer;
+	        		$sa->question_id = $sq->id;
+	        		$sa->urutan = $urutan;
+	        		$sa->jawaban = $co;
+	        		$sa->bobot = 0;
+	        		$sa->save();
+
+	        		$urutan++;
+	        	}
+        	}
+        }
 
         
         // back to index

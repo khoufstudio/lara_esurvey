@@ -54,7 +54,7 @@
           <div class="form-group row">
             <label class="col-form-label col-lg-2">Nama Survey</label>
             <div class="col-lg-10">
-              <input type="text" name="nama_survey" class="form-control" value="{{ $data->nama_survey ?? "" }}" placeholder="Nama Survey">
+              <input type="text" name="nama_survey" class="form-control" value="{{ $data->nama ?? "" }}" placeholder="Nama Survey">
             </div>
           </div>
 
@@ -89,8 +89,72 @@
           </div>
 
           <div id="boxquestion" class="text-center">
-            <h2 class="text-tambah-pertanyaan mt-4">Tambah Pertanyaan</h2>
-              <ul id="sortable"></ul>
+          	@if (!isset($data))
+            	<h2 class="text-tambah-pertanyaan mt-4">Tambah Pertanyaan</h2>
+          	@endif
+              <ul id="sortable">
+              	@if (isset($data))
+	              	@foreach ($data->question as $question)
+	              		@if ($question->tipe_pertanyaan == "text")
+	              			@php
+	              				$json_val = '{
+	              					"type": "text", 
+	              					"name": "'.$question->pertanyaan.'", 
+	              					"isRequired": "true", 
+	              					"type_input": "'.$question->tipe_text.'" }'
+	              			@endphp
+			              	<li class="alert alert-primary border-0 alert-dismissible">
+							          <span class="editx actx"><i class="icon-pencil7"></i></span> &nbsp; <span class="closex actx"><i class="icon-close2"></i></span>
+							          <span class="json_val">{{ $json_val }}</span>
+							          <div class="form-group text-left"> 
+							              <label><span class="nox">{{ $question->urutan }}.</span>  <span class="val">{{ $question->pertanyaan }}</span></label>
+							              <input type="text" name="name" id="name" class="form-control" placeholder="Tipe jawaban = {{ $question->tipe_text }}" disabled>
+							          </div>
+							          <div class="choices-container"></div>
+							        </li>
+						        @else
+							        <li class="alert alert-primary border-0 alert-dismissible">
+							          <span class="editx actx"><i class="icon-pencil7"></i></span> &nbsp; <span class="closex actx"><i class="icon-close2"></i></span>
+							          @php
+							          	$jawaban = [];
+							          	foreach ($question->answer as $qa) {
+							          		array_push($jawaban, $qa->jawaban);
+							          	}
+
+	              					$json_val = '{
+	              						"type": "'.$question->tipe_pertanyaan.'", 
+	              						"name": "'.$question->pertanyaan.'", 
+	              						"isRequired": "true", 
+	              						"visibleIf": "1 greater 0", 
+	              						"choices": [
+	              							"'.implode("\", \"",$jawaban).'"
+	              						]}';
+		              			@endphp
+							          <span class="json_val">{{ $json_val }}</span>
+							          <div class="form-group text-left">
+							            <label><span class="nox">{{ $question->urutan }}.</span>  <span class="val">{{ $question->pertanyaan }}</span></label>
+							            <div class="choices-container">
+							            	@foreach ($question->answer as $ans)
+							            		@if ($ans->question->tipe_pertanyaan == 'checkbox')
+									              <div class="custom-control custom-checkbox">
+									                <input type="checkbox" class="custom-control-input" id="custom_checkbox_stacked_checked_disabled" checked="" disabled="">
+									                <label class="custom-control-label" for="custom_checkbox_stacked_checked_disabled">{{ $ans->jawaban }}</label>
+									              </div>
+								              @else
+									              <div class="custom-control custom-radio">
+									                <input type="radio" class="custom-control-input" id="custom_radio_stacked_checked_disabled" checked="" disabled="">
+									                <label class="custom-control-label" for="custom_radio_stacked_checked_disabled">{{ $ans->jawaban }}</label>
+									              </div>
+							            		@endif
+
+							            	@endforeach
+							            </div>  
+							          </div>
+							 				</li>
+	              		@endif
+	              	@endforeach
+              	@endif	
+              </ul>
           </div>
 
           <div class="form-group mt-3">
@@ -102,12 +166,6 @@
     </div>
   </div>
 
-  {{-- Button Submit --}}
-  <d{{-- iv class="card">
-    <div class="card-body">
-      <button name="button_submit" type="submit" onclick="alert('Fungsi belum berjalan')" class="btn bg-teal-400 mr-3" value="0">Submit <i class="icon-paperplane ml-2"></i></button>
-    </div>
-  </ --}}div>
 
 </div>
 

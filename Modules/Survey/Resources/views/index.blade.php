@@ -30,16 +30,16 @@
             </tr>
         </thead>
         <tbody>
-          <tr>
+          {{-- <tr>
             <td>tets</td>
             <td>26-08-2019</td>
             <td>Private</td>
             <td class="text-center">
               <a href="{{ URL::to('/') }}/admin/survey/6/show" class="btn bg-primary-400 btn-icon rounded-round"><i class="icon-play4"></i></a>
             </td>
-          </tr>
+          </tr> --}}
 
-          @foreach($pages as $page)
+          @forelse($pages as $page)
             <tr>
               <td>{{ $page->nama }}</td>
               <td>{{ date("d-m-Y", strtotime($page->created_at)) }}</td>
@@ -55,13 +55,23 @@
                 </form>
               </td>
             </tr>
-          @endforeach
 
-          <tr>
-            <td colspan="8">
-              {{ $pages->links() }}
-            </td>
-          </tr>
+          @empty
+	          <tr>
+	            <td colspan="8" class="text-center">
+	              Tidak ada data
+	            </td>
+	          </tr>
+          @endforelse
+					
+					@if (isset($pages))
+	          <tr>
+	            <td colspan="8">
+	              {{ $pages->links() }}
+	            </td>
+	          </tr>
+					@endif
+					
         </tbody>
       </table>
     </div>

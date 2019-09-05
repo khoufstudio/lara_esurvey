@@ -16,8 +16,10 @@ class CreateSurveyQuestionsTable extends Migration
         Schema::create('survey_questions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('survey_id');
+            $table->integer('urutan');
             $table->string('pertanyaan');
             $table->string('tipe_pertanyaan');
+            $table->string('tipe_text')->comment('khusus untuk text')->nullable();
             $table->timestamps();
         });
     }

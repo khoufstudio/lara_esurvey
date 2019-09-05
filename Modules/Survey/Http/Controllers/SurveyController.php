@@ -53,9 +53,6 @@ class SurveyController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        $pertanyaan = json_decode($request->pertanyaan, true);
-        // dd($pertanyaan);
-
         // validasi input
         $request->validate([
             'nama_survey' => 'required',
@@ -64,6 +61,7 @@ class SurveyController extends Controller
             'pertanyaan' => 'required'
         ]);
 
+        $pertanyaan = json_decode($request->pertanyaan, true);
 
         $data = new Survey;
         $data->nama = $request->nama_survey;
@@ -73,12 +71,17 @@ class SurveyController extends Controller
         $data->save();
 
 				// masukan pertanyaan dan jawaban
+				$urutanPertanyaan = 1;
         foreach ($pertanyaan as $pt) {
         	// masukan pertanyaan
         	$sq = new SurveyQuestion;
         	$sq->survey_id = $data["id"];
+        	$sq->urutan = $urutanPertanyaan;
         	$sq->pertanyaan = $pt["name"];
         	$sq->tipe_pertanyaan = $pt["type"];
+        	if ($pt["type"] == 'text') {
+        		$sq->tipe_text = $pt["type_input"];
+        	}
         	$sq->save();
 
         	// masukan jawaban	
@@ -95,9 +98,10 @@ class SurveyController extends Controller
 	        		$urutan++;
 	        	}
         	}
-        }
 
-        
+        	$urutanPertanyaan++;
+        }
+   
         // back to index
         Session::flash('success', 'Survey telah dibuat');
         return redirect()->route('cms.survey');
@@ -135,19 +139,82 @@ class SurveyController extends Controller
      */
     public function update(Request $request, $id)
     {
+    		// dd($request->all());
         // validasi input
-        $request->validate([
+        // $request->validate([
+        //     'nama_survey' => 'required',
+        //     'deskripsi' => 'required',
+        //     'status' => 'required'
+        // ]);
+
+        // $data = Survey::findOrFail($id);
+        // $data->nama = $request->nama_survey;
+        // $data->deskripsi = $request->deskripsi;
+        // $data->status = $request->status;
+        // $data->user_id = Auth::user()->id;
+        // $data->save();
+
+          $request->validate([
             'nama_survey' => 'required',
             'deskripsi' => 'required',
-            'status' => 'required'
+            'status' => 'required',
+            'pertanyaan' => 'required'
         ]);
 
+        // dd($sqId);
+
+        $pertanyaan = json_decode($request->pertanyaan, true);
+
+        // $data = new Survey;
         $data = Survey::findOrFail($id);
         $data->nama = $request->nama_survey;
         $data->deskripsi = $request->deskripsi;
         $data->status = $request->status;
         $data->user_id = Auth::user()->id;
         $data->save();
+
+				// delete pertanyaan dan jawaban
+        $idAnswer = [];
+        $sqId = SurveyQuestion::where('survey_id',$id)->get();
+        foreach ($sqId as $si) {
+        	array_push($idAnswer,$si->id);
+        }
+
+        $sqDelete = SurveyQuestion::where('survey_id',$id)->delete();
+        $saDelete = SurveyAnswer::whereIn('question_id',$idAnswer)->delete();
+
+				// masukan pertanyaan dan jawaban
+				$urutanPertanyaan = 1;
+        foreach ($pertanyaan as $pt) {
+        	// masukan pertanyaan
+        	$sq = new SurveyQuestion;
+        	$sq->survey_id = $data["id"];
+        	$sq->urutan = $urutanPertanyaan;
+        	$sq->pertanyaan = $pt["name"];
+        	$sq->tipe_pertanyaan = $pt["type"];
+        	if ($pt["type"] == 'text') {
+        		$sq->tipe_text = $pt["type_input"];
+        	}
+        	$sq->save();
+
+        	// masukan jawaban	
+        	if (isset($pt["choices"])) {
+        		$urutan = 1;
+	        	foreach ($pt["choices"] as $co) {
+	        		$sa = new SurveyAnswer;
+	        		$sa->question_id = $sq->id;
+	        		$sa->urutan = $urutan;
+	        		$sa->jawaban = $co;
+	        		$sa->bobot = 0;
+	        		$sa->save();
+
+	        		$urutan++;
+	        	}
+        	}
+
+        	$urutanPertanyaan++;
+        }
+   
 
         
         // back to index
@@ -164,6 +231,16 @@ class SurveyController extends Controller
     {
         $data = Survey::findOrFail($id);
         $data->delete();
+
+        // delete pertanyaan dan jawaban
+        $idAnswer = [];
+        $sqId = SurveyQuestion::where('survey_id',$id)->get();
+        foreach ($sqId as $si) {
+        	array_push($idAnswer,$si->id);
+        }
+
+        $sqDelete = SurveyQuestion::where('survey_id',$id)->delete();
+        $saDelete = SurveyAnswer::whereIn('question_id',$idAnswer)->delete();
 
         Session::flash('success', 'Survey Berhasil di Hapus');
         return redirect()->back();

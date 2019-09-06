@@ -554,7 +554,7 @@
             </div>
           </div>
         </div>
-        <div class="card-body collapse" style="">
+        <div class="card-body collapse show" style="">
           <div class="form-group row">
             <label class="col-sm-1 font-weight-bold mr-2" style="line-height: 2.5;">Jika</label>
             <select name="id_user_group" id="id_user_group" class="form-control col-sm-6 mr-2" required="" placeholder="Pilih">
@@ -591,9 +591,13 @@
         </div>
       </div>`;
 
-      kondisiNo++;
+    kondisiNo++;
 
     $('#kondisi-container').append(condition);
+    // $('.collapse').collapse()
+  	// $('.collapse').collapse({
+		//   toggle: true
+		// })
   });
 
   $('#form_survey').submit(function(e) {

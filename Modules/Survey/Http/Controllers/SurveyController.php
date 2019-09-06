@@ -38,7 +38,7 @@ class SurveyController extends Controller
     public function create()
     {
         if (get_role(Auth::user()->id_user_group)['insert'] != 'FALSE') {
-            return view('survey::create_edit')
+            return view('survey::create_edit2')
                 ->with('route', route('cms.survey.store'));
         } else {
             return redirect('forbidden');

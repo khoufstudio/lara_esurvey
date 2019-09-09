@@ -125,7 +125,7 @@ class SurveyController extends Controller
     public function edit($id)
     {
         $data = Survey::findOrFail($id);
-        return view('survey::create_edit')
+        return view('survey::create_edit2')
             ->with('data', $data)
             ->with('editpage', 'true')
             ->with('route', route('cms.survey.update', ['id' => $id]));

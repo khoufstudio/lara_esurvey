@@ -206,7 +206,7 @@
 
 <!-- Modal Edit Pertanyaan Radio dan Checkbox -->
 <div class="modal fade" id="modal_cb" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header bg-info">
         <h6 class="modal-title">EDIT PERTANYAAN</h6>
@@ -251,7 +251,7 @@
               <div class="row">
                 <div class="col-sm-12">
                   <div id="kondisi-container">
-                    {{-- <div class="card">
+                    <div class="card">
                       <div class="card-header bg-light header-elements-inline">
                           <h6 class="card-title">Kondisi 1</h6>
                           <div class="header-elements">
@@ -295,7 +295,52 @@
                           </select>
                         </div>
                       </div>
-                    </div> --}}
+                    </div>
+                    <div class="card">
+                      <div class="card-header bg-light header-elements-inline">
+                          <h6 class="card-title">Kondisi 2</h6>
+                          <div class="header-elements">
+                            <div class="list-icons">
+                              <a class="list-icons-item" data-action="collapse"></a>
+                            </div>
+                        </div>
+                      </div>
+                      <div class="card-body collapse" style="">
+                        <div class="form-group row">
+                          <label class="col-sm-1 font-weight-bold mr-2" style="line-height: 2.5;">Jika</label>
+                          <select name="id_user_group" id="id_user_group" class="form-control col-sm-6 mr-2" required="" placeholder="Pilih">
+                            <option value="" disabled="" selected="">Pilih</option>
+                            <option value="1">Super Admin</option>
+                            <option value="2">Pimpinan</option>
+                            <option value="3">Peneliti</option>
+                            <option value="4">Responden</option>
+                          </select>
+                          <select name="id_user_group" id="id_user_group" class="form-control col-sm-3 alpha-teal text-teal" required="" placeholder="Pilih">
+                            <option value="checked" selected="">Checked</option>
+                            <option value="unchecked" selected="">Unchecked</option>
+                          </select>
+                          <div class="col-sm-1">
+                            <button class="btn btn-link text-slate-800"><i class="icon-minus2"></i></button>
+                          </div>
+                        </div>
+                        <div class="form-group row" style="margin-top: -15px;">
+                          <div class="col-sm-1 mr-3"></div>
+                          <button class="btn btn-action alpha-slate text-slate-800" style="margin-left: -10px;"><i class="icon-plus2 mr-2"></i>Pertanyaan</button>
+                        </div>
+                      </div>
+                      <div class="card-footer collapse"> 
+                        <div class="form-group row">
+                          <label class="col-sm-2 font-weight-bold" style="line-height: 2.5;">Loncat ke:</label>
+                          <select name="id_user_group" id="id_user_group" class="form-control col-sm-10" required="" placeholder="Pilih">
+                            <option value="" disabled="" selected="">Pilih</option>
+                            <option value="1">Super Admin</option>
+                            <option value="2">Pimpinan</option>
+                            <option value="3">Peneliti</option>
+                            <option value="4">Responden</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -543,7 +588,8 @@
   });
 
   var kondisiNo = 1;
-  $('#add_kondisi').on('click', function() {
+  // $('#add_kondisi').on('click', function() {
+  $('#add_kondisi').click(function() {
     var condition = `
       <div class="card">
         <div class="card-header bg-light header-elements-inline">
@@ -554,7 +600,7 @@
             </div>
           </div>
         </div>
-        <div class="card-body collapse show" style="">
+        <div class="card-body collapse" style="">
           <div class="form-group row">
             <label class="col-sm-1 font-weight-bold mr-2" style="line-height: 2.5;">Jika</label>
             <select name="id_user_group" id="id_user_group" class="form-control col-sm-6 mr-2" required="" placeholder="Pilih">
@@ -592,12 +638,10 @@
       </div>`;
 
     kondisiNo++;
-
+		$('.collapse').collapse();
+		// $('.collapse').collapse('show');
+    $('.collapse').trigger('create');
     $('#kondisi-container').append(condition);
-    // $('.collapse').collapse()
-  	// $('.collapse').collapse({
-		//   toggle: true
-		// })
   });
 
   $('#form_survey').submit(function(e) {

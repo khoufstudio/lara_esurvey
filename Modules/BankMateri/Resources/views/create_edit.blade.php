@@ -12,7 +12,7 @@
 			<div class="alert alert-danger">
 				<ul>
 					@foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
+						<li>{{ $error }}</li>
 					@endforeach
 				</ul>
 			</div>
@@ -66,91 +66,79 @@
 						</div>
 
 						<div class="form-group row">
-								<label class="col-form-label col-lg-2">Tanggal</label>
-								<div class="col-lg-2">
-									<input name="tgl" class="form-control daterange-single" type="text" value="{{ $arsip->tgl_surat ?? old('tgl') }}" >
-								</div>
+							<label class="col-form-label col-lg-2">Tanggal</label>
+							<div class="col-lg-2">
+								<input name="tgl" class="form-control daterange-single" type="text" value="{{ $arsip->tgl_surat ?? old('tgl') }}" >
 							</div>
-
-                  
-
+						</div>
                    
 					<div class="form-group row {{ !$errors->has('file') ?: 'has-error' }}">
-							<label class="col-form-label col-lg-2">File Surat</label>
-							<div class="col-md-4">
-									<input type="file" name="file_surat">
-									<span class="help-block text-danger">{{ $errors->first('file') }}</span>
-							</div>
+						<label class="col-form-label col-lg-2">File Surat</label>
+						<div class="col-md-4">
+							<input type="file" name="file_surat">
+							<span class="help-block text-danger">{{ $errors->first('file') }}</span>
+						</div>
 					</div>
 					
 					<div class="form-group row">
-							<label class="col-form-label col-lg-2">Bagian</label>
-							<div class="col-lg-6">
-								<select name="direktorat" id="direktorat" class="form-control" onchange="getSubdit(this.value)">
-									<option value="" selected disabled>Pilih</option>
-									@foreach ($direktorats as $direktorat)
-										<option value="{{ $direktorat->id }}">{{ $direktorat->nama_direktorat }}</option>
-									@endforeach
-								</select>
-								
-								
-								{{-- <input type="text" name="nama_materi" class="form-control" value="{{ $materi->nama_materi ?? "" }}" > --}}
-							</div>
+						<label class="col-form-label col-lg-2">Bagian</label>
+						<div class="col-lg-6">
+							<select name="direktorat" id="direktorat" class="form-control" onchange="getSubdit(this.value)">
+								<option value="" selected disabled>Pilih</option>
+								@foreach ($direktorats as $direktorat)
+									<option value="{{ $direktorat->id }}">{{ $direktorat->nama_direktorat }}</option>
+								@endforeach
+							</select>
+							{{-- <input type="text" name="nama_materi" class="form-control" value="{{ $materi->nama_materi ?? "" }}" > --}}
 						</div>
+					</div>
 					<div class="form-group row">
-							<label class="col-form-label col-lg-2">Subdit</label>
-							<div class="col-lg-6">
-									<select name="subdit" id="subdit" class="form-control" >
-											<option value="" selected disabled>Pilih Subdit</option>
-									</select>
-								
-								
-								{{-- <input type="text" name="nama_materi" class="form-control" value="{{ $materi->nama_materi ?? "" }}" > --}}
-							</div>
+						<label class="col-form-label col-lg-2">Subdit</label>
+						<div class="col-lg-6">
+							<select name="subdit" id="subdit" class="form-control" >
+								<option value="" selected disabled>Pilih Subdit</option>
+							</select>
+							{{-- <input type="text" name="nama_materi" class="form-control" value="{{ $materi->nama_materi ?? "" }}" > --}}
 						</div>
+					</div>
 
 						<div class="form-group row">
-								<label class="col-form-label col-lg-2">Masa Aktif</label>
-								<div class="col-lg-2">
-									<input name="masa_aktif" class="form-control daterange-single" type="text" value="{{ $arsip->masa_aktif ?? old('masa_aktif') }}" >
-								</div>
+							<label class="col-form-label col-lg-2">Masa Aktif</label>
+							<div class="col-lg-2">
+								<input name="masa_aktif" class="form-control daterange-single" type="text" value="{{ $arsip->masa_aktif ?? old('masa_aktif') }}" >
 							</div>
+						</div>
 						
 					<div class="form-group row">
-							<label class="col-form-label col-lg-2">Status Aktif</label>
-							<div class="col-lg-3">
-								<select name="status" id="status" class="form-control">
-									<option value="" selected disabled>Pilih</option>
-									<option value="1">Aktif</option>
-									<option value="0">Tidak Aktif</option>
-								</select>
+						<label class="col-form-label col-lg-2">Status Aktif</label>
+						<div class="col-lg-3">
+							<select name="status" id="status" class="form-control">
+								<option value="" selected disabled>Pilih</option>
+								<option value="1">Aktif</option>
+								<option value="0">Tidak Aktif</option>
+							</select>
+							{{-- <input type="text" name="nama_materi" class="form-control" value="{{ $materi->nama_materi ?? "" }}" > --}}
+						</div>
+					</div>
+
+						<div class="form-group row">
+							<label class="col-form-label col-lg-2">Keterangan</label>
+							<div class="col-lg-6">
+								<textarea name="ket" id="ket" class="form-control" value="{{ $arsip->ket ?? old('ket') }}"></textarea>
 								{{-- <input type="text" name="nama_materi" class="form-control" value="{{ $materi->nama_materi ?? "" }}" > --}}
 							</div>
 						</div>
-
-						<div class="form-group row">
-								<label class="col-form-label col-lg-2">Keterangan</label>
-								<div class="col-lg-6">
-									<textarea name="ket" id="ket" class="form-control" value="{{ $arsip->ket ?? old('ket') }}"></textarea>
-									{{-- <input type="text" name="nama_materi" class="form-control" value="{{ $materi->nama_materi ?? "" }}" > --}}
-								</div>
-							</div>
-							<br>
+						<br>
 					<div class="form-group">
 						<button type="submit" onclick="return confirm('Apakah anda yakin?')" class="btn bg-teal-400">Submit <i class="icon-paperplane ml-2"></i></button>
 					</div>
 				</fieldset>
-
-
 			</form>
 		</div>
 	</div>
 </div>
 
-
 @stop
-
-
 
 @section('script')
 		<script>
@@ -182,21 +170,21 @@
 			})
 		}
 
-			function getSubdit(idBagian){
-				var url = "{{ route('bankmateri.getsubdit', ['id' => 'idJenis']) }}".replace("idJenis", idBagian);
+		function getSubdit(idBagian) {
+			var url = "{{ route('bankmateri.getsubdit', ['id' => 'idJenis']) }}".replace("idJenis", idBagian);
 
-				$.ajax({
-				url: url,
-				method: 'GET',
-				success: function(response){
-					// console.log(response.nam);
-					console.log(response);
-					$('#subdit').show();
-		
-					$('#subdit').html(response);
-					
-				}
-			})
+			$.ajax({
+			url: url,
+			method: 'GET',
+			success: function(response){
+				// console.log(response.nam);
+				console.log(response);
+				$('#subdit').show();
+	
+				$('#subdit').html(response);
+				
+			}
+		})
 		}
 
 

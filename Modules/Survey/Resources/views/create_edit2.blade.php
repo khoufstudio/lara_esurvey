@@ -31,6 +31,13 @@
 	tr.spaceUnder>td {
 	  padding-bottom: 1em;
 	}
+
+	.container-condition-answer {
+		/*background-color: black;*/
+		margin: 0px;
+		width: 100%;
+		/*height: 200px;*/
+	}
 </style>
 
 <div class="col-md-12">
@@ -206,7 +213,7 @@
 
 <!-- Modal Edit Pertanyaan Radio dan Checkbox -->
 <div class="modal fade" id="modal_cb" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header bg-info">
         <h6 class="modal-title">EDIT PERTANYAAN</h6>
@@ -247,46 +254,57 @@
             </div>
             <div role="tabpanel" class="tab-pane" id="jumpingTab">
               {{-- <button class="btn btn-link text-slate-800 mb-2" id="add_kondisi"><i class="icon-plus-circle2"></i> Kondisi</button> --}}
+            <form action="#">
               <div class="form-group">
               	<div id="jawaban_for_jump">
-							    {{-- <div class="custom-control custom-checkbox">
-						        <input type="checkbox" class="custom-control-input">
-						        <label class="custom-control-label">Pilihan 1</label>
-							    </div>
-							    <div class="custom-control custom-checkbox">
-						        <input type="checkbox" class="custom-control-input">
-						        <label class="custom-control-label">Pilihan 2</label>
-							    </div>
-							    <div class="custom-control custom-checkbox">
-						        <input type="checkbox" class="custom-control-input">
-						        <label class="custom-control-label">Pilihan 3</label>
-							    </div> --}}
               	</div>
 
 						    <div class="form-group mt-3 row">
-						    	{{-- <select name="id_user_group" id="id_user_group" class="form-control col-sm-6 mt-3" required="" placeholder="Pilih">
-			              <option value="" disabled="" selected="">Loncat Ke</option>
-			              <option value="1">Soal 1</option>
-			              <option value="2">Soal 2</option>
-			              <option value="3">Soal 3</option>
-			            </select> --}}
-						    	{{-- <div class="col-sm-4 mt-3">
-						    		<button type="button" class="btn btn-success" data-dismiss="modal"><i class="icon-plus2 mr-2"></i>Tambah</button>
-						    	</div> --}}
-
-						    	<div class="input-group col-sm-8">
+						    	<div class="input-group col-sm-10">
+						    		<select name="kondisi_jawaban" id="kondisi_jawaban" class="form-control border-right-0" required="">
+											<option value="" disabled selected>Pilih Kondisi</option>
+				              <option value="1">Loncat Ke</option>
+						    			<option value="2">Hide</option>
+						    		</select>
 						    		<select name="loncat_ke" id="loncat_ke" class="form-control border-right-0" required="">
 				              <option value="1">Soal 1</option>
 				              <option value="2">Soal 2</option>
 				              <option value="3">Soal 3</option>
 			            	</select>
 			            	<span class="input-group-append">
-											<button type="button" class="btn btn-success"><i class="icon-plus2 mr-2"></i>Tambah</button>
+											<button type="submit" class="btn btn-success" id="btn_tambah_kondisi"><i class="icon-plus2 mr-2"></i>Tambah</button>
 										</span>
 						    	</div>
 						    </div>
 
-						</div>
+
+						    <div class="container-condition-answer row">
+						    	{{-- <table class="table">
+										<thead>
+											<tr class="bg-blue-300">
+												<th rowspan="2">#</th>
+												<th colspan="3" class="text-center">Jawaban</th>
+												<th rowspan="2">Kondisi</th>
+												<th rowspan="2">Soal</th>
+												<th rowspan="2"></th>
+											</tr>
+											<tr class="bg-blue-300">
+												<th>1</th>
+												<th>2</th>
+												<th>3</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td colspan="7" class="text-center">Belum ada kondisi</td>
+											</tr>
+										</tbody>
+									</table> --}}
+						    	
+						    </div>
+
+							</div>
+						</form>
               
               <div class="row">
                 <div class="col-sm-12">
@@ -335,7 +353,7 @@
     $('.text-tambah-pertanyaan').hide();
 
     if (jenisInput == 'Text') {
-      var json_val = '{"type": "text", "name": "Ini soal text", "isRequired": "true", "type_input": "text", "urutan":"1" }';
+      var json_val = '{"type": "text", "name": "Ini soal text", "isRequired": "true", "type_input": "text", "urutan":"3" }';
       $( "#sortable" ).append( `
         <li class="alert alert-primary border-0 alert-dismissible">
           <span class="editx actx"><i class="icon-pencil7"></i></span> &nbsp; <span class="closex actx"><i class="icon-close2"></i></span>
@@ -373,7 +391,7 @@
  				</li>` 
       );
     } else if (jenisInput == 'Radio Button'){
-      var json_val = '{"type": "radiogroup", "name": "soal radio", "visibleIf": "1 greater 0", "isRequired": "true", "choices": ["pilihan1", "pilihan2", "pilihan3" ], "urutan":"1"}';
+      var json_val = '{"type": "radiogroup", "name": "soal radio", "visibleIf": "1 greater 0", "isRequired": "true", "choices": ["pilihan1", "pilihan2", "pilihan3" ], "urutan":"2"}';
       $( "#sortable" ).append(`
         <li class="alert alert-primary border-0 alert-dismissible">
           <span class="editx actx"><i class="icon-pencil7"></i></span> &nbsp; <span class="closex actx"><i class="icon-close2"></i></span>
@@ -553,10 +571,10 @@
 
   	console.log(array);
 
-  	 $("<input />").attr("type", "hidden")
-          .attr("name", "pertanyaan")
-          .attr("value", json_val)
-          .appendTo("#form_survey");
+		$("<input />").attr("type", "hidden")
+			.attr("name", "pertanyaan")
+			.attr("value", json_val)
+			.appendTo("#form_survey");
 
   	return;
   })
@@ -566,23 +584,30 @@
   	var i = 0;
   	$('#jawaban_for_jump').empty();
   	$('#loncat_ke').empty();
-		var defaultOption = `<option value="1">Silahkan Isi</option>`;
+  	
+  	var cbPertanyaan = $('#modal_cb_pertanyaan').val();
+		var labelOption = `<option value="" disabled selected>Pilih Soal</option>`;
+		$('#loncat_ke').append(labelOption);
+
+  	var defaultOption = `<option>Selanjutnya</option>`;
   	$('#loncat_ke').append(defaultOption);
 
   	$('.json_val').each(function() {
   		var jsonValTemp = $(this).text();
   		jsonVal = JSON.parse(jsonValTemp);
-  		var isiOption = `<option value="1">${jsonVal.name}</option>`;
-  		console.log(jsonVal);
 
-  		$('#loncat_ke').append(isiOption);
-  		// console.log(jsonVal.name)
-  		// console.log($(this).val())
+  		if (soal.urutan != jsonVal.urutan) {
+	  		var isiOption = `<option value="${jsonVal.urutan}">${jsonVal.urutan}. ${jsonVal.name}</option>`;
+	  		$('#loncat_ke').append(isiOption);
+  		}
   	})
+
+  	var exitOption = `<option value="exit">Keluar</option>`;
+  	$('#loncat_ke').append(exitOption);
 		
   	choices.each(function(index) {
   		var jawaban = `<div class="custom-control custom-checkbox">
-						        <input type="checkbox" class="custom-control-input" id="jump_choice${index}">
+						        <input type="checkbox" class="custom-control-input" value="${$(this).val()}" class="jump_choice" name="jump_choice"id="jump_choice${index}">
 						        <label class="custom-control-label" for="jump_choice${index}">${$(this).val()}</label>
 							    </div>`
 
@@ -590,10 +615,72 @@
   	})
   })
 
+  $('#btn_tambah_kondisi').click(function(e) {
+  	e.preventDefault();
+
+  	var kondisi = $('#kondisi_jawaban').val();
+    var loncatKe = $('#loncat_ke').val();
+
+    if (kondisi === null || loncatKe === null) {
+        alert('Isi Pilih Kondisi dan Pilih Soal');
+        return false;
+    }
+
+  	var jumpChoice = [];
+   	$.each($("input[name='jump_choice']:checked"), function(){            
+        jumpChoice.push($(this).val());
+    });
+
+    console.log(kondisi)
+  	console.log(loncatKe)
+
+    loncatKe = (loncatKe == "Selanjutnya") ? "selanjutnya" : loncatKe;
+
+    var kondisiText = (kondisi == "1") ? "loncat ke" : "sembunyikan";
+
+  	
+  	
+
+  	var keterangan = '';
+  	if (jumpChoice.length) {
+  		keterangan = JSON.stringify(jumpChoice);
+  	} else {
+  		keterangan = "tidak ada yang ";
+  	}
+
+  	var isi = `<div class="alert alert-success alert-dismissible col-sm-10">
+									<button type="button" class="close" data-dismiss="alert"><span>×</span></button>
+									Jika <span class="alert-link">${keterangan}</span> dipilih maka <span class="alert-link">${kondisiText}</span> soal nomer <span class="alert-link">${loncatKe}</span> 
+						    </div>`
+
+    $('.container-condition-answer').append(isi);
+    $(".jump_choice").prop('checked', false).parent().removeClass('active');
+  });
+
+  // $('.close').click(function(e) {
+  // 	e.preventDefault();
+
+  // 	alert('uy')
+  // })
+
+  $('.alert').on('closed.bs.alert', function () {
+	  // do something…
+	  	console.log('uy')
+	})
+
+
 
   function noSoal() {
-		i=0; $(".nox").each(function (){ i++;
-			$(this).html(i);		
+		i=0; $(".nox").each(function () { i++;
+			$(this).html(i);
+		});
+
+		i=0; $(".json_val").each(function () { i++;
+			var jsonVal = $(this).text();
+			jsonVal = JSON.parse(jsonVal);
+			jsonVal.urutan = i;
+
+			$(this).text(JSON.stringify(jsonVal));
 		});
 	}
 

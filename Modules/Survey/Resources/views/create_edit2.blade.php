@@ -505,18 +505,21 @@
 				choices.push($(this).val());      
 			});
 
-			var jsonSurveLogic = "";
+			var jsonSurveLogic = [];
 			$('.json-con').each(function() {
-	  		jsonSurveLogic += ", " + $(this).text();
+	  		jsonSurveLogic.push(JSON.parse("[" + $(this).text() + "]"));
+	  		// console.log($(this).text());
 	  	})
 
-	  	jsonSurveLogic = jsonSurveLogic.substring(2, jsonSurveLogic.length);
+	  	// jsonSurveLogic = jsonSurveLogic.substring(2, jsonSurveLogic.length);
+	  	// jsonSurveLogic = JSON.parse(jsonSurveLogic);
 
 			var textPertanyaan = $('#modal_cb_pertanyaan').val();
 
 			soal.name = textPertanyaan;
 			soal.choices = choices;
 			soal.condition = jsonSurveLogic;
+			// soal.condition = "[" + jsonSurveLogic + "]";
 			var soalSave = JSON.stringify(soal);
 
 			$('li .json_val').eq(liParent).text(soalSave);
@@ -580,6 +583,71 @@
 			var i = 0;
 			$('#jawaban_for_jump').empty();
 			$('#loncat_ke').empty();
+			
+			if (soal.condition.length > 0) {
+				var isi ="";
+				for (var i = 0; i < soal.condition.length; i++) {
+				// for (var i = soal.condition.length - 1; i >= 0; i--) {
+					
+					var keterangan = soal.condition[i][0]['a'];
+					var keteranganVal = (keterangan != null) ? keterangan.toString() : null;
+					// var keteranganText = soal.condition[i][0]['a'].toString();
+					var kondisiVal = soal.condition[i][1]['c'];
+					var kondisiText = (kondisiVal == "h") ? "sembunyikan" : "loncat ke";
+					var loncatKeVal = soal.condition[i][2]['j'];
+					var loncatKeText = "";
+					// var loncatKeText = (loncatKeVal == "s") ? "Selanjutnya" : "Exit";
+					// loncatKeText = (loncatKeVal)
+					if (loncatKeVal == "s") {
+						loncatKeText = "Selanjutnya"
+					} else if (loncatKeVal == "e") {
+						loncatKeText = "Exit"
+					} else {
+						loncatKeText = loncatKeVal;
+					}
+
+					var keteranganText = "";
+					choices.each(function(index) {
+						// var i = index.toString();
+						// var inx = i.toString();
+						// if (keterangan.includes("\""+index+"\"")) {
+						// if (keterangan.includes(i.toString())) {
+						// if (keterangan.includes(i)) {
+						// if (keterangan.includes(0)) {
+						// if (keterangan.includes("0")) {
+						if (keteranganVal != null) {
+							if (keterangan.includes(index.toString())) {
+								keteranganText += ", " + "\"" + $(this).val() + "\"";
+							} 
+							else if (keterangan.includes(index)) {
+								keteranganText += ", " + "\"" + $(this).val() + "\"";
+							}  
+						} else {
+							keteranganText = "null";
+						}
+
+						// if (keterangan.includes("null")) {
+						// 	keteranganText += "null";
+						// }
+					});
+
+					if (keteranganVal != null) {
+						keteranganText = keteranganText.substring(2, keteranganText.length);
+						keteranganText = "[" + keteranganText + "]";
+					} 
+
+					isi += `
+					<div class="alert alert-success alert-dismissible col-sm-12">
+						<button type="button" class="close" data-dismiss="alert">
+							<span class="close-condition"><i class="icon-trash"></i></span>
+						</button>
+					 	<span class="json-con d-none">{"a": [${keteranganVal}]}, {"c": "${kondisiVal}"}, {"j":"${loncatKeVal}"}</span>
+					 	Jika <span class="alert-link">${keteranganText}</span> dipilih maka <span class="alert-link">${kondisiText}</span> soal nomer <span class="alert-link">${loncatKeText}</span> 			
+					</div>`;
+				}
+				
+				$('.container-condition-answer').append(isi);
+			}
 
 			var cbPertanyaan = $('#modal_cb_pertanyaan').val();
 			var labelOption = `<option value="" disabled selected>Pilih Soal</option>`;
@@ -631,18 +699,20 @@
 				jumpChoice.push(val[1]);
 			});
 
-			// console.log(kondisi)
-			// console.log(loncatKe)
-			loncatKe = (loncatKe == "Selanjutnya") ? "selanjutnya" : loncatKe;
+			
+			loncatKeText = capitalizeFirstLetter(loncatKe)
+			loncatKe = (loncatKe == "Selanjutnya") ? "s" : loncatKe;
+			loncatKe = (loncatKe == "exit") ? "e" : loncatKe;
 			var kondisiText = (kondisi == "1") ? "loncat ke" : "sembunyikan";
+			var kondisiVal = (kondisi == "1") ? "l" : "h";
 
 			var keterangan = '';
 			if (jumpChoice.length) {
 				keterangan = JSON.stringify(jumpChoice);
 				keteranganVal = JSON.stringify(jumpChoiceVal);
 			} else {
-				keterangan = "tidak ada yang ";
-				keteranganVal = ""
+				keterangan = "null";
+				keteranganVal = null
 			}
 
 			var isi = `
@@ -650,11 +720,10 @@
 				<button type="button" class="close" data-dismiss="alert">
 					<span class="close-condition"><i class="icon-trash"></i></span>
 				</button>
-				<span class="json-con d-none">{"a": ${keteranganVal}, "c": "${kondisiText}", "j":"${loncatKe}"}</span>
-				Jika <span class="alert-link">${keterangan}</span> dipilih maka <span class="alert-link">${kondisiText}</span> soal nomer <span class="alert-link">${loncatKe}</span> 
+				<span class="json-con d-none">{"a": ${keteranganVal}}, {"c": "${kondisiVal}"}, {"j":"${loncatKe}"}</span>
+				Jika <span class="alert-link">${keterangan}</span> dipilih maka <span class="alert-link">${kondisiText}</span> soal nomer <span class="alert-link">${loncatKeText}</span> 
 			</div>`
 
-			// var jsonVal = 
 
 			$('.container-condition-answer').append(isi);
 			// $('#jump-container').append('{hasJump:["c": "1", "jump": "3"]}');
@@ -666,12 +735,6 @@
 		  })
 		});
 
-	  
-
-	  $('.alert').on('closed.bs.alert', function () {
-		  // do something…
-		  console.log('uy')
-		})
 
 	  function noSoal() {
 	  	i=0; $(".nox").each(function () { i++;
@@ -686,5 +749,9 @@
 	  		$(this).text(JSON.stringify(jsonVal));
 	  	});
 	  }
+
+	  function capitalizeFirstLetter(string) {
+		    return string[0].toUpperCase() + string.slice(1).toLowerCase();
+		}
 	</script>
 @stop

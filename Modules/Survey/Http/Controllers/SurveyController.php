@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 use Modules\Survey\Entities\Survey;
 use Modules\Survey\Entities\SurveyQuestion;
 use Modules\Survey\Entities\SurveyAnswer;
+use Modules\Survey\Entities\SurveyCondition;
 
 use Session;
 
@@ -52,7 +53,9 @@ class SurveyController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->pertanyaan);
         // dd($request->all());
+
         // validasi input
         $request->validate([
             'nama_survey' => 'required',
@@ -97,7 +100,30 @@ class SurveyController extends Controller
 
 	        		$urutan++;
 	        	}
-        	}
+          }
+          
+          // masukan survey logic
+          if (isset($pt["condition"]) && is_array($pt["condition"])) {
+            $x = 0;
+            
+            foreach ($pt["condition"] as $con) {
+              $sc = new SurveyCondition;
+              foreach ($con as $cn) {
+                if ($x == 0) {
+                  $answer = (is_array($cn["a"])) ? implode(", ", $cn["a"]) : $cn["a"];
+                  $sc->survey_answer_id = $sq->id;
+                  $sc->answer = $answer;
+                } else if ($x == 1) {
+                  $sc->condition = $cn["c"];
+                } else if ($x == 2) {
+                  $sc->jump = $cn["j"];
+                }
+                $x++;
+              }
+              $sc->save();
+              $x = 0;
+            }
+          }
 
         	$urutanPertanyaan++;
         }

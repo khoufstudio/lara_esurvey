@@ -21,22 +21,17 @@
 		}
 
 		#sortable { list-style-type: none; margin: 0; padding: 0; width: 100%; }
-		/* #sortable li { margin: 0 5px 5px 5px; padding: 0.4em; padding-left: 1.5em; font-size: 1.0em; border:#00CC99 solid 1px; } */
 		#sortable li .actx { position: absolute; cursor:pointer; width:24px; height:24px; text-align:center; color: 00CC99; font-weight:bold; }
-		/* #sortable li .actx:hover { background-color:#00CC99; color:#FFFFFF;} */
 		#sortable li .editx { right:65px; }
 		#sortable li .closex { right:40px; }
-		.json_val { display:none;}
-		#soal { /*display:none;*/}
+		.json_val { display:none; }
 		tr.spaceUnder>td {
 			padding-bottom: 1em;
 		}
 
 		.container-condition-answer {
-			/*background-color: black;*/
 			margin: 0px;
 			width: 100%;
-			/*height: 200px;*/
 		}
 	</style>
 
@@ -90,7 +85,7 @@
 								<div id="add_question" class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(142px, 36px, 0px);">
 									<a href="#" class="dropdown-item item-question">Text</a>
 									<a href="#" class="dropdown-item item-question">Checkbox</a>
-									<a href="#" class="dropdown-item item-question">Radio Button</a>
+									<a href="#" class="dropdown-item item-question">Radio</a>
 								</div>
 							</div>
 						</div>
@@ -276,27 +271,6 @@
 										</div>
 
 										<div class="container-condition-answer row">
-								    	{{-- <table class="table">
-												<thead>
-													<tr class="bg-blue-300">
-														<th rowspan="2">#</th>
-														<th colspan="3" class="text-center">Jawaban</th>
-														<th rowspan="2">Kondisi</th>
-														<th rowspan="2">Soal</th>
-														<th rowspan="2"></th>
-													</tr>
-													<tr class="bg-blue-300">
-														<th>1</th>
-														<th>2</th>
-														<th>3</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td colspan="7" class="text-center">Belum ada kondisi</td>
-													</tr>
-												</tbody>
-											</table> --}}
 										</div>
 									</div>
 								</form>
@@ -382,7 +356,7 @@
 					</div>
 					</li>` 
 					);
-			} else if (jenisInput == 'Radio Button'){
+			} else if (jenisInput == 'Radio'){
 				// var json_val = '{"type": "radiogroup", "name": "soal radio", "visibleIf": "1 greater 0", "isRequired": "true", "choices": [{"1": "pilihan1"}, {"2": "pilihan2"}, {"3": "pilihan3"}], "urutan":"2", "condition": ""}';
 				var json_val = '{"type": "radiogroup", "name": "soal radio", "visibleIf": "1 greater 0", "isRequired": "true", "choices": ["pilihan1", "pilihan2", "pilihan3" ], "urutan":"2", "condition": ""}';
 				$( "#sortable" ).append(`
@@ -508,18 +482,13 @@
 			var jsonSurveLogic = [];
 			$('.json-con').each(function() {
 	  		jsonSurveLogic.push(JSON.parse("[" + $(this).text() + "]"));
-	  		// console.log($(this).text());
 	  	})
-
-	  	// jsonSurveLogic = jsonSurveLogic.substring(2, jsonSurveLogic.length);
-	  	// jsonSurveLogic = JSON.parse(jsonSurveLogic);
 
 			var textPertanyaan = $('#modal_cb_pertanyaan').val();
 
 			soal.name = textPertanyaan;
 			soal.choices = choices;
 			soal.condition = jsonSurveLogic;
-			// soal.condition = "[" + jsonSurveLogic + "]";
 			var soalSave = JSON.stringify(soal);
 
 			$('li .json_val').eq(liParent).text(soalSave);
@@ -528,7 +497,6 @@
 			$('#pertanyaan-container').val(soalSave);
 
 			var isi = '';
-
 			if (soal.type == 'checkbox') {
 				$('li .choices-container').eq(liParent).empty();
 				choices.forEach(element => {
@@ -584,20 +552,17 @@
 			$('#jawaban_for_jump').empty();
 			$('#loncat_ke').empty();
 			
-			if (soal.condition.length > 0) {
+			// cek jika condition exist di objek soal dan cek length condition1
+			if ('condition' in soal && soal.condition.length > 0) {
 				var isi ="";
 				for (var i = 0; i < soal.condition.length; i++) {
-				// for (var i = soal.condition.length - 1; i >= 0; i--) {
-					
 					var keterangan = soal.condition[i][0]['a'];
 					var keteranganVal = (keterangan != null) ? keterangan.toString() : null;
-					// var keteranganText = soal.condition[i][0]['a'].toString();
 					var kondisiVal = soal.condition[i][1]['c'];
 					var kondisiText = (kondisiVal == "h") ? "sembunyikan" : "loncat ke";
 					var loncatKeVal = soal.condition[i][2]['j'];
 					var loncatKeText = "";
-					// var loncatKeText = (loncatKeVal == "s") ? "Selanjutnya" : "Exit";
-					// loncatKeText = (loncatKeVal)
+
 					if (loncatKeVal == "s") {
 						loncatKeText = "Selanjutnya"
 					} else if (loncatKeVal == "e") {
@@ -608,13 +573,6 @@
 
 					var keteranganText = "";
 					choices.each(function(index) {
-						// var i = index.toString();
-						// var inx = i.toString();
-						// if (keterangan.includes("\""+index+"\"")) {
-						// if (keterangan.includes(i.toString())) {
-						// if (keterangan.includes(i)) {
-						// if (keterangan.includes(0)) {
-						// if (keterangan.includes("0")) {
 						if (keteranganVal != null) {
 							if (keterangan.includes(index.toString())) {
 								keteranganText += ", " + "\"" + $(this).val() + "\"";
@@ -626,9 +584,6 @@
 							keteranganText = "null";
 						}
 
-						// if (keterangan.includes("null")) {
-						// 	keteranganText += "null";
-						// }
 					});
 
 					if (keteranganVal != null) {
@@ -669,7 +624,6 @@
 			var exitOption = `<option value="exit">Keluar</option>`;
 			$('#loncat_ke').append(exitOption);
 			
-				// <input type="checkbox" class="custom-control-input" value="${$(this).val()}" class="jump_choice" name="jump_choice"id="jump_choice${index}">
 			choices.each(function(index) {
 				var jawaban = `<div class="custom-control custom-checkbox">
 				<input type="checkbox" class="custom-control-input" value="${index}|${$(this).val()}" class="jump_choice" name="jump_choice" id="jump_choice${index}">
@@ -726,13 +680,7 @@
 
 
 			$('.container-condition-answer').append(isi);
-			// $('#jump-container').append('{hasJump:["c": "1", "jump": "3"]}');
 			$(".jump_choice").prop('checked', false).parent().removeClass('active');
-
-			$('.close-condition').click(function(e) {
-		  	// e.preventDefault();
-		  	// alert('uy')
-		  })
 		});
 
 

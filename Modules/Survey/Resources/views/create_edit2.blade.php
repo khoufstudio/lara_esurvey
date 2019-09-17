@@ -129,8 +129,12 @@
 														"isRequired": "true", 
 														"visibleIf": "1 greater 0", 
 														"choices": [
-														"'.implode("\", \"",$jawaban).'"
-													]}';
+                            "'.implode("\", \"",$jawaban).'"],
+                            "condition": [
+                              [{"a": ["0"]}, {"c": "l"}, {"j": "2"}],
+                              [{"a": null}, {"c": "l"}, {"j": "e"}]
+                            ]
+													}';
 												@endphp
 												<span class="json_val">{{ $json_val }}</span>
 												<div class="form-group text-left">

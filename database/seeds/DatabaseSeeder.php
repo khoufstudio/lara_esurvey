@@ -16,5 +16,9 @@ class DatabaseSeeder extends Seeder
         $this->call(GroupMenusTableSeeder::class);
         $this->call(MenusTableSeeder::class);
         $this->call(MenuFrontendsTableSeeder::class);
+        $this->call(SurveysTableSeeder::class);
+        $this->call(SurveyQuestionsTableSeeder::class);
+        $this->call(SurveyConditionsTableSeeder::class);
+        $this->call(SurveyAnswersTableSeeder::class);
     }
 }

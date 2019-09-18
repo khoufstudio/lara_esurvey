@@ -100,29 +100,30 @@ class SurveyController extends Controller
 
 	        		$urutan++;
 	        	}
-          }
-          
-          // masukan survey logic
-          if (isset($pt["condition"]) && is_array($pt["condition"])) {
-            $x = 0;
-            
-            foreach ($pt["condition"] as $con) {
-              $sc = new SurveyCondition;
-              foreach ($con as $cn) {
-                if ($x == 0) {
-                  $answer = (is_array($cn["a"])) ? implode(", ", $cn["a"]) : $cn["a"];
-                  $sc->survey_answer_id = $sq->id;
-                  $sc->answer = $answer;
-                } else if ($x == 1) {
-                  $sc->condition = $cn["c"];
-                } else if ($x == 2) {
-                  $sc->jump = $cn["j"];
-                }
-                $x++;
-              }
-              $sc->save();
-              $x = 0;
-            }
+
+	        	// masukan survey condition
+	          if (isset($pt["condition"]) && is_array($pt["condition"])) {
+	            $x = 0;
+	            
+	            foreach ($pt["condition"] as $con) {
+	              $sc = new SurveyCondition;
+	              foreach ($con as $cn) {
+	                if ($x == 0) {
+	                  $answer = (is_array($cn["a"])) ? implode(", ", $cn["a"]) : $cn["a"];
+	                  $sc->question_id = $sq->id;
+	                  // $sc->survey_answer_id = $sq->id;
+	                  $sc->answer = $answer;
+	                } else if ($x == 1) {
+	                  $sc->condition = $cn["c"];
+	                } else if ($x == 2) {
+	                  $sc->jump = $cn["j"];
+	                }
+	                $x++;
+	              }
+	              $sc->save();
+	              $x = 0;
+	            }
+	          }
           }
 
         	$urutanPertanyaan++;
@@ -208,6 +209,7 @@ class SurveyController extends Controller
 
         $sqDelete = SurveyQuestion::where('survey_id',$id)->delete();
         $saDelete = SurveyAnswer::whereIn('question_id',$idAnswer)->delete();
+        $scDelete = SurveyCondition::whereIn('question_id',$idAnswer)->delete();
 
 				// masukan pertanyaan dan jawaban
 				$urutanPertanyaan = 1;
@@ -233,9 +235,32 @@ class SurveyController extends Controller
 	        		$sa->jawaban = $co;
 	        		$sa->bobot = 0;
 	        		$sa->save();
-
 	        		$urutan++;
 	        	}
+
+	        	// masukan survey condition
+		          if (isset($pt["condition"]) && is_array($pt["condition"])) {
+		            $x = 0;
+		            
+		            foreach ($pt["condition"] as $con) {
+		              $sc = new SurveyCondition;
+		              foreach ($con as $cn) {
+		                if ($x == 0) {
+		                  $answer = (is_array($cn["a"])) ? implode(", ", $cn["a"]) : $cn["a"];
+		                  $sc->question_id = $sq->id;
+		                  // $sc->survey_answer_id = $sq->id;
+		                  $sc->answer = $answer;
+		                } else if ($x == 1) {
+		                  $sc->condition = $cn["c"];
+		                } else if ($x == 2) {
+		                  $sc->jump = $cn["j"];
+		                }
+		                $x++;
+		              }
+		              $sc->save();
+		              $x = 0;
+		            }
+		          }
         	}
 
         	$urutanPertanyaan++;
@@ -267,6 +292,7 @@ class SurveyController extends Controller
 
         $sqDelete = SurveyQuestion::where('survey_id',$id)->delete();
         $saDelete = SurveyAnswer::whereIn('question_id',$idAnswer)->delete();
+        $scDelete = SurveyCondition::whereIn('question_id',$idAnswer)->delete();
 
         Session::flash('success', 'Survey Berhasil di Hapus');
         return redirect()->back();

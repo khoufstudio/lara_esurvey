@@ -15,7 +15,7 @@ class CreateSurveyConditionsTable extends Migration
     {
         Schema::create('survey_conditions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('survey_answer_id');
+            $table->integer('question_id');
             $table->string('answer')->nullable();
             $table->string('condition')->comment('l = loncat, h = hide');
             $table->string('jump')->comment('e = exit, s = selanjutnya, angka = nomor soal');

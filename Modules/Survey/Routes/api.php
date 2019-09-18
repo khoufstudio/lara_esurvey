@@ -13,6 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/survey', function (Request $request) {
-    return $request->user();
-});
+// Route::group(['middleware' => 'auth:api'], function () {
+    Route::apiResources([
+        'survey' => 'API\SurveyController'
+    ]);
+
+    // Route::get('kegiatankomponen', 'API\SurveyController@listkomponen')->name('api.listkomponen');
+// });

@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class SurveyCondition extends Model
 {
-    protected $fillable = ['survey_answer_id', 'answer', 'condition', 'jump'];
+    protected $fillable = ['question_id', 'answer', 'condition', 'jump'];
 }

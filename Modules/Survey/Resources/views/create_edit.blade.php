@@ -127,7 +127,7 @@
 										"isRequired": "true", 
 										"visibleIf": "1 greater 0", 
 										"choices": [
-										"'.implode("\", \"",$jawaban).'"
+                    "'.implode("\", \"",$jawaban).'",
 									]}';
 									@endphp
 									<span class="json_val">{{ $json_val }}</span>

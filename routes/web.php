@@ -45,10 +45,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 });
 
 
-Route::get('/berita/{vue_capture?}', function () {
-    return view('vue_app');
+Route::get('/survey/{vue_capture?}', function () {
+    return view('homepage::index');
 })->where('vue_capture', '[\/\w\.-]*');
 // Route::get('{path}', 'HomeController@index')->where( 'path', '([A-z\d-\/_.]+)?');
+
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');

@@ -34,6 +34,6 @@ class SurveyQuestion extends Model
   
   public function condition()
   {
-  	return $this->hasMany('Modules\Survey\Entities\SurveyLogic', 'question_id');
+  	return $this->hasMany('Modules\Survey\Entities\SurveyCondition', 'question_id');
   }
 }

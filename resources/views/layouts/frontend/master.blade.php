@@ -26,44 +26,37 @@
 	<!-- /core JS files -->
 
 	<!-- Theme JS files -->
-  <script src="{{ asset('js/backend/app.js') }}" defer></script>
+	<script src="{{ asset('js/backend/app.js') }}" defer></script>
 	<!-- /theme JS files -->
 
 </head>
 
 <body>
 	<div id="app">
-	<!-- Main navbar -->
-	<div class="navbar navbar-expand-md navbar-dark">
-		<div class="navbar-brand">
-			<a href="index.html" class="d-inline-block">
-				<img src="../../../../global_assets/images/logo_light.png" alt="">
-			</a>
-		</div>
+		<!-- Main navbar -->
+		<div class="navbar navbar-expand-md navbar-dark">
+			<div class="navbar-brand">
+				<a href="index.html" class="d-inline-block">
+					<img src="../../../../global_assets/images/logo_light.png" alt="">
+				</a>
+			</div>
 
-		<div class="d-md-none">
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile">
-				<i class="icon-tree5"></i>
-			</button>
-		</div>
+			<div class="d-md-none">
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile">
+					<i class="icon-tree5"></i>
+				</button>
+			</div>
 
-		<div class="collapse navbar-collapse" id="navbar-mobile">
-			<ul class="navbar-nav">
-				
-			</ul>
+			<div class="collapse navbar-collapse" id="navbar-mobile">
+				<ul class="navbar-nav">
 
-			<span class="ml-md-3 mr-md-auto">&nbsp;</span>
+				</ul>
 
-			<ul class="navbar-nav">
-				
+				<span class="ml-md-3 mr-md-auto">&nbsp;</span>
 
-				
+				<ul class="navbar-nav">
 
-				<li class="nav-item dropdown dropdown-user">
-					{{-- <a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
-						<img src="../../../../global_assets/images/placeholders/placeholder.jpg" class="rounded-circle mr-2" height="34" alt=""> --}}
-						{{-- <span>{{Auth::user()->name}}</span> --}}
-					{{-- </a> --}}
+					<li class="nav-item dropdown dropdown-user">
 
 					<div class="dropdown-menu dropdown-menu-right">
 						<a href="#" class="dropdown-item"><i class="icon-user-plus"></i> My profile</a>
@@ -71,11 +64,11 @@
 						<a href="#" class="dropdown-item"><i class="icon-cog5"></i> Account settings</a>
 						<a href="#" class="dropdown-item" href="{{ route('logout') }}"
 						onclick="event.preventDefault();
-													document.getElementById('logout-form').submit();">
-													<i class="icon-switch2"></i> Logout</a>
+						document.getElementById('logout-form').submit();">
+						<i class="icon-switch2"></i> Logout</a>
 
 						<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-								@csrf
+							@csrf
 						</form>
 					</div>
 				</li>
@@ -109,30 +102,12 @@
 					</router-link>
 				</li>
 
-			
 
-			
+
+
 			</ul>
 		</div>
 	</div>
-
-	{{-- <div class="page-header">
-		<div class="page-header-content header-elements-md-inline">
-			<div class="page-title d-flex">
-				<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold"></span>Homepage</h4>
-				<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
-			</div>
-
-			<div class="header-elements d-none py-0 mb-3 mb-md-0">
-				<div class="breadcrumb">
-					<a href="index.html" class="breadcrumb-item"><i class="icon-home2 mr-2"></i></a>
-					<span class="breadcrumb-item active">Homepage</span>
-				</div>
-			</div>
-		</div>
-	</div> --}}
-	<!-- /main navbar -->
-
 
 	<!-- Page content -->
 	<div class="page-content">
@@ -143,17 +118,17 @@
 			<!-- Content area -->
 			<div class="content">		
 
-					<div class="container-fluid">
-							<div class="row">
-									
-										
+				<div class="container-fluid">
+					<div class="row">
 
-											<router-view></router-view>
-											<vue-progress-bar></vue-progress-bar>
-												
-									
-							</div>
+
+
+						<router-view></router-view>
+						<vue-progress-bar></vue-progress-bar>
+
+
 					</div>
+				</div>
 			</div>
 			<!-- /content area -->
 
@@ -172,21 +147,21 @@
 						&copy; 2015 - 2018. 
 					</span>
 
-					</ul>
-				</div>
+				</ul>
 			</div>
-			<!-- /footer -->
-
 		</div>
-		<!-- /main content -->
+		<!-- /footer -->
 
-		</div>
-		<!-- /page content -->
-		
 	</div>
-	@yield('script')
-	
-	<script src="/js/app.js"></script>
+	<!-- /main content -->
+
+</div>
+<!-- /page content -->
+
+</div>
+@yield('script')
+
+<script src="/js/app.js"></script>
 
 
 </body>

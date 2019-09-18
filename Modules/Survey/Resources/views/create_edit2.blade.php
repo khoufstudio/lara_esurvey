@@ -129,11 +129,7 @@
 														"isRequired": "true", 
 														"visibleIf": "1 greater 0", 
 														"choices": [
-                            "'.implode("\", \"",$jawaban).'"],
-                            "condition": [
-                              [{"a": ["0"]}, {"c": "l"}, {"j": "2"}],
-                              [{"a": null}, {"c": "l"}, {"j": "e"}]
-                            ]
+                            "'.implode("\", \"",$jawaban).'"]
 													}';
 												@endphp
 												<span class="json_val">{{ $json_val }}</span>

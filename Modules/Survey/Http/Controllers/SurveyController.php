@@ -85,6 +85,9 @@ class SurveyController extends Controller
         	if ($pt["type"] == 'text') {
         		$sq->tipe_text = $pt["type_input"];
         	}
+        	if ($pt["type"] != 'text') {
+        		$sq->has_other = (isset($pt["has_other"])) ? $pt["has_other"] : false;
+        	}
         	$sq->save();
 
         	// masukan jawaban	
@@ -152,6 +155,8 @@ class SurveyController extends Controller
     public function edit($id)
     {
         $data = Survey::findOrFail($id);
+
+        // dd($data->question[0]->condition);
         return view('survey::create_edit2')
             ->with('data', $data)
             ->with('editpage', 'true')
@@ -166,21 +171,6 @@ class SurveyController extends Controller
      */
     public function update(Request $request, $id)
     {
-    		// dd($request->all());
-        // validasi input
-        // $request->validate([
-        //     'nama_survey' => 'required',
-        //     'deskripsi' => 'required',
-        //     'status' => 'required'
-        // ]);
-
-        // $data = Survey::findOrFail($id);
-        // $data->nama = $request->nama_survey;
-        // $data->deskripsi = $request->deskripsi;
-        // $data->status = $request->status;
-        // $data->user_id = Auth::user()->id;
-        // $data->save();
-
           $request->validate([
             'nama_survey' => 'required',
             'deskripsi' => 'required',
@@ -188,11 +178,9 @@ class SurveyController extends Controller
             'pertanyaan' => 'required'
         ]);
 
-        // dd($sqId);
 
         $pertanyaan = json_decode($request->pertanyaan, true);
 
-        // $data = new Survey;
         $data = Survey::findOrFail($id);
         $data->nama = $request->nama_survey;
         $data->deskripsi = $request->deskripsi;
@@ -211,6 +199,7 @@ class SurveyController extends Controller
         $saDelete = SurveyAnswer::whereIn('question_id',$idAnswer)->delete();
         $scDelete = SurveyCondition::whereIn('question_id',$idAnswer)->delete();
 
+        // dd($pertanyaan);
 				// masukan pertanyaan dan jawaban
 				$urutanPertanyaan = 1;
         foreach ($pertanyaan as $pt) {
@@ -222,6 +211,9 @@ class SurveyController extends Controller
         	$sq->tipe_pertanyaan = $pt["type"];
         	if ($pt["type"] == 'text') {
         		$sq->tipe_text = $pt["type_input"];
+        	}
+        	if ($pt["type"] != 'text') {
+        		$sq->has_other = (isset($pt["has_other"])) ? $pt["has_other"] : false;
         	}
         	$sq->save();
 
@@ -238,6 +230,8 @@ class SurveyController extends Controller
 	        		$urutan++;
 	        	}
 
+	        	// dd($pt["condition"]);
+
 	        	// masukan survey condition
 		          if (isset($pt["condition"]) && is_array($pt["condition"])) {
 		            $x = 0;
@@ -248,7 +242,6 @@ class SurveyController extends Controller
 		                if ($x == 0) {
 		                  $answer = (is_array($cn["a"])) ? implode(", ", $cn["a"]) : $cn["a"];
 		                  $sc->question_id = $sq->id;
-		                  // $sc->survey_answer_id = $sq->id;
 		                  $sc->answer = $answer;
 		                } else if ($x == 1) {
 		                  $sc->condition = $cn["c"];
@@ -269,7 +262,7 @@ class SurveyController extends Controller
 
         
         // back to index
-        Session::flash('success', 'Survey telah dibuat');
+        Session::flash('success', 'Survey telah diupdate');
         return redirect()->route('cms.survey');
     }
 

@@ -101,6 +101,7 @@
 											@php
 											$json_val = '{
 												"type": "text", 
+												"urutan": "'.$question->urutan.'", 
 												"name": "'.$question->pertanyaan.'", 
 												"isRequired": "true", 
 												"type_input": "'.$question->tipe_text.'" }'
@@ -122,12 +123,30 @@
 													foreach ($question->answer as $qa) {
 														array_push($jawaban, $qa->jawaban);
 													}
+													
+													$condition = [];
+													$con = [];
+													if ($question->condition) {
+														foreach ($question->condition as $qc) {
+															$condition = [];
+															$con1["a"] = $qc->answer;
+															array_push($condition, $con1);
+															$con2["c"] = $qc->condition;
+															array_push($condition, $con2);
+															$con3["j"] = $qc->jump;
+															array_push($condition, $con3);
+															array_push($con, $condition);
+														}
+													}
 
 													$json_val = '{
 														"type": "'.$question->tipe_pertanyaan.'", 
+														"urutan": "'.$question->urutan.'", 
 														"name": "'.$question->pertanyaan.'", 
 														"isRequired": "true", 
-														"visibleIf": "1 greater 0", 
+														"visibleIf": "1 greater 0",
+														"has_other": "'.$question->has_other.'", 
+														"condition": '.json_encode($con).',  
 														"choices": [
                             "'.implode("\", \"",$jawaban).'"]
 													}';
@@ -191,6 +210,7 @@
 							<option value="number">Number</option>
 							<option value="date">Date</option>
 							<option value="time">Time</option>
+							<option value="textarea">Text Area</option>
 						</select>
 					</div>
 				</div>
@@ -206,7 +226,6 @@
 	<!-- Modal Edit Pertanyaan Radio dan Checkbox -->
 	<div class="modal fade" id="modal_cb" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
-		{{-- <div class="modal-dialog modal-lg"> --}}
 			<div class="modal-content">
 				<div class="modal-header bg-info">
 					<h6 class="modal-title">EDIT PERTANYAAN</h6>
@@ -243,6 +262,13 @@
 										</div>
 									</div>
 									<div id="container-answer"></div>
+
+									<div class="form-group">
+										<div class="custom-control custom-checkbox">
+											<input type="checkbox" class="custom-control-input" value="hasother" name="hasother" id="hasother">
+											<label class="custom-control-label" for="hasother">Has other</label>
+										</div>
+									</div>
 								</div>              
 							</div>
 							<div role="tabpanel" class="tab-pane" id="jumpingTab">
@@ -407,6 +433,9 @@
 	      $('#modal_cb_pertanyaan').val(soal.name);
 	      var isi = '';
 
+	      // $('#hasother').prop("checked", "0");
+	      $('#hasother').prop("checked", parseInt(soal.has_other));
+
 	      $('.container-condition-answer').empty();
 	    
 	      soal.choices.forEach(element => {
@@ -484,11 +513,21 @@
 	  		jsonSurveLogic.push(JSON.parse("[" + $(this).text() + "]"));
 	  	})
 
+			hasOther = false;
+	  	if ($('#hasother').is(":checked"))
+			{
+			  hasOther = true;
+			}
+
+	  	// hasOther = $('#hasother').val();
+
 			var textPertanyaan = $('#modal_cb_pertanyaan').val();
 
 			soal.name = textPertanyaan;
 			soal.choices = choices;
 			soal.condition = jsonSurveLogic;
+			soal.has_other = hasOther;
+
 			var soalSave = JSON.stringify(soal);
 
 			$('li .json_val').eq(liParent).text(soalSave);
@@ -624,14 +663,27 @@
 			var exitOption = `<option value="exit">Keluar</option>`;
 			$('#loncat_ke').append(exitOption);
 			
-			choices.each(function(index) {
-				var jawaban = `<div class="custom-control custom-checkbox">
-				<input type="checkbox" class="custom-control-input" value="${index}|${$(this).val()}" class="jump_choice" name="jump_choice" id="jump_choice${index}">
-				<label class="custom-control-label" for="jump_choice${index}">${$(this).val()}</label>
-				</div>`
 
-				$('#jawaban_for_jump').append(jawaban)
-			})
+			if (soal.type == "radiogroup") {
+				choices.each(function(index) {
+					var jawaban = `<div class="custom-control custom-radio">
+					<input type="radio" class="custom-control-input" value="${index}|${$(this).val()}" class="jump_choice" name="jump_choice" id="jump_choice${index}">
+					<label class="custom-control-label" for="jump_choice${index}">${$(this).val()}</label>
+					</div>`
+
+					$('#jawaban_for_jump').append(jawaban)
+				})
+
+			} else {
+				choices.each(function(index) {
+					var jawaban = `<div class="custom-control custom-checkbox">
+					<input type="checkbox" class="custom-control-input" value="${index}|${$(this).val()}" class="jump_choice" name="jump_choice" id="jump_choice${index}">
+					<label class="custom-control-label" for="jump_choice${index}">${$(this).val()}</label>
+					</div>`
+
+					$('#jawaban_for_jump').append(jawaban)
+				})
+			}
 		})
 
 		$('#btn_tambah_kondisi').click(function(e) {

@@ -20,6 +20,7 @@ class CreateSurveyQuestionsTable extends Migration
             $table->string('pertanyaan');
             $table->string('tipe_pertanyaan');
             $table->string('tipe_text')->comment('khusus untuk text')->nullable();
+            $table->boolean('has_other')->comment('khusus untuk checkbox dan radiogroup')->default(false);
             $table->timestamps();
         });
     }

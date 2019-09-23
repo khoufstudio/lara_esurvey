@@ -241,6 +241,7 @@ export default {
 					jawaban: jawabanSend
 				})
 				.then(function(response) {
+					console.log(response)
 					vm.urutan = -2
 				})
 				.catch(function(err) {

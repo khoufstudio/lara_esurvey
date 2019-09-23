@@ -9,6 +9,9 @@
 				<li class="list-survey" v-for="ls in listSurvey">
 					<a :href="'/survey/' + ls.id">{{ ls.nama }}</a>
 				</li>
+				<li class="text-center no-data" v-if="listSurvey.length === 0">
+					<h4>Belum ada data</h4>
+				</li>
 			</ul>
 
 			<div class="survey-contact mt-5">
@@ -74,6 +77,10 @@
 
 	.list-survey a:hover {
 		text-decoration: none;
+	}
+
+	.no-data {
+		list-style: none;
 	}
 
 	.loader-container {

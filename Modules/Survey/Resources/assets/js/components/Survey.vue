@@ -1,7 +1,8 @@
 <template>
 	<div class="content">
 		<!-- <form id="msform" action="#"> -->
-		<form id="msform" action="#" @submit.prevent="submit">
+		<!-- <form id="msform" action="#" @submit.prevent="submit" method="post"> -->
+		<form id="msform" action="#" @submit="submit($event)" method="post">
 			<!-- <div v-if="!loading && listQuestion.length > 0"> -->
 			<div v-if="!loading">
 				<fieldset>
@@ -118,6 +119,7 @@ export default {
 						this.listSurvey = data.data
 						this.listQuestion = data.question_answer
 						this.surveyId = data.data.id
+						console.log(data.data.id)
 						// console.log(data.data.id)
 					})
 					.catch(error => {
@@ -189,7 +191,6 @@ export default {
 								// jawabanContainer = jawabanCheckbox
 								// jawaban = jawabanCheckbox.split(",")
 								console.log("urutan " + this.urutan)
-								console.log(jawabanContainer)
 								// this.jawaban.push([this.urutan, jawabanContainer])
 								// console.log("jawaban " + jawaban)
 
@@ -230,7 +231,9 @@ export default {
 
 				}
 			},
-			submit: function() {
+			submit: function(e) {
+				e.preventDefault()
+				
 				// save last value
 				var jawabanSend = JSON.stringify(this.jawaban)
 				var vm = this

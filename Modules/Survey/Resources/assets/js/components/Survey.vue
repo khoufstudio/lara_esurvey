@@ -237,7 +237,7 @@ export default {
 				
 				// fungsi kirim udah jalan
 				axios.post('/api/survey_result', {
-					survey_id: 2,
+					survey_id: this.surveyId,
 					jawaban: jawabanSend
 				})
 				.then(function(response) {

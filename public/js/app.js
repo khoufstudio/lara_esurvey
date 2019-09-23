@@ -2136,6 +2136,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2223,20 +2237,25 @@ __webpack_require__.r(__webpack_exports__);
       listSurvey: null,
       listQuestion: null,
       loading: true,
-      urutan: -1
+      urutan: -1,
+      checkedCheckbox: [],
+      checkedRadio: '',
+      backTo: '',
+      surveyId: null,
+      // untuk submit database
+      jawaban: [] // untuk submit database
+
     };
   },
   methods: {
     getApi: function getApi() {
       var _this = this;
 
-      // axios.get("/api/survey/1")
       axios.get("/api/survey/" + this.id).then(function (_ref) {
         var data = _ref.data;
         _this.listSurvey = data.data;
         _this.listQuestion = data.question_answer;
-        console.log(data.question_answer);
-        console.log(data.data);
+        _this.surveyId = data.data.id; // console.log(data.data.id)
       }).catch(function (error) {
         console.log(error);
       }).finally(function () {
@@ -2244,19 +2263,119 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     next: function next() {
+      var question = this.urutan > -1 ? this.listQuestion[this.urutan] : "kosong";
+
+      if (question != "kosong") {
+        // var soalJawaban
+        var jawabanContainer; // soalJawaban.urutan = this.urutan;
+
+        var tipePertanyaan = this.listQuestion[this.urutan].tipe_pertanyaan;
+        var condition = question.condition;
+
+        if (_typeof(condition) !== undefined && condition.length) {
+          // var jawabanRadio = parseInt(this.checkedRadio)-1;
+          var jawabanRadio = parseInt(this.checkedRadio); // masukin pertanyaan
+
+          if (tipePertanyaan == "radiogroup") {
+            var jawabanJSON = new Object();
+            jawabanJSON.urutan = this.urutan;
+            jawabanJSON.jawaban = jawabanRadio;
+            this.jawaban.push(jawabanJSON); // this.jawaban.push(`${this.urutan}, ${jawabanRadio}`)
+          } else if (tipePertanyaan == "checkbox") {
+            var jawabanJSON = new Object();
+            var jawabanCheckbox = this.checkedCheckbox;
+            jawabanJSON.urutan = this.urutan;
+            jawabanJSON.jawaban = jawabanCheckbox;
+            this.jawaban.push(jawabanJSON); // this.jawaban.push(`${this.urutan}, ${jawabanCheckbox}`)
+          }
+
+          for (var i = 0; i < condition.length; i++) {
+            var loncatKe = condition[i].jump;
+
+            if (tipePertanyaan == "radiogroup") {
+              var jawabanKondisi = condition[i].answer; // soalJawaban.jawaban = jawabanRadio
+
+              jawabanContainer = jawabanRadio; // console.log("urutan " + this.urutan)
+              // console.log("jawaban " + jawabanContainer)
+              // this.jawaban.push([this.urutan, jawabanContainer])
+
+              if (jawabanRadio == jawabanKondisi) {
+                console.log("loncat ke soal " + loncatKe);
+
+                if (loncatKe == 'e') {
+                  this.submit();
+                } else if (loncatKe == 's') {
+                  this.backTo = this.urutan;
+                  this.urutan++;
+                } else {
+                  this.backTo = this.urutan;
+                  this.urutan = loncatKe - 1;
+                }
+
+                return;
+              }
+            } else if (tipePertanyaan == "checkbox") {
+              var jawabanCheckbox = this.checkedCheckbox;
+              var jawabanKondisi = condition[i].answer.split(","); // soalJawaban.jawaban = jawabanCheckbox
+              // jawabanContainer = jawabanCheckbox
+              // jawaban = jawabanCheckbox.split(",")
+
+              console.log("urutan " + this.urutan);
+              console.log(jawabanContainer); // this.jawaban.push([this.urutan, jawabanContainer])
+              // console.log("jawaban " + jawaban)
+
+              for (var x = 0; x < jawabanKondisi.length; x++) {
+                jawabanKondisi[x] = parseInt(jawabanKondisi[x]);
+              }
+
+              if (jawabanCheckbox.join(",") == jawabanKondisi.join(",")) {
+                console.log("loncat ke soal " + loncatKe);
+
+                if (loncatKe == 'e') {
+                  this.submit();
+                } else if (loncatKe == 's') {
+                  this.backTo = this.urutan;
+                  this.urutan++;
+                } else {
+                  this.backTo = this.urutan;
+                  this.urutan = loncatKe - 1;
+                }
+
+                return;
+              }
+            } else {
+              console.log("jawaban " + jawaban);
+            }
+          }
+        } // this.jawaban.push(soalJawaban) 
+
+      }
+
       this.urutan++;
+      this.backTo = this.urutan - 1;
     },
     previous: function previous() {
       if (this.urutan > -1) {
-        this.urutan--;
+        this.urutan = this.backTo;
+        this.jawaban.pop();
       }
     },
     submit: function submit() {
-      alert('submit coy');
+      // save last value
+      var jawabanSend = JSON.stringify(this.jawaban);
+      var vm = this; // fungsi kirim udah jalan
+
+      axios.post('/api/survey_result', {
+        survey_id: 2,
+        jawaban: jawabanSend
+      }).then(function (response) {
+        vm.urutan = -2;
+      }).catch(function (err) {
+        console.log(err);
+      });
     }
   },
   mounted: function mounted() {
-    // console.log(this.id)
     this.getApi();
   }
 });
@@ -3185,7 +3304,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../../node_module
 
 
 // module
-exports.push([module.i, "\n.survey-title[data-v-3b7389b0] {\n\ttext-transform: capitalize;\n}\n\n/*Hide all except first fieldset*/\n/*#msform fieldset:not(:first-of-type) {\n    display: none;\n}*/\n", ""]);
+exports.push([module.i, "\n.survey-title[data-v-3b7389b0] {\n\ttext-transform: capitalize;\n}\n", ""]);
 
 // exports
 
@@ -6190,9 +6309,30 @@ var render = function() {
                                             ),
                                             _vm._v(" "),
                                             _c("input", {
+                                              directives: [
+                                                {
+                                                  name: "model",
+                                                  rawName: "v-model",
+                                                  value: _vm.checkedRadio,
+                                                  expression: "checkedRadio"
+                                                }
+                                              ],
                                               attrs: {
                                                 type: "radio",
-                                                name: "radio_size"
+                                                name: "pertanyaanradio"
+                                              },
+                                              domProps: {
+                                                value: ans.urutan - 1,
+                                                checked: _vm._q(
+                                                  _vm.checkedRadio,
+                                                  ans.urutan - 1
+                                                )
+                                              },
+                                              on: {
+                                                change: function($event) {
+                                                  _vm.checkedRadio =
+                                                    ans.urutan - 1
+                                                }
                                               }
                                             }),
                                             _vm._v(" "),
@@ -6243,7 +6383,7 @@ var render = function() {
                                                   },
                                                   on: { click: _vm.submit }
                                                 },
-                                                [_vm._v("Submit")]
+                                                [_vm._v("Selesai")]
                                               )
                                             ])
                                       ])
@@ -6269,9 +6409,56 @@ var render = function() {
                                             ),
                                             _vm._v(" "),
                                             _c("input", {
+                                              directives: [
+                                                {
+                                                  name: "model",
+                                                  rawName: "v-model",
+                                                  value: _vm.checkedCheckbox,
+                                                  expression: "checkedCheckbox"
+                                                }
+                                              ],
                                               attrs: {
                                                 type: "checkbox",
-                                                name: "checkbox_size"
+                                                name: "pertanyaancheckbox"
+                                              },
+                                              domProps: {
+                                                value: ans.urutan - 1,
+                                                checked: Array.isArray(
+                                                  _vm.checkedCheckbox
+                                                )
+                                                  ? _vm._i(
+                                                      _vm.checkedCheckbox,
+                                                      ans.urutan - 1
+                                                    ) > -1
+                                                  : _vm.checkedCheckbox
+                                              },
+                                              on: {
+                                                change: function($event) {
+                                                  var $$a = _vm.checkedCheckbox,
+                                                    $$el = $event.target,
+                                                    $$c = $$el.checked
+                                                      ? true
+                                                      : false
+                                                  if (Array.isArray($$a)) {
+                                                    var $$v = ans.urutan - 1,
+                                                      $$i = _vm._i($$a, $$v)
+                                                    if ($$el.checked) {
+                                                      $$i < 0 &&
+                                                        (_vm.checkedCheckbox = $$a.concat(
+                                                          [$$v]
+                                                        ))
+                                                    } else {
+                                                      $$i > -1 &&
+                                                        (_vm.checkedCheckbox = $$a
+                                                          .slice(0, $$i)
+                                                          .concat(
+                                                            $$a.slice($$i + 1)
+                                                          ))
+                                                    }
+                                                  } else {
+                                                    _vm.checkedCheckbox = $$c
+                                                  }
+                                                }
                                               }
                                             }),
                                             _vm._v(" "),
@@ -6381,7 +6568,50 @@ var render = function() {
                       )
                     : _vm._e()
                 ])
-              })
+              }),
+              _vm._v(" "),
+              _c("fieldset", [
+                _vm.urutan == -2
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "col-md-8 mt-5",
+                        staticStyle: { margin: "0 auto" }
+                      },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "widget text-center border-box p-cb" },
+                          [
+                            _c("i", {
+                              staticClass:
+                                "fa fa-4x mb-3 fa-check-circle text-success"
+                            }),
+                            _vm._v(" "),
+                            _c("h2", { staticClass: "survey-title" }, [
+                              _vm._v("Sukses")
+                            ]),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "mt-4" }, [
+                              _vm._v("Terimakasih telah mengikuti survey")
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "router-link",
+                              {
+                                staticClass:
+                                  "btn btn-warning btn-shadow btn-rounded mt-3",
+                                attrs: { to: "/", "data-lightbox": "inline" }
+                              },
+                              [_vm._v("Kembali ke halaman utama")]
+                            )
+                          ],
+                          1
+                        )
+                      ]
+                    )
+                  : _vm._e()
+              ])
             ],
             2
           )

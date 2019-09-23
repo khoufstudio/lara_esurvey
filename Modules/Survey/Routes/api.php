@@ -19,4 +19,5 @@ use Illuminate\Http\Request;
     ]);
 
     // Route::get('kegiatankomponen', 'API\SurveyController@listkomponen')->name('api.listkomponen');
+    Route::post('survey_result', 'API\SurveyController@survey_result')->name('api.survey_result');
 // });

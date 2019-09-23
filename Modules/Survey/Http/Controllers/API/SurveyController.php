@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Modules\Survey\Entities\Survey;
 use Modules\Survey\Entities\SurveyQuestion;
 use Modules\Survey\Entities\SurveyCondition;
+use Modules\Survey\Entities\SurveyResult;
 
 class SurveyController extends Controller
 {
@@ -94,5 +95,24 @@ class SurveyController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function survey_result(Request $request)
+    {
+    	$request->validate([
+        'survey_id' => 'required',
+        'jawaban' => 'required',
+      ]);
+
+    	$data = SurveyResult::create([
+    		'survey_id' => $request->survey_id,	
+    		'jawaban' => $request->jawaban,	
+    	]);
+
+    	return response()->json([
+    		'success' => true,
+    		'data' => $data,
+    	]);
+    	// return "berhasil";
     }
   }

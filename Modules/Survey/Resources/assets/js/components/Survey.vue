@@ -1,6 +1,7 @@
 <template>
 	<div class="content">
-		<form id="msform" action="#">
+		<!-- <form id="msform" action="#"> -->
+		<form id="msform" action="#" @submit.prevent="submit">
 			<!-- <div v-if="!loading && listQuestion.length > 0"> -->
 			<div v-if="!loading">
 				<fieldset>
@@ -50,7 +51,8 @@
 										<button @click="next" data-lightbox="inline" class="btn btn-success btn-shadow btn-rounded mt-3">Berikutnya</button>
 									</span>
 									<span v-else>
-										<button @click="submit" data-lightbox="inline" class="btn btn-success btn-shadow btn-rounded mt-3">Submit</button>
+										<button type="submit" data-lightbox="inline" class="btn btn-success btn-shadow btn-rounded mt-3">Submit</button>
+										<!-- <button @click.prevent="submit" data-lightbox="inline" class="btn btn-success btn-shadow btn-rounded mt-3">Submit</button> -->
 									</span>
 								</div>
 							</div>
@@ -65,7 +67,8 @@
 										<button @click="next" data-lightbox="inline" class="btn btn-success btn-shadow btn-rounded mt-3">Berikutnya</button>
 									</span>
 									<span v-else>
-										<button @click="submit" data-lightbox="inline" class="btn btn-success btn-shadow btn-rounded mt-3">Submit</button>
+										<button type="submit" data-lightbox="inline" class="btn btn-success btn-shadow btn-rounded mt-3">Submit</button>
+										<!-- <button @click.prevent="submit" data-lightbox="inline" class="btn btn-success btn-shadow btn-rounded mt-3">Submit</button> -->
 									</span>
 								</div>
 							</div>
@@ -229,8 +232,6 @@ export default {
 			},
 			submit: function() {
 				// save last value
-				
-
 				var jawabanSend = JSON.stringify(this.jawaban)
 				var vm = this
 				

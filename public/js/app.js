@@ -2229,6 +2229,9 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id'],
   name: 'Survey',
@@ -6211,63 +6214,24 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "content" }, [
-    _c("form", { attrs: { id: "msform", action: "#" } }, [
-      !_vm.loading
-        ? _c(
-            "div",
-            [
-              _c("fieldset", [
-                _vm.urutan == -1
-                  ? _c(
-                      "div",
-                      {
-                        staticClass: "col-md-8 mt-5",
-                        staticStyle: { margin: "0 auto" }
-                      },
-                      [
-                        _c(
-                          "div",
-                          { staticClass: "widget text-center border-box p-cb" },
-                          [
-                            _c("h3", { staticClass: "survey-title" }, [
-                              _vm._v(_vm._s(_vm.listSurvey.nama))
-                            ]),
-                            _vm._v(" "),
-                            _c("p", { staticClass: "mt-4" }, [
-                              _vm._v(_vm._s(_vm.listSurvey.deskripsi))
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "router-link",
-                              {
-                                staticClass:
-                                  "btn btn-warning btn-shadow btn-rounded mt-3",
-                                attrs: { to: "/", "data-lightbox": "inline" }
-                              },
-                              [_vm._v("Kembali")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "btn btn-success btn-shadow btn-rounded mt-3",
-                                attrs: { "data-lightbox": "inline" },
-                                on: { click: _vm.next }
-                              },
-                              [_vm._v("Berikutnya")]
-                            )
-                          ],
-                          1
-                        )
-                      ]
-                    )
-                  : _vm._e()
-              ]),
-              _vm._v(" "),
-              _vm._l(_vm.listQuestion, function(lq, index) {
-                return _c("fieldset", [
-                  index == _vm.urutan
+    _c(
+      "form",
+      {
+        attrs: { id: "msform", action: "#" },
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.submit($event)
+          }
+        }
+      },
+      [
+        !_vm.loading
+          ? _c(
+              "div",
+              [
+                _c("fieldset", [
+                  _vm.urutan == -1
                     ? _c(
                         "div",
                         {
@@ -6281,193 +6245,310 @@ var render = function() {
                               staticClass: "widget text-center border-box p-cb"
                             },
                             [
+                              _c("h3", { staticClass: "survey-title" }, [
+                                _vm._v(_vm._s(_vm.listSurvey.nama))
+                              ]),
+                              _vm._v(" "),
+                              _c("p", { staticClass: "mt-4" }, [
+                                _vm._v(_vm._s(_vm.listSurvey.deskripsi))
+                              ]),
+                              _vm._v(" "),
                               _c(
-                                "h4",
+                                "router-link",
                                 {
                                   staticClass:
-                                    "survey-title widget-title text-left"
+                                    "btn btn-warning btn-shadow btn-rounded mt-3",
+                                  attrs: { to: "/", "data-lightbox": "inline" }
                                 },
-                                [_vm._v(_vm._s(lq.pertanyaan))]
+                                [_vm._v("Kembali")]
                               ),
                               _vm._v(" "),
-                              lq.tipe_pertanyaan == "radiogroup"
-                                ? _c(
-                                    "div",
-                                    [
-                                      _vm._l(lq.answer, function(ans) {
-                                        return _c(
-                                          "label",
-                                          {
-                                            staticClass:
-                                              "p-radio p-radio radio-color-secondary text-left"
-                                          },
-                                          [
-                                            _c(
-                                              "span",
-                                              { staticClass: "ml-3" },
-                                              [_vm._v(_vm._s(ans.jawaban))]
-                                            ),
-                                            _vm._v(" "),
-                                            _c("input", {
-                                              directives: [
-                                                {
-                                                  name: "model",
-                                                  rawName: "v-model",
-                                                  value: _vm.checkedRadio,
-                                                  expression: "checkedRadio"
-                                                }
-                                              ],
-                                              attrs: {
-                                                type: "radio",
-                                                name: "pertanyaanradio"
-                                              },
-                                              domProps: {
-                                                value: ans.urutan - 1,
-                                                checked: _vm._q(
-                                                  _vm.checkedRadio,
-                                                  ans.urutan - 1
-                                                )
-                                              },
-                                              on: {
-                                                change: function($event) {
-                                                  _vm.checkedRadio =
-                                                    ans.urutan - 1
-                                                }
-                                              }
-                                            }),
-                                            _vm._v(" "),
-                                            _c("span", {
-                                              staticClass: "p-radio-style"
-                                            })
-                                          ]
-                                        )
-                                      }),
-                                      _vm._v(" "),
-                                      _c("div", { staticClass: "text-right" }, [
-                                        _c(
-                                          "button",
-                                          {
-                                            staticClass:
-                                              "btn btn-warning btn-shadow btn-rounded mt-3",
-                                            attrs: {
-                                              "data-lightbox": "inline"
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "btn btn-success btn-shadow btn-rounded mt-3",
+                                  attrs: { "data-lightbox": "inline" },
+                                  on: { click: _vm.next }
+                                },
+                                [_vm._v("Berikutnya")]
+                              )
+                            ],
+                            1
+                          )
+                        ]
+                      )
+                    : _vm._e()
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.listQuestion, function(lq, index) {
+                  return _c("fieldset", [
+                    index == _vm.urutan
+                      ? _c(
+                          "div",
+                          {
+                            staticClass: "col-md-8 mt-5",
+                            staticStyle: { margin: "0 auto" }
+                          },
+                          [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "widget text-center border-box p-cb"
+                              },
+                              [
+                                _c(
+                                  "h4",
+                                  {
+                                    staticClass:
+                                      "survey-title widget-title text-left"
+                                  },
+                                  [_vm._v(_vm._s(lq.pertanyaan))]
+                                ),
+                                _vm._v(" "),
+                                lq.tipe_pertanyaan == "radiogroup"
+                                  ? _c(
+                                      "div",
+                                      [
+                                        _vm._l(lq.answer, function(ans) {
+                                          return _c(
+                                            "label",
+                                            {
+                                              staticClass:
+                                                "p-radio p-radio radio-color-secondary text-left"
                                             },
-                                            on: { click: _vm.previous }
-                                          },
-                                          [_vm._v("Kembali")]
-                                        ),
-                                        _vm._v(" "),
-                                        index != _vm.listQuestion.length - 1
-                                          ? _c("span", [
+                                            [
                                               _c(
-                                                "button",
-                                                {
-                                                  staticClass:
-                                                    "btn btn-success btn-shadow btn-rounded mt-3",
-                                                  attrs: {
-                                                    "data-lightbox": "inline"
-                                                  },
-                                                  on: { click: _vm.next }
+                                                "span",
+                                                { staticClass: "ml-3" },
+                                                [_vm._v(_vm._s(ans.jawaban))]
+                                              ),
+                                              _vm._v(" "),
+                                              _c("input", {
+                                                directives: [
+                                                  {
+                                                    name: "model",
+                                                    rawName: "v-model",
+                                                    value: _vm.checkedRadio,
+                                                    expression: "checkedRadio"
+                                                  }
+                                                ],
+                                                attrs: {
+                                                  type: "radio",
+                                                  name: "pertanyaanradio"
                                                 },
-                                                [_vm._v("Berikutnya")]
-                                              )
-                                            ])
-                                          : _c("span", [
-                                              _c(
-                                                "button",
-                                                {
-                                                  staticClass:
-                                                    "btn btn-success btn-shadow btn-rounded mt-3",
-                                                  attrs: {
-                                                    "data-lightbox": "inline"
-                                                  },
-                                                  on: { click: _vm.submit }
+                                                domProps: {
+                                                  value: ans.urutan - 1,
+                                                  checked: _vm._q(
+                                                    _vm.checkedRadio,
+                                                    ans.urutan - 1
+                                                  )
                                                 },
-                                                [_vm._v("Selesai")]
-                                              )
-                                            ])
-                                      ])
-                                    ],
-                                    2
-                                  )
-                                : lq.tipe_pertanyaan == "checkbox"
-                                ? _c(
-                                    "div",
-                                    [
-                                      _vm._l(lq.answer, function(ans) {
-                                        return _c(
-                                          "label",
-                                          {
-                                            staticClass:
-                                              "p-checkbox p-checkbox checkbox-color-secondary text-left"
-                                          },
-                                          [
-                                            _c(
-                                              "span",
-                                              { staticClass: "ml-3" },
-                                              [_vm._v(_vm._s(ans.jawaban))]
-                                            ),
-                                            _vm._v(" "),
-                                            _c("input", {
-                                              directives: [
-                                                {
-                                                  name: "model",
-                                                  rawName: "v-model",
-                                                  value: _vm.checkedCheckbox,
-                                                  expression: "checkedCheckbox"
-                                                }
-                                              ],
-                                              attrs: {
-                                                type: "checkbox",
-                                                name: "pertanyaancheckbox"
-                                              },
-                                              domProps: {
-                                                value: ans.urutan - 1,
-                                                checked: Array.isArray(
-                                                  _vm.checkedCheckbox
-                                                )
-                                                  ? _vm._i(
-                                                      _vm.checkedCheckbox,
+                                                on: {
+                                                  change: function($event) {
+                                                    _vm.checkedRadio =
                                                       ans.urutan - 1
-                                                    ) > -1
-                                                  : _vm.checkedCheckbox
-                                              },
-                                              on: {
-                                                change: function($event) {
-                                                  var $$a = _vm.checkedCheckbox,
-                                                    $$el = $event.target,
-                                                    $$c = $$el.checked
-                                                      ? true
-                                                      : false
-                                                  if (Array.isArray($$a)) {
-                                                    var $$v = ans.urutan - 1,
-                                                      $$i = _vm._i($$a, $$v)
-                                                    if ($$el.checked) {
-                                                      $$i < 0 &&
-                                                        (_vm.checkedCheckbox = $$a.concat(
-                                                          [$$v]
-                                                        ))
-                                                    } else {
-                                                      $$i > -1 &&
-                                                        (_vm.checkedCheckbox = $$a
-                                                          .slice(0, $$i)
-                                                          .concat(
-                                                            $$a.slice($$i + 1)
-                                                          ))
-                                                    }
-                                                  } else {
-                                                    _vm.checkedCheckbox = $$c
                                                   }
                                                 }
-                                              }
-                                            }),
+                                              }),
+                                              _vm._v(" "),
+                                              _c("span", {
+                                                staticClass: "p-radio-style"
+                                              })
+                                            ]
+                                          )
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          { staticClass: "text-right" },
+                                          [
+                                            _c(
+                                              "button",
+                                              {
+                                                staticClass:
+                                                  "btn btn-warning btn-shadow btn-rounded mt-3",
+                                                attrs: {
+                                                  "data-lightbox": "inline"
+                                                },
+                                                on: { click: _vm.previous }
+                                              },
+                                              [_vm._v("Kembali")]
+                                            ),
                                             _vm._v(" "),
-                                            _c("span", {
-                                              staticClass: "p-checkbox-style"
-                                            })
+                                            index != _vm.listQuestion.length - 1
+                                              ? _c("span", [
+                                                  _c(
+                                                    "button",
+                                                    {
+                                                      staticClass:
+                                                        "btn btn-success btn-shadow btn-rounded mt-3",
+                                                      attrs: {
+                                                        "data-lightbox":
+                                                          "inline"
+                                                      },
+                                                      on: { click: _vm.next }
+                                                    },
+                                                    [_vm._v("Berikutnya")]
+                                                  )
+                                                ])
+                                              : _c("span", [
+                                                  _c(
+                                                    "button",
+                                                    {
+                                                      staticClass:
+                                                        "btn btn-success btn-shadow btn-rounded mt-3",
+                                                      attrs: {
+                                                        "data-lightbox":
+                                                          "inline"
+                                                      },
+                                                      on: { click: _vm.submit }
+                                                    },
+                                                    [_vm._v("Selesai")]
+                                                  )
+                                                ])
                                           ]
                                         )
-                                      }),
+                                      ],
+                                      2
+                                    )
+                                  : lq.tipe_pertanyaan == "checkbox"
+                                  ? _c(
+                                      "div",
+                                      [
+                                        _vm._l(lq.answer, function(ans) {
+                                          return _c(
+                                            "label",
+                                            {
+                                              staticClass:
+                                                "p-checkbox p-checkbox checkbox-color-secondary text-left"
+                                            },
+                                            [
+                                              _c(
+                                                "span",
+                                                { staticClass: "ml-3" },
+                                                [_vm._v(_vm._s(ans.jawaban))]
+                                              ),
+                                              _vm._v(" "),
+                                              _c("input", {
+                                                directives: [
+                                                  {
+                                                    name: "model",
+                                                    rawName: "v-model",
+                                                    value: _vm.checkedCheckbox,
+                                                    expression:
+                                                      "checkedCheckbox"
+                                                  }
+                                                ],
+                                                attrs: {
+                                                  type: "checkbox",
+                                                  name: "pertanyaancheckbox"
+                                                },
+                                                domProps: {
+                                                  value: ans.urutan - 1,
+                                                  checked: Array.isArray(
+                                                    _vm.checkedCheckbox
+                                                  )
+                                                    ? _vm._i(
+                                                        _vm.checkedCheckbox,
+                                                        ans.urutan - 1
+                                                      ) > -1
+                                                    : _vm.checkedCheckbox
+                                                },
+                                                on: {
+                                                  change: function($event) {
+                                                    var $$a =
+                                                        _vm.checkedCheckbox,
+                                                      $$el = $event.target,
+                                                      $$c = $$el.checked
+                                                        ? true
+                                                        : false
+                                                    if (Array.isArray($$a)) {
+                                                      var $$v = ans.urutan - 1,
+                                                        $$i = _vm._i($$a, $$v)
+                                                      if ($$el.checked) {
+                                                        $$i < 0 &&
+                                                          (_vm.checkedCheckbox = $$a.concat(
+                                                            [$$v]
+                                                          ))
+                                                      } else {
+                                                        $$i > -1 &&
+                                                          (_vm.checkedCheckbox = $$a
+                                                            .slice(0, $$i)
+                                                            .concat(
+                                                              $$a.slice($$i + 1)
+                                                            ))
+                                                      }
+                                                    } else {
+                                                      _vm.checkedCheckbox = $$c
+                                                    }
+                                                  }
+                                                }
+                                              }),
+                                              _vm._v(" "),
+                                              _c("span", {
+                                                staticClass: "p-checkbox-style"
+                                              })
+                                            ]
+                                          )
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "div",
+                                          { staticClass: "text-right" },
+                                          [
+                                            _c(
+                                              "button",
+                                              {
+                                                staticClass:
+                                                  "btn btn-warning btn-shadow btn-rounded mt-3",
+                                                attrs: {
+                                                  "data-lightbox": "inline"
+                                                },
+                                                on: { click: _vm.previous }
+                                              },
+                                              [_vm._v("Kembali")]
+                                            ),
+                                            _vm._v(" "),
+                                            index != _vm.listQuestion.length - 1
+                                              ? _c("span", [
+                                                  _c(
+                                                    "button",
+                                                    {
+                                                      staticClass:
+                                                        "btn btn-success btn-shadow btn-rounded mt-3",
+                                                      attrs: {
+                                                        "data-lightbox":
+                                                          "inline"
+                                                      },
+                                                      on: { click: _vm.next }
+                                                    },
+                                                    [_vm._v("Berikutnya")]
+                                                  )
+                                                ])
+                                              : _c("span", [
+                                                  _c(
+                                                    "button",
+                                                    {
+                                                      staticClass:
+                                                        "btn btn-success btn-shadow btn-rounded mt-3",
+                                                      attrs: {
+                                                        type: "submit",
+                                                        "data-lightbox":
+                                                          "inline"
+                                                      }
+                                                    },
+                                                    [_vm._v("Submit")]
+                                                  )
+                                                ])
+                                          ]
+                                        )
+                                      ],
+                                      2
+                                    )
+                                  : _c("div", [
+                                      _vm._m(0, true),
                                       _vm._v(" "),
                                       _c("div", { staticClass: "text-right" }, [
                                         _c(
@@ -6505,118 +6586,73 @@ var render = function() {
                                                   staticClass:
                                                     "btn btn-success btn-shadow btn-rounded mt-3",
                                                   attrs: {
+                                                    type: "submit",
                                                     "data-lightbox": "inline"
-                                                  },
-                                                  on: { click: _vm.submit }
+                                                  }
                                                 },
                                                 [_vm._v("Submit")]
                                               )
                                             ])
                                       ])
-                                    ],
-                                    2
-                                  )
-                                : _c("div", [
-                                    _vm._m(0, true),
-                                    _vm._v(" "),
-                                    _c("div", { staticClass: "text-right" }, [
-                                      _c(
-                                        "button",
-                                        {
-                                          staticClass:
-                                            "btn btn-warning btn-shadow btn-rounded mt-3",
-                                          attrs: { "data-lightbox": "inline" },
-                                          on: { click: _vm.previous }
-                                        },
-                                        [_vm._v("Kembali")]
-                                      ),
-                                      _vm._v(" "),
-                                      index != _vm.listQuestion.length - 1
-                                        ? _c("span", [
-                                            _c(
-                                              "button",
-                                              {
-                                                staticClass:
-                                                  "btn btn-success btn-shadow btn-rounded mt-3",
-                                                attrs: {
-                                                  "data-lightbox": "inline"
-                                                },
-                                                on: { click: _vm.next }
-                                              },
-                                              [_vm._v("Berikutnya")]
-                                            )
-                                          ])
-                                        : _c("span", [
-                                            _c(
-                                              "button",
-                                              {
-                                                staticClass:
-                                                  "btn btn-success btn-shadow btn-rounded mt-3",
-                                                attrs: {
-                                                  "data-lightbox": "inline"
-                                                },
-                                                on: { click: _vm.submit }
-                                              },
-                                              [_vm._v("Submit")]
-                                            )
-                                          ])
                                     ])
-                                  ])
-                            ]
+                              ]
+                            )
+                          ]
+                        )
+                      : _vm._e()
+                  ])
+                }),
+                _vm._v(" "),
+                _c("fieldset", [
+                  _vm.urutan == -2
+                    ? _c(
+                        "div",
+                        {
+                          staticClass: "col-md-8 mt-5",
+                          staticStyle: { margin: "0 auto" }
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "widget text-center border-box p-cb"
+                            },
+                            [
+                              _c("i", {
+                                staticClass:
+                                  "fa fa-4x mb-3 fa-check-circle text-success"
+                              }),
+                              _vm._v(" "),
+                              _c("h2", { staticClass: "survey-title" }, [
+                                _vm._v("Sukses")
+                              ]),
+                              _vm._v(" "),
+                              _c("p", { staticClass: "mt-4" }, [
+                                _vm._v("Terimakasih telah mengikuti survey")
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "router-link",
+                                {
+                                  staticClass:
+                                    "btn btn-warning btn-shadow btn-rounded mt-3",
+                                  attrs: { to: "/", "data-lightbox": "inline" }
+                                },
+                                [_vm._v("Kembali ke halaman utama")]
+                              )
+                            ],
+                            1
                           )
                         ]
                       )
                     : _vm._e()
                 ])
-              }),
-              _vm._v(" "),
-              _c("fieldset", [
-                _vm.urutan == -2
-                  ? _c(
-                      "div",
-                      {
-                        staticClass: "col-md-8 mt-5",
-                        staticStyle: { margin: "0 auto" }
-                      },
-                      [
-                        _c(
-                          "div",
-                          { staticClass: "widget text-center border-box p-cb" },
-                          [
-                            _c("i", {
-                              staticClass:
-                                "fa fa-4x mb-3 fa-check-circle text-success"
-                            }),
-                            _vm._v(" "),
-                            _c("h2", { staticClass: "survey-title" }, [
-                              _vm._v("Sukses")
-                            ]),
-                            _vm._v(" "),
-                            _c("p", { staticClass: "mt-4" }, [
-                              _vm._v("Terimakasih telah mengikuti survey")
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "router-link",
-                              {
-                                staticClass:
-                                  "btn btn-warning btn-shadow btn-rounded mt-3",
-                                attrs: { to: "/", "data-lightbox": "inline" }
-                              },
-                              [_vm._v("Kembali ke halaman utama")]
-                            )
-                          ],
-                          1
-                        )
-                      ]
-                    )
-                  : _vm._e()
-              ])
-            ],
-            2
-          )
-        : _vm._e()
-    ])
+              ],
+              2
+            )
+          : _vm._e()
+      ]
+    )
   ])
 }
 var staticRenderFns = [

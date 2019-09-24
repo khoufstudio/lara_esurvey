@@ -17,6 +17,10 @@ const baseRoutes = [
 		component: require('./components/Homepage.vue').default
 	},
 	{
+		path: '/survey', 
+		component: require('./components/Homepage.vue').default
+	},
+	{
 		path: '/admin/developer', 
 		component: require('./components/Developer.vue').default
 	},

@@ -10,7 +10,8 @@
 					<a :href="'/survey/' + ls.id">{{ ls.nama }}</a>
 				</li>
 				<li class="text-center no-data" v-if="listSurvey.length === 0">
-					<h4>Belum ada data</h4>
+					<i class="fa-3x text-muted mb-4 icon-alert-circle"></i>
+					<h4 class="text-muted">Survey tidak tersedia</h4>
 				</li>
 			</ul>
 
@@ -32,7 +33,7 @@
 		},
 		methods: {
 			getApi: function() {
-				axios.get("api/survey")
+				axios.get("/api/survey")
 					.then(({data}) => {
 						this.listSurvey = data.data
 					})

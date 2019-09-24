@@ -14,10 +14,12 @@ use Illuminate\Http\Request;
 */
 
 // Route::group(['middleware' => 'auth:api'], function () {
-    Route::apiResources([
-        'survey' => 'API\SurveyController'
-    ]);
-
+Route::apiResource('survey', 'API\SurveyController');
+// Route::apiResource('survey', 'API\SurveyController')->only('show');
+    // Route::apiResources([
+    //     'survey' => 'API\SurveyController',
+    // ]);
+// ->only(['show'])
     // Route::get('kegiatankomponen', 'API\SurveyController@listkomponen')->name('api.listkomponen');
     Route::post('survey_result', 'API\SurveyController@survey_result')->name('api.survey_result');
 // });

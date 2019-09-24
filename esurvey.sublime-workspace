@@ -1,0 +1,1487 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"for",
+				"foreach\tforeach …"
+			],
+			[
+				"keterangan",
+				"keteranganText\tabc"
+			],
+			[
+				"keter",
+				"keteranganText\tabc"
+			],
+			[
+				"loncat",
+				"loncatKeVal\tabc"
+			],
+			[
+				"kondi",
+				"kondisiVal\tabc"
+			],
+			[
+				"kond",
+				"kondisiText\tabc"
+			],
+			[
+				"route",
+				"routes\t(web.php)"
+			],
+			[
+				"Vue",
+				"VueRouter\tabc"
+			],
+			[
+				"import",
+				"import\tES6 Module Import"
+			],
+			[
+				"impor",
+				"import\t(app.js)"
+			],
+			[
+				"link",
+				"link\tTag"
+			],
+			[
+				"v-t",
+				"vToolbar\tv-toolbar component - Vuetify"
+			],
+			[
+				"conso",
+				"console.log\tabc"
+			],
+			[
+				"arrVal",
+				"arrValTemp\tabc"
+			],
+			[
+				"par",
+				"parseInt\tabc"
+			],
+			[
+				"arr",
+				"arrValidate\tabc"
+			],
+			[
+				"array",
+				"array_push\tabc"
+			],
+			[
+				"jum",
+				"jumlahInput\tabc"
+			],
+			[
+				"jumlah",
+				"jumlah_input\tabc"
+			],
+			[
+				"cons",
+				"console.log\tabc"
+			],
+			[
+				"loncatK",
+				"loncatKe\tabc"
+			],
+			[
+				"kon",
+				"kondisi\tabc"
+			],
+			[
+				"kondisi",
+				"kondisi_jawaban\tabc"
+			],
+			[
+				"val",
+				"value\tabc"
+			],
+			[
+				"jump",
+				"jump_choice"
+			],
+			[
+				"jaw",
+				"jawaban_item"
+			],
+			[
+				"row",
+				"rowspan\tAttr"
+			],
+			[
+				"cols",
+				"colspan\tAttr"
+			],
+			[
+				"wi",
+				"width\tproperty"
+			],
+			[
+				"back",
+				"background-color\tproperty"
+			],
+			[
+				"if",
+				"if\tif"
+			],
+			[
+				"Json",
+				"JSON\tabc"
+			],
+			[
+				"json",
+				"jsonVal\tabc"
+			],
+			[
+				"tangga",
+				"tanggal_masuk\t(create_edit.php)"
+			],
+			[
+				"var",
+				"var_dump\tabc"
+			],
+			[
+				"fun",
+				"fun\tfunction …"
+			],
+			[
+				"tanga",
+				"tanggal_masuk\t(create_edit.php)"
+			],
+			[
+				"con",
+				"console\tabc"
+			],
+			[
+				"com",
+				"component\tabc"
+			],
+			[
+				"comp",
+				"component-test\tabc"
+			],
+			[
+				"l",
+				"lastname\tabc"
+			],
+			[
+				"vu",
+				"vue\tvue"
+			],
+			[
+				"ve",
+				"vue-cdn\tcdn"
+			],
+			[
+				"Re",
+				"Request\tabc"
+			],
+			[
+				"user",
+				"userId\tabc"
+			],
+			[
+				"de",
+				"default\tabc"
+			],
+			[
+				"draft",
+				"draftMateri\tabc"
+			],
+			[
+				"kegiata",
+				"kegiatan_id\tabc"
+			],
+			[
+				"checkbox",
+				"checkbox-container\tabc"
+			],
+			[
+				"choic",
+				"choices\tabc"
+			],
+			[
+				"choi",
+				"choices\tabc"
+			],
+			[
+				"clog",
+				"console.log\tabc"
+			],
+			[
+				"tex",
+				"textPertanyaan\tabc"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "Modules/Survey/Resources/views/create_edit2.blade.php",
+			"settings":
+			{
+				"buffer_size": 27241,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Modules/Survey/Http/Controllers/SurveyController.php",
+			"settings":
+			{
+				"buffer_size": 8251,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "esurvey.sublime-project",
+			"settings":
+			{
+				"buffer_size": 146,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Modules/Survey/Entities/SurveyCondition.php",
+			"settings":
+			{
+				"buffer_size": 203,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix",
+				"name": "Xdebug Context",
+				"read_only": true,
+				"scratch": true
+			}
+		},
+		{
+			"contents": "",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix",
+				"name": "Xdebug Watch",
+				"read_only": true,
+				"scratch": true
+			}
+		},
+		{
+			"contents": "",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix",
+				"name": "Xdebug Stack",
+				"read_only": true,
+				"scratch": true
+			}
+		},
+		{
+			"contents": "=> /var/www/html/bit/lara_esurvey/Modules/Survey/Http/Controllers/SurveyController.php\n\t|+| 57\n\t|+| 108\n",
+			"settings":
+			{
+				"buffer_size": 104,
+				"line_ending": "Unix",
+				"name": "Xdebug Breakpoint",
+				"read_only": true,
+				"scratch": true
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"setti",
+				"Preferences: Settings"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"seting",
+				"Preferences: Settings"
+			],
+			[
+				"materia",
+				"Material Theme: Activate theme"
+			],
+			[
+				"scheme",
+				"UI: Select Color Scheme"
+			],
+			[
+				"prefr",
+				"Preferences: Settings"
+			],
+			[
+				"prefre",
+				"Preferences: Settings"
+			],
+			[
+				"sett",
+				"Preferences: Settings"
+			],
+			[
+				"setting",
+				"Preferences: Settings"
+			],
+			[
+				"keyb",
+				"Preferences: Terminal Key Bindings – User"
+			],
+			[
+				"keybi",
+				"Preferences: Key Bindings"
+			],
+			[
+				"key defau",
+				"Preferences: Terminal Key Bindings – Default"
+			],
+			[
+				"keyus",
+				"Preferences: Terminal Key Bindings – User"
+			],
+			[
+				"settings",
+				"Preferences: Settings"
+			],
+			[
+				"html",
+				"Set Syntax: HTML"
+			],
+			[
+				"bind",
+				"Preferences: Key Bindings"
+			],
+			[
+				"COLO",
+				"Color Picker"
+			],
+			[
+				"color",
+				"Color Picker"
+			],
+			[
+				"menu",
+				"View: Toggle Menu"
+			],
+			[
+				"P",
+				"Preferences: Settings"
+			],
+			[
+				"p",
+				"Preferences: Settings"
+			],
+			[
+				"termi",
+				"Terminus: Toggle Panel"
+			],
+			[
+				"termin",
+				"Terminus: Toggle Panel"
+			],
+			[
+				"artirou",
+				"Laravel Artisan 5: Route:List"
+			],
+			[
+				"TERMI",
+				"Terminus: Close"
+			],
+			[
+				"key",
+				"Preferences: Key Bindings"
+			],
+			[
+				"terminus",
+				"Terminus: Toggle Panel"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 143.0,
+		"history":
+		[
+			"termius"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/var/www/html/bit/lara_esurvey"
+	],
+	"file_history":
+	[
+		"/var/www/html/bit/lara_esurvey/Modules/Survey/Database/Migrations/2019_09_12_072307_create_survey_conditions_table.php",
+		"/var/www/html/bit/lara_esurvey/.env",
+		"/var/www/html/bit/lara_esurvey/Modules/Survey/Resources/views/create_edit.blade.php",
+		"/var/www/html/bit/lara_emateri/vendor/symfony/console/Helper/Helper.php",
+		"/var/www/html/bit/lara_emateri/Modules/BankMateri/Http/Controllers/BankMateriController.php",
+		"/var/www/html/bit/lara_emateri/Modules/BankMateri/Resources/views/index.blade.php",
+		"/var/www/html/bit/lara_emateri/Modules/BankMateri/Resources/views/create_edit.blade.php",
+		"/var/www/html/bit/lara_emateri/Modules/Kegiatan/Http/Controllers/KegiatanController.php",
+		"/var/www/html/bit/lara_emateri/Modules/Users/Http/Controllers/UsersController.php",
+		"/var/www/html/bit/lara_emateri/Modules/Users/Database/Migrations/2019_03_13_040017_create_users_table.php",
+		"/var/www/html/bit/lara_esurvey/Modules/Survey/Http/Controllers/SurveyController.php",
+		"/var/www/html/bit/lara_esurvey/Modules/BankMateri/Resources/views/create_edit.blade.php",
+		"/var/www/html/bit/lara_esurvey/Modules/VideoGallery/Database/Migrations/2019_04_15_080033_create_video_galleries_table.php",
+		"/var/www/html/myprojects/siskeu/application/modules/dashboard/controllers/Dashboard.php",
+		"/var/www/html/myprojects/siskeu/application/modules/data_karyawan/controllers/Data_karyawan.php",
+		"/var/www/html/myprojects/siskeu/application/modules/data_karyawan/views/create_edit.php",
+		"/var/www/html/myprojects/siskeu/application/config/routes.php",
+		"/var/www/html/myprojects/siskeu/application/modules/data_transaksi/controllers/Data_transaksi.php",
+		"/var/www/html/myprojects/siskeu/application/modules/data_transaksi/views/create_edit.php",
+		"/var/www/html/myprojects/siskeu/application/modules/data_pelanggan/views/create_edit.php",
+		"/var/www/html/myprojects/siskeu/application/modules/dashboard/views/index.php",
+		"/home/rizqy/.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap",
+		"/home/rizqy/.config/sublime-text-3/Packages/Default/Default (Linux).sublime-keymap",
+		"/home/rizqy/.config/sublime-text-3/Packages/Terminal/Default (Linux).sublime-keymap",
+		"/var/www/html/bit/lara_esurvey/Modules/Survey/Database/Migrations/2019_08_26_044738_create_survey_questions_table.php",
+		"/var/www/html/bit/lara_esurvey/Modules/Survey/Database/Migrations/2019_08_26_044900_create_survey_answers_table.php",
+		"/var/www/html/bit/esurveygithub/resources/views/layouts/backend/master.blade.php",
+		"/var/www/html/bit/esurveygithub/public/js/app.js",
+		"/var/www/html/bit/esurveygithub/resources/js/app.js",
+		"/var/www/html/bit/lara_emateri_gitlab/lara_emateri/Modules/Kegiatan/Entities/Kegiatan.php",
+		"/var/www/html/bit/lara_emateri_gitlab/lara_emateri/Modules/DraftMateri/Http/Controllers/DraftMateriController.php",
+		"/var/www/html/bit/lara_emateri_gitlab/lara_emateri/Modules/DraftMateri/Resources/views/create_edit.blade.php",
+		"/var/www/html/bit/lara_emateri_gitlab/lara_emateri/Modules/BankMateri/Resources/views/index.blade.php",
+		"/var/www/html/bit/lara_emateri_gitlab/lara_emateri/Modules/Kegiatan/Database/Migrations/2019_05_21_071713_create_kegiatan_table.php",
+		"/var/www/html/bit/lara_emateri_gitlab/lara_emateri/Modules/Kegiatan/Resources/views/index.blade.php",
+		"/var/www/html/bit/lara_emateri_gitlab/lara_emateri/Modules/BankMateri/Routes/web.php",
+		"/var/www/html/bit/lara_emateri_gitlab/lara_emateri/Modules/Kegiatan/Http/Controllers/KegiatanController.php",
+		"/var/www/html/bit/lara_emateri_gitlab/lara_emateri/Modules/Kegiatan/Routes/web.php",
+		"/var/www/html/bit/lara_emateri_gitlab/lara_emateri/Modules/BankMateri/Http/Controllers/BankMateriController.php",
+		"/var/www/html/bit/lara_emateri_gitlab/lara_emateri/Modules/DraftMateriSahmen/Resources/views/create_edit.blade.php",
+		"/var/www/html/bit/lara_emateri_gitlab/lara_emateri/Modules/TiketKegiatan/Http/Controllers/TiketKegiatanController.php",
+		"/var/www/html/bit/lara_emateri_gitlab/lara_emateri/Modules/Kegiatan/Resources/views/create_edit.blade.php",
+		"/var/www/html/bit/lara_emateri_gitlab/lara_emateri/Modules/BankMateri/webpack.mix.js",
+		"/var/www/html/bit/lara_emateri_gitlab/lara_emateri/Modules/BankMateri/Resources/views/create_edit.blade.php",
+		"/var/www/html/bit/lara_emateri_gitlab/lara_emateri/Modules/DraftMateriSahmen/Http/Controllers/DraftMateriSahmenController.php",
+		"/var/www/html/bit/lara_emateri_gitlab/lara_emateri/app/User.php",
+		"/var/www/html/bit/lara_emateri_gitlab/lara_emateri/Modules/LoginAdmin/Resources/views/index.blade.php",
+		"/var/www/html/bit/lara_emateri_gitlab/lara_emateri/database/seeds/RolesTableSeeder.php",
+		"/var/www/html/myprojects/siskeu2/application/modules/data_transaksi/views/create_edit.php",
+		"/var/www/html/bit/lara_esurvey/Modules/Survey/Resources/views/index.blade.php",
+		"/var/www/html/tutorial/laravel/laravel-survey/app/Surveys.php",
+		"/var/www/html/tutorial/laravel/laravel-survey/config/app.php",
+		"/var/www/html/tutorial/laravel/laravel-survey/vendor/symfony/routing/Route.php",
+		"/var/www/html/tutorial/laravel/laravel-survey/routes/web.php",
+		"/var/www/html/tutorial/laravel/laravue/config/app.php",
+		"/var/www/html/bit/coreweblaravel_react/public/js/app.js",
+		"/var/www/html/laravel/laravue/resources/js/app.js",
+		"/var/www/html/laravel/laravue/resources/views/welcome.blade.php",
+		"/var/www/html/laravel/laravue/resources/js/components/CrudComponent.vue",
+		"/var/www/html/bit/lara_emateri/Modules/BankMateri/module.json",
+		"/var/www/html/bit/lara_sitasrat/Modules/BangunanDesa/webpack.mix.js",
+		"/home/rizqy/Documents/react-native/emateri_react/android/app/build.gradle"
+	],
+	"find":
+	{
+		"height": 30.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"condition",
+			"jump",
+			"condition",
+			"survey_answer_id",
+			"integer",
+			"increments",
+			"        \n",
+			"jump_nav",
+			"jump_na",
+			"in",
+			"jump_nav",
+			"modal-cb-rb-simpan",
+			"toStri",
+			"jsonSurveLogic",
+			"modal-cb-rb-simpan",
+			"jump_nav",
+			"Exit",
+			"jump_nav",
+			"[0]",
+			".editx"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "Modules/Survey/Resources/views/create_edit2.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 27241,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								15227,
+								15227
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Laravel Blade Highlighter/blade.sublime-syntax"
+						},
+						"translation.x": 261.0,
+						"translation.y": 6557.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Modules/Survey/Http/Controllers/SurveyController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8251,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1514,
+								1514
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 910.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "esurvey.sublime-project",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 146,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								100,
+								100
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "Modules/Survey/Entities/SurveyCondition.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 203,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								166,
+								166
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 4,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"default_dir": "/var/www/html/bit/lara_esurvey",
+							"syntax": "Packages/Xdebug Client/Xdebug.tmLanguage",
+							"word_wrap": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"default_dir": "/var/www/html/bit/lara_esurvey",
+							"syntax": "Packages/Xdebug Client/Xdebug.tmLanguage",
+							"word_wrap": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 6,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"default_dir": "/var/www/html/bit/lara_esurvey",
+							"syntax": "Packages/Xdebug Client/Xdebug.tmLanguage",
+							"word_wrap": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 104,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								104,
+								104
+							]
+						],
+						"settings":
+						{
+							"default_dir": "/var/www/html/bit/lara_esurvey",
+							"syntax": "Packages/Xdebug Client/Xdebug.tmLanguage",
+							"word_wrap": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 30.0
+	},
+	"input":
+	{
+		"height": 43.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				2,
+				1
+			],
+			[
+				0,
+				1,
+				1,
+				2
+			],
+			[
+				1,
+				1,
+				2,
+				2
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.5,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			0.7,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.Terminus":
+	{
+		"height": 114.0
+	},
+	"output.exec":
+	{
+		"height": 639.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.xdebug":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "esurvey.sublime-project",
+	"replace":
+	{
+		"height": 56.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"surveycondi",
+				"Modules/Survey/Entities/SurveyCondition.php"
+			],
+			[
+				"surveycond",
+				"Modules/Survey/Database/Migrations/2019_09_12_072307_create_survey_conditions_table.php"
+			],
+			[
+				".env",
+				".env"
+			],
+			[
+				"surveycontro",
+				"Modules/Survey/Http/Controllers/SurveyController.php"
+			],
+			[
+				"surveycreated",
+				"Modules/Survey/Resources/views/create_edit2.blade.php"
+			],
+			[
+				"app.bl",
+				"resources/views/app.blade.php"
+			],
+			[
+				"app",
+				"resources/js/app.js"
+			],
+			[
+				"App",
+				"resources/js/views/App.vue"
+			],
+			[
+				"webpac",
+				"webpack.mix.js"
+			],
+			[
+				"App.vue",
+				"resources/js/views/App.vue"
+			],
+			[
+				"home.",
+				"resources/js/components/Home.vue"
+			],
+			[
+				"routewe",
+				"routes/web.php"
+			],
+			[
+				"created2",
+				"Modules/Survey/Resources/views/create_edit2.blade.php"
+			],
+			[
+				"surveycreate",
+				"Modules/Survey/Resources/views/create_edit.blade.php"
+			],
+			[
+				"createedit2",
+				"Modules/Survey/Resources/views/create_edit2.blade.php"
+			],
+			[
+				"helper",
+				"vendor/symfony/console/Helper/Helper.php"
+			],
+			[
+				"userindex",
+				"Modules/Users/Resources/views/index.blade.php"
+			],
+			[
+				"usercont",
+				"Modules/Users/Http/Controllers/UsersController.php"
+			],
+			[
+				"kegiatancontr",
+				"Modules/Kegiatan/Http/Controllers/KegiatanController.php"
+			],
+			[
+				"bankmatericreate",
+				"Modules/BankMateri/Resources/views/create_edit.blade.php"
+			],
+			[
+				"bankmaterind",
+				"Modules/BankMateri/Resources/views/index.blade.php"
+			],
+			[
+				"usertable",
+				"Modules/Users/Database/Migrations/2019_03_13_040017_create_users_table.php"
+			],
+			[
+				"usertab",
+				"Modules/Users/Database/Migrations/2019_03_13_040017_create_users_table.php"
+			],
+			[
+				"bankmatercreate",
+				"Modules/BankMateri/Resources/views/create_edit.blade.php"
+			],
+			[
+				"bankmateric",
+				"Modules/BankMateri/Http/Controllers/BankMateriController.php"
+			],
+			[
+				"createedit",
+				"Modules/BankMateri/Resources/views/create_edit.blade.php"
+			],
+			[
+				"surveycontrol",
+				"Modules/Survey/Http/Controllers/SurveyController.php"
+			],
+			[
+				"videocr",
+				"Modules/VideoGallery/Database/Migrations/2019_04_15_080033_create_video_galleries_table.php"
+			],
+			[
+				"data_karyind",
+				"application/modules/data_karyawan/views/index.php"
+			],
+			[
+				"jurnal",
+				"application/modules/jurnal/controllers/Jurnal.php"
+			],
+			[
+				"datakar",
+				"application/modules/data_karyawan/controllers/Data_karyawan.php"
+			],
+			[
+				"datakarcre",
+				"application/modules/data_karyawan/views/create_edit.php"
+			],
+			[
+				"routes",
+				"application/config/routes.php"
+			],
+			[
+				"create",
+				"application/modules/data_transaksi/views/create_edit.php"
+			],
+			[
+				"karycre",
+				"application/modules/data_karyawan/views/create_edit.php"
+			],
+			[
+				"transak",
+				"application/modules/data_transaksi/controllers/Data_transaksi.php"
+			],
+			[
+				"datatrans",
+				"application/modules/data_transaksi/controllers/Data_transaksi.php"
+			],
+			[
+				"datatranscreat",
+				"application/modules/data_transaksi/views/create_edit.php"
+			],
+			[
+				"datapelang",
+				"application/modules/data_pelanggan/views/create_edit.php"
+			],
+			[
+				"datakaryin",
+				"application/modules/data_karyawan/views/index.php"
+			],
+			[
+				"datakaryc",
+				"application/modules/data_karyawan/views/create_edit.php"
+			],
+			[
+				"datakaryawa",
+				"application/modules/data_karyawan/controllers/Data_karyawan.php"
+			],
+			[
+				"dashboard",
+				"application/modules/dashboard/controllers/Dashboard.php"
+			],
+			[
+				"kegiatan ",
+				"database/seeds/KegiatanTableSeeder.php"
+			],
+			[
+				"surveycon",
+				"Modules/Survey/Http/Controllers/SurveyController.php"
+			],
+			[
+				"kegiatanind",
+				"Modules/Kegiatan/Resources/views/index.blade.php"
+			],
+			[
+				"matericreate",
+				"Modules/BankMateri/Resources/views/create_edit.blade.php"
+			],
+			[
+				"blogcontro",
+				"Modules/Blog/Http/Controllers/BlogController.php"
+			],
+			[
+				"blogcreateedit",
+				"Modules/Blog/Resources/views/create_edit.blade.php"
+			],
+			[
+				"int",
+				"introduction.html"
+			],
+			[
+				"survrycont",
+				"Modules/Survey/Http/Controllers/SurveyController.php"
+			],
+			[
+				"survecreate",
+				"Modules/Survey/Resources/views/create_edit.blade.php"
+			],
+			[
+				"js/app",
+				"resources/js/app.js"
+			],
+			[
+				"backend blade",
+				"resources/views/layouts/backend/master.blade.php"
+			],
+			[
+				"survercreate",
+				"Modules/Survey/Resources/views/create_edit.blade.php"
+			],
+			[
+				"draftma",
+				"Modules/DraftMateri/Http/Controllers/DraftMateriController.php"
+			],
+			[
+				"",
+				"Modules/Kegiatan/Entities/Kegiatan.php"
+			],
+			[
+				"bankm",
+				"Modules/BankMateri/Http/Controllers/BankMateriController.php"
+			],
+			[
+				"bakmater",
+				"Modules/BankMateri/Http/Controllers/BankMateriController.php"
+			],
+			[
+				"kegiatan",
+				"Modules/Kegiatan/Entities/Kegiatan.php"
+			],
+			[
+				"indexad",
+				"Modules/Kegiatan/Resources/views/index_admin.blade.php"
+			],
+			[
+				"kegiatain",
+				"Modules/Kegiatan/Resources/views/index.blade.php"
+			],
+			[
+				"kegiat",
+				"Modules/Kegiatan/Http/Controllers/KegiatanController.php"
+			],
+			[
+				"bankmate",
+				"Modules/BankMateri/Http/Controllers/BankMateriController.php"
+			],
+			[
+				"kegitanc",
+				"Modules/Kegiatan/Http/Controllers/KegiatanController.php"
+			],
+			[
+				"kegiatancont",
+				"Modules/Kegiatan/Http/Controllers/KegiatanController.php"
+			],
+			[
+				"kegiatanweb",
+				"Modules/Kegiatan/Routes/web.php"
+			],
+			[
+				"bankmaterweb",
+				"Modules/BankMateri/Routes/web.php"
+			],
+			[
+				"bankmateriind",
+				"Modules/BankMateri/Resources/views/index.blade.php"
+			],
+			[
+				"bankmateriweb",
+				"Modules/BankMateri/webpack.mix.js"
+			],
+			[
+				"bankmateri",
+				"Modules/BankMateri/Http/Controllers/BankMateriController.php"
+			],
+			[
+				"kegiatanco",
+				"Modules/Kegiatan/Http/Controllers/KegiatanController.php"
+			],
+			[
+				"bankmatecreate",
+				"Modules/BankMateri/Resources/views/create_edit.blade.php"
+			],
+			[
+				"kegiatanindex",
+				"Modules/Kegiatan/Resources/views/index.blade.php"
+			],
+			[
+				"User",
+				"app/User.php"
+			],
+			[
+				"kegiatancon",
+				"Modules/Kegiatan/Http/Controllers/KegiatanController.php"
+			],
+			[
+				"Kegiatan",
+				"Modules/Kegiatan/Entities/Kegiatan.php"
+			],
+			[
+				"tabkegiatan",
+				"Modules/Kegiatan/Database/Migrations/2019_05_21_071713_create_kegiatan_table.php"
+			],
+			[
+				"tiketkegiatan",
+				"Modules/TiketKegiatan/Http/Controllers/TiketKegiatanController.php"
+			],
+			[
+				"draftmatercreate",
+				"Modules/DraftMateri/Resources/views/create_edit.blade.php"
+			],
+			[
+				"draftmatersahmencreate",
+				"Modules/DraftMateriSahmen/Resources/views/create_edit.blade.php"
+			],
+			[
+				"draftmaterisah",
+				"Modules/DraftMateriSahmen/Http/Controllers/DraftMateriSahmenController.php"
+			],
+			[
+				"draftm",
+				"Modules/DraftMateri/Http/Controllers/DraftMateriController.php"
+			],
+			[
+				"rolestab",
+				"database/seeds/RolesTableSeeder.php"
+			],
+			[
+				"tikec",
+				"Modules/TiketKegiatan/Http/Controllers/TiketKegiatanController.php"
+			],
+			[
+				"loginadmiind",
+				"Modules/LoginAdmin/Resources/views/index.blade.php"
+			],
+			[
+				"draftmcreate",
+				"Modules/DraftMateri/Resources/views/create_edit.blade.php"
+			],
+			[
+				"draftmatecreate",
+				"Modules/DraftMateri/Resources/views/create_edit.blade.php"
+			],
+			[
+				"datacreate",
+				"application/modules/data_karyawan/views/create_edit.php"
+			],
+			[
+				"datakary",
+				"application/modules/data_karyawan/controllers/Data_karyawan.php"
+			],
+			[
+				"datakaryaind",
+				"application/modules/data_karyawan/views/v_index.php"
+			],
+			[
+				"sidbar",
+				"application/views/_partials/sidebar.php"
+			],
+			[
+				"transaksind",
+				"application/modules/data_transaksi/views/index.php"
+			],
+			[
+				"datatrancreat",
+				"application/modules/data_transaksi/views/create_edit.php"
+			],
+			[
+				"surveyc",
+				"Modules/Survey/Resources/views/create_edit.blade.php"
+			],
+			[
+				"surveycre",
+				"Modules/Survey/Resources/views/create_edit.blade.php"
+			],
+			[
+				"survind",
+				"Modules/Survey/Resources/views/index.blade.php"
+			],
+			[
+				"buat",
+				"adm/buat-survey_f_js.php"
+			],
+			[
+				"rou",
+				"router.html"
+			],
+			[
+				"loginc",
+				"app/Http/Controllers/Auth/LoginController.php"
+			],
+			[
+				"configapp",
+				"config/app.php"
+			],
+			[
+				"survey",
+				"app/Surveys.php"
+			],
+			[
+				"HomeController",
+				"app/Http/Controllers/HomeController.php"
+			],
+			[
+				"route",
+				"vendor/symfony/routing/Route.php"
+			],
+			[
+				"home",
+				"app/Http/Controllers/HomeController.php"
+			],
+			[
+				"laporan",
+				"application/modules/laporankeuangan/controllers/Laporankeuangan.php"
+			],
+			[
+				"app.js",
+				"resources/js/app.js"
+			],
+			[
+				"web",
+				"webpack.mix.js"
+			],
+			[
+				"master",
+				"resources/views/layouts/backend/master.blade.php"
+			],
+			[
+				"userta",
+				"Modules/Users/Database/Migrations/2019_03_13_040017_create_users_table.php"
+			],
+			[
+				"crudv",
+				"resources/js/components/CrudComponent.vue"
+			],
+			[
+				"crudcompo",
+				"resources/js/components/CrudComponent.vue"
+			],
+			[
+				"crudcon",
+				"app/Http/Controllers/CrudController.php"
+			],
+			[
+				"api",
+				"routes/api.php"
+			],
+			[
+				"logincontro",
+				"app/Http/Controllers/API/LoginController.php"
+			],
+			[
+				"kegiatanapi",
+				"Modules/Kegiatan/Routes/api.php"
+			],
+			[
+				"draftapi",
+				"Modules/DraftMateri/Routes/api.php"
+			],
+			[
+				"bankmater",
+				"Modules/BankMateri/Http/Controllers/API/BankMateriController.php"
+			],
+			[
+				"bangunadewe",
+				"Modules/BangunanDesa/Routes/web.php"
+			],
+			[
+				"bangundweb",
+				"Modules/BangunanDesa/webpack.mix.js"
+			],
+			[
+				"bangunandesaind",
+				"Modules/BangunanDesa/Resources/views/index.blade.php"
+			],
+			[
+				"bangunandesa",
+				"Modules/BangunanDesa/Http/Controllers/BangunanDesaController.php"
+			],
+			[
+				"banguncreate",
+				"Modules/BangunanDesa/Resources/views/create_edit.blade.php"
+			],
+			[
+				"login",
+				"app/pages/Login.js"
+			],
+			[
+				"build.",
+				"android/app/build.gradle"
+			],
+			[
+				"gradl",
+				"android/gradle.properties"
+			],
+			[
+				"bangunan",
+				"Modules/BangunanDesa/Entities/BangunanDesa.php"
+			],
+			[
+				"script",
+				"dist/script.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+		"xdebug":
+		{
+			"hide_conflict": false,
+			"restore_index":
+			{
+				"142":
+				{
+					"group": 0,
+					"index": 1
+				},
+				"154":
+				{
+					"group": 0,
+					"index": 3
+				},
+				"157":
+				{
+					"group": 0,
+					"index": 2
+				},
+				"40":
+				{
+					"group": 0,
+					"index": 0
+				}
+			},
+			"restore_layout":
+			{
+				"cells":
+				[
+					[
+						0,
+						0,
+						1,
+						1
+					]
+				],
+				"cols":
+				[
+					0.0,
+					1.0
+				],
+				"rows":
+				[
+					0.0,
+					1.0
+				]
+			}
+		}
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 289.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

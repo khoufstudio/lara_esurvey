@@ -1,0 +1,17 @@
+{
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "/var/www/html/bit/lara_esurvey"
+		}
+	],
+	"settings": {
+		"xdebug": {
+			"url": "http://localhost:8000/",
+			"super_globals": false,
+            "close_on_stop": true,
+            "max_depth": 1
+		}
+	}
+}

@@ -1,9 +1,6 @@
 <template>
 	<div class="content">
-		<!-- <form id="msform" action="#"> -->
-		<!-- <form id="msform" action="#" @submit.prevent="submit" method="post"> -->
 		<form id="msform" action="#" @submit="submit($event)" method="post">
-			<!-- <div v-if="!loading && listQuestion.length > 0"> -->
 			<div v-if="!loading">
 				<fieldset>
 					<div class="col-md-8 mt-5" style="margin: 0 auto;" v-if="urutan == -1">
@@ -24,7 +21,11 @@
 								<label class="p-radio p-radio radio-color-secondary text-left" v-for="ans in lq.answer">
 									<span class="ml-3">{{ ans.jawaban }}</span>
 									<input type="radio" name="pertanyaanradio" :value="ans.urutan-1" v-model="checkedRadio">
-									<!-- <input type="radio" name="pertanyaanradio" :value="ans.urutan" v-model="checkedRadio"> -->
+									<span class="p-radio-style"></span>
+								</label>
+								<label class="p-radio p-radio radio-color-secondary text-left">
+									<span class="ml-3">Other: </span>
+									<input type="radio" name="pertanyaanradio" :value="3">
 									<span class="p-radio-style"></span>
 								</label>
 								<div class="text-right">
@@ -60,7 +61,7 @@
 							
 							<div v-else>
 								<div class="form-group">
-									<input type="text" class="form-control" id="inputtext">
+									<input type="text" class="form-control" id="inputtext" v-model="inputText">
 								</div>
 								<div class="text-right">
 									<button @click="previous" data-lightbox="inline" class="btn btn-warning btn-shadow btn-rounded mt-3">Kembali</button>
@@ -107,6 +108,7 @@ export default {
 				urutan: -1,
 				checkedCheckbox: [],
 				checkedRadio: '',
+				inputText: '',
 				backTo: '',
 				surveyId: null, // untuk submit database
 				jawaban: [] // untuk submit database
@@ -114,16 +116,19 @@ export default {
 		},
 		methods: {
 			getApi: function() {
+				// let idSurvey = (this.id > 0) ? this.id : 'a'
+				// axios.get("/api/survey/" + idSurvey)
 				axios.get("/api/survey/" + this.id)
 					.then(({data}) => {
 						this.listSurvey = data.data
 						this.listQuestion = data.question_answer
 						this.surveyId = data.data.id
-						console.log(data.data.id)
+						console.log(data.data)
 						// console.log(data.data.id)
 					})
 					.catch(error => {
-						console.log(error)
+						// console.log(error)
+						this.$router.push('/') 
 					})
 					.finally(() => this.loading = false)
 			},
@@ -136,28 +141,38 @@ export default {
 					// soalJawaban.urutan = this.urutan;
 					
 					var tipePertanyaan = this.listQuestion[this.urutan].tipe_pertanyaan;
+					console.log(tipePertanyaan)
+					
+					// masukin pertanyaan
+					if (tipePertanyaan == "radiogroup") {
+						var jawabanRadio = parseInt(this.checkedRadio);
+						var jawabanJSON = new Object()
+						jawabanJSON.urutan = this.urutan
+						jawabanJSON.jawaban = jawabanRadio
+						this.jawaban.push(jawabanJSON)
+						// this.jawaban.push(`${this.urutan}, ${jawabanRadio}`)
+					} else if (tipePertanyaan == "checkbox") {
+						var jawabanJSON = new Object()
+						var jawabanCheckbox = this.checkedCheckbox;
+						jawabanJSON.urutan = this.urutan
+						jawabanJSON.jawaban = jawabanCheckbox
+						this.jawaban.push(jawabanJSON)
+						// this.jawaban.push(`${this.urutan}, ${jawabanCheckbox}`)
+					} else if (tipePertanyaan == "text") {
+						var jawabanJSON = new Object()
+						var jawabanText = this.inputText;
+						console.log(this.inputText)
+						jawabanJSON.urutan = this.urutan
+						jawabanJSON.jawaban = jawabanText
+						this.jawaban.push(jawabanJSON)
+					}
+					
 
 					var condition = question.condition;
 
 					if (typeof condition !== undefined && condition.length)  {
 						// var jawabanRadio = parseInt(this.checkedRadio)-1;
 						var jawabanRadio = parseInt(this.checkedRadio);
-
-						// masukin pertanyaan
-						if (tipePertanyaan == "radiogroup") {
-							var jawabanJSON = new Object()
-							jawabanJSON.urutan = this.urutan
-							jawabanJSON.jawaban = jawabanRadio
-							this.jawaban.push(jawabanJSON)
-							// this.jawaban.push(`${this.urutan}, ${jawabanRadio}`)
-						} else if (tipePertanyaan == "checkbox") {
-							var jawabanJSON = new Object()
-							var jawabanCheckbox = this.checkedCheckbox;
-							jawabanJSON.urutan = this.urutan
-							jawabanJSON.jawaban = jawabanCheckbox
-							this.jawaban.push(jawabanJSON)
-							// this.jawaban.push(`${this.urutan}, ${jawabanCheckbox}`)
-						}
 
 						for (var i = 0; i < condition.length; i++) {
 							var loncatKe = condition[i].jump;
@@ -233,9 +248,10 @@ export default {
 			},
 			submit: function(e) {
 				e.preventDefault()
-				
+
 				// save last value
 				var jawabanSend = JSON.stringify(this.jawaban)
+				console.log(jawabanSend)
 				var vm = this
 				
 				// fungsi kirim udah jalan

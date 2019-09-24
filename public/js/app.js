@@ -2232,6 +2232,8 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id'],
   name: 'Survey',
@@ -2243,6 +2245,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       urutan: -1,
       checkedCheckbox: [],
       checkedRadio: '',
+      inputText: '',
       backTo: '',
       surveyId: null,
       // untuk submit database
@@ -2254,13 +2257,17 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     getApi: function getApi() {
       var _this = this;
 
+      // let idSurvey = (this.id > 0) ? this.id : 'a'
+      // axios.get("/api/survey/" + idSurvey)
       axios.get("/api/survey/" + this.id).then(function (_ref) {
         var data = _ref.data;
         _this.listSurvey = data.data;
         _this.listQuestion = data.question_answer;
-        _this.surveyId = data.data.id; // console.log(data.data.id)
+        _this.surveyId = data.data.id;
+        console.log(data.data); // console.log(data.data.id)
       }).catch(function (error) {
-        console.log(error);
+        // console.log(error)
+        _this.$router.push('/');
       }).finally(function () {
         return _this.loading = false;
       });
@@ -2273,24 +2280,34 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         var jawabanContainer; // soalJawaban.urutan = this.urutan;
 
         var tipePertanyaan = this.listQuestion[this.urutan].tipe_pertanyaan;
+        console.log(tipePertanyaan); // masukin pertanyaan
+
+        if (tipePertanyaan == "radiogroup") {
+          var jawabanRadio = parseInt(this.checkedRadio);
+          var jawabanJSON = new Object();
+          jawabanJSON.urutan = this.urutan;
+          jawabanJSON.jawaban = jawabanRadio;
+          this.jawaban.push(jawabanJSON); // this.jawaban.push(`${this.urutan}, ${jawabanRadio}`)
+        } else if (tipePertanyaan == "checkbox") {
+          var jawabanJSON = new Object();
+          var jawabanCheckbox = this.checkedCheckbox;
+          jawabanJSON.urutan = this.urutan;
+          jawabanJSON.jawaban = jawabanCheckbox;
+          this.jawaban.push(jawabanJSON); // this.jawaban.push(`${this.urutan}, ${jawabanCheckbox}`)
+        } else if (tipePertanyaan == "text") {
+          var jawabanJSON = new Object();
+          var jawabanText = this.inputText;
+          console.log(this.inputText);
+          jawabanJSON.urutan = this.urutan;
+          jawabanJSON.jawaban = jawabanText;
+          this.jawaban.push(jawabanJSON);
+        }
+
         var condition = question.condition;
 
         if (_typeof(condition) !== undefined && condition.length) {
           // var jawabanRadio = parseInt(this.checkedRadio)-1;
-          var jawabanRadio = parseInt(this.checkedRadio); // masukin pertanyaan
-
-          if (tipePertanyaan == "radiogroup") {
-            var jawabanJSON = new Object();
-            jawabanJSON.urutan = this.urutan;
-            jawabanJSON.jawaban = jawabanRadio;
-            this.jawaban.push(jawabanJSON); // this.jawaban.push(`${this.urutan}, ${jawabanRadio}`)
-          } else if (tipePertanyaan == "checkbox") {
-            var jawabanJSON = new Object();
-            var jawabanCheckbox = this.checkedCheckbox;
-            jawabanJSON.urutan = this.urutan;
-            jawabanJSON.jawaban = jawabanCheckbox;
-            this.jawaban.push(jawabanJSON); // this.jawaban.push(`${this.urutan}, ${jawabanCheckbox}`)
-          }
+          var jawabanRadio = parseInt(this.checkedRadio);
 
           for (var i = 0; i < condition.length; i++) {
             var loncatKe = condition[i].jump;
@@ -2323,8 +2340,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
               // jawabanContainer = jawabanCheckbox
               // jawaban = jawabanCheckbox.split(",")
 
-              console.log("urutan " + this.urutan);
-              console.log(jawabanContainer); // this.jawaban.push([this.urutan, jawabanContainer])
+              console.log("urutan " + this.urutan); // this.jawaban.push([this.urutan, jawabanContainer])
               // console.log("jawaban " + jawaban)
 
               for (var x = 0; x < jawabanKondisi.length; x++) {
@@ -2363,15 +2379,18 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         this.jawaban.pop();
       }
     },
-    submit: function submit() {
-      // save last value
+    submit: function submit(e) {
+      e.preventDefault(); // save last value
+
       var jawabanSend = JSON.stringify(this.jawaban);
+      console.log(jawabanSend);
       var vm = this; // fungsi kirim udah jalan
 
       axios.post('/api/survey_result', {
-        survey_id: 2,
+        survey_id: this.surveyId,
         jawaban: jawabanSend
       }).then(function (response) {
+        console.log(response);
         vm.urutan = -2;
       }).catch(function (err) {
         console.log(err);
@@ -2473,6 +2492,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2484,7 +2507,7 @@ __webpack_require__.r(__webpack_exports__);
     getApi: function getApi() {
       var _this = this;
 
-      axios.get("api/survey").then(function (_ref) {
+      axios.get("/api/survey").then(function (_ref) {
         var data = _ref.data;
         _this.listSurvey = data.data;
       }).catch(function (error) {
@@ -3326,7 +3349,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n#app {\n\t\tposition: relative;\n}\n#list-survey-container {\n    max-width: 960px;\n    margin: 0px auto;\n    padding-top: 30px;\n}\n.list-survey {\n    background-color: #56aefa;\n    margin-bottom: 20px;\n    position: relative;\n    list-style-type:none;\n}\n.list-survey a {\n\t\tcolor: #FFF;\n    font-size: 20px;\n    display: inline-block;\n    width: 100%;\n    padding: 25px 20px;\n    text-transform: capitalize;\n}\n.list-survey a:hover {\n\t\ttext-decoration: none;\n}\n.loader-container {\n\t\tposition: absolute;\n\t\t/*background-color: blue;*/\n\t\twidth: 100vw;\n\t\theight: 100vh;\n\t\ttop:0;\n\t\tleft: 0;\n\t\tz-index: 10;\n}\n\n\t/* Loader */\n.loader {\n\t  color: #EF6565;\n\t  font-size: 20px;\n\t  margin: 100px auto;\n\t  width: 1em;\n\t  height: 1em;\n\t  border-radius: 50%;\n\t  position: relative;\n\t  text-indent: -9999em;\n\t  -webkit-animation: load4 1.3s infinite linear;\n\t  animation: load4 1.3s infinite linear;\n\t  -webkit-transform: translateZ(0);\n\t  transform: translateZ(0);\n}\n@-webkit-keyframes load4 {\n0%,\n\t  100% {\n\t    box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;\n}\n12.5% {\n\t    box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;\n}\n25% {\n\t    box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;\n}\n37.5% {\n\t    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;\n}\n50% {\n\t    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;\n}\n62.5% {\n\t    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;\n}\n75% {\n\t    box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;\n}\n87.5% {\n\t    box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;\n}\n}\n@keyframes load4 {\n0%,\n\t  100% {\n\t    box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;\n}\n12.5% {\n\t    box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;\n}\n25% {\n\t    box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;\n}\n37.5% {\n\t    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;\n}\n50% {\n\t    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;\n}\n62.5% {\n\t    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;\n}\n75% {\n\t    box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;\n}\n87.5% {\n\t    box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;\n}\n}\t\n", ""]);
+exports.push([module.i, "\n#app {\n\t\tposition: relative;\n}\n#list-survey-container {\n    max-width: 960px;\n    margin: 0px auto;\n    padding-top: 30px;\n}\n.list-survey {\n    background-color: #56aefa;\n    margin-bottom: 20px;\n    position: relative;\n    list-style-type:none;\n}\n.list-survey a {\n\t\tcolor: #FFF;\n    font-size: 20px;\n    display: inline-block;\n    width: 100%;\n    padding: 25px 20px;\n    text-transform: capitalize;\n}\n.list-survey a:hover {\n\t\ttext-decoration: none;\n}\n.no-data {\n\t\tlist-style: none;\n}\n.loader-container {\n\t\tposition: absolute;\n\t\t/*background-color: blue;*/\n\t\twidth: 100vw;\n\t\theight: 100vh;\n\t\ttop:0;\n\t\tleft: 0;\n\t\tz-index: 10;\n}\n\n\t/* Loader */\n.loader {\n\t  color: #EF6565;\n\t  font-size: 20px;\n\t  margin: 100px auto;\n\t  width: 1em;\n\t  height: 1em;\n\t  border-radius: 50%;\n\t  position: relative;\n\t  text-indent: -9999em;\n\t  -webkit-animation: load4 1.3s infinite linear;\n\t  animation: load4 1.3s infinite linear;\n\t  -webkit-transform: translateZ(0);\n\t  transform: translateZ(0);\n}\n@-webkit-keyframes load4 {\n0%,\n\t  100% {\n\t    box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;\n}\n12.5% {\n\t    box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;\n}\n25% {\n\t    box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;\n}\n37.5% {\n\t    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;\n}\n50% {\n\t    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;\n}\n62.5% {\n\t    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;\n}\n75% {\n\t    box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;\n}\n87.5% {\n\t    box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;\n}\n}\n@keyframes load4 {\n0%,\n\t  100% {\n\t    box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;\n}\n12.5% {\n\t    box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;\n}\n25% {\n\t    box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;\n}\n37.5% {\n\t    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;\n}\n50% {\n\t    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;\n}\n62.5% {\n\t    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;\n}\n75% {\n\t    box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;\n}\n87.5% {\n\t    box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;\n}\n}\t\n", ""]);
 
 // exports
 
@@ -6217,10 +6240,9 @@ var render = function() {
     _c(
       "form",
       {
-        attrs: { id: "msform", action: "#" },
+        attrs: { id: "msform", action: "#", method: "post" },
         on: {
           submit: function($event) {
-            $event.preventDefault()
             return _vm.submit($event)
           }
         }
@@ -6359,6 +6381,33 @@ var render = function() {
                                             ]
                                           )
                                         }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "label",
+                                          {
+                                            staticClass:
+                                              "p-radio p-radio radio-color-secondary text-left"
+                                          },
+                                          [
+                                            _c(
+                                              "span",
+                                              { staticClass: "ml-3" },
+                                              [_vm._v("Other: ")]
+                                            ),
+                                            _vm._v(" "),
+                                            _c("input", {
+                                              attrs: {
+                                                type: "radio",
+                                                name: "pertanyaanradio"
+                                              },
+                                              domProps: { value: 3 }
+                                            }),
+                                            _vm._v(" "),
+                                            _c("span", {
+                                              staticClass: "p-radio-style"
+                                            })
+                                          ]
+                                        ),
                                         _vm._v(" "),
                                         _c(
                                           "div",
@@ -6548,7 +6597,33 @@ var render = function() {
                                       2
                                     )
                                   : _c("div", [
-                                      _vm._m(0, true),
+                                      _c("div", { staticClass: "form-group" }, [
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: _vm.inputText,
+                                              expression: "inputText"
+                                            }
+                                          ],
+                                          staticClass: "form-control",
+                                          attrs: {
+                                            type: "text",
+                                            id: "inputtext"
+                                          },
+                                          domProps: { value: _vm.inputText },
+                                          on: {
+                                            input: function($event) {
+                                              if ($event.target.composing) {
+                                                return
+                                              }
+                                              _vm.inputText =
+                                                $event.target.value
+                                            }
+                                          }
+                                        })
+                                      ]),
                                       _vm._v(" "),
                                       _c("div", { staticClass: "text-right" }, [
                                         _c(
@@ -6655,19 +6730,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "text", id: "inputtext" }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -6784,14 +6847,28 @@ var render = function() {
       !_vm.loading
         ? _c(
             "ul",
-            _vm._l(_vm.listSurvey, function(ls) {
-              return _c("li", { staticClass: "list-survey" }, [
-                _c("a", { attrs: { href: "/survey/" + ls.id } }, [
-                  _vm._v(_vm._s(ls.nama))
+            [
+              _vm._l(_vm.listSurvey, function(ls) {
+                return _c("li", { staticClass: "list-survey" }, [
+                  _c("a", { attrs: { href: "/survey/" + ls.id } }, [
+                    _vm._v(_vm._s(ls.nama))
+                  ])
                 ])
-              ])
-            }),
-            0
+              }),
+              _vm._v(" "),
+              _vm.listSurvey.length === 0
+                ? _c("li", { staticClass: "text-center no-data" }, [
+                    _c("i", {
+                      staticClass: "fa-3x text-muted mb-4 icon-alert-circle"
+                    }),
+                    _vm._v(" "),
+                    _c("h4", { staticClass: "text-muted" }, [
+                      _vm._v("Survey tidak tersedia")
+                    ])
+                  ])
+                : _vm._e()
+            ],
+            2
           )
         : _vm._e(),
       _vm._v(" "),
@@ -22747,6 +22824,9 @@ Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 var allRoutes = [];
 var baseRoutes = [{
   path: '/',
+  component: __webpack_require__(/*! ./components/Homepage.vue */ "./resources/js/components/Homepage.vue").default
+}, {
+  path: '/survey',
   component: __webpack_require__(/*! ./components/Homepage.vue */ "./resources/js/components/Homepage.vue").default
 }, {
   path: '/admin/developer',

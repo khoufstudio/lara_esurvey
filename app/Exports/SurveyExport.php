@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use Modules\Survey\Entities\SurveyQuestion;
 use Modules\Survey\Entities\SurveyResult;
+use Modules\Survey\Entities\SurveyAnswer;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -26,6 +27,7 @@ class SurveyExport implements FromCollection, WithHeadings
   	// $id = 1;
     $data = SurveyResult::where('survey_id', $this->id)->get();
     $jumlahSoal = SurveyQuestion::where('survey_id', $this->id)->max('urutan');
+    $soal = SurveyQuestion::where('survey_id', $this->id)->get();
 
     $arr = [];
 
@@ -42,12 +44,34 @@ class SurveyExport implements FromCollection, WithHeadings
     		array_push($urutan, $jb->urutan);
     	}
     	
+    	$jwbArray = [];
     	for ($i = 0; $i < $jumlahSoal; $i++) { 
     		$key = array_search($i, $urutan);
     		if ($key !== false) {
-    			$jwb = (is_array($jawaban[$key]->jawaban)) ? implode(", ", $jawaban[$key]->jawaban) : $jawaban[$key]->jawaban;
+    			// $jaba = SurveyAnswer::where('urutan', $i+1)->where('question_id', $soal[$key]->id)->get();
+    			$jaba = SurveyAnswer::where('question_id', $soal[$i]->id)->get();
+
+    			$allJawabanSoal = [];
+
+					foreach ($jaba as $jb) {
+						array_push($allJawabanSoal, $jb->jawaban);
+					}
     			
-    			$arrContainer['soal'.($i+1)] = strval($jwb);
+    			if (is_string($jawaban[$key]->jawaban)) {
+    				$jwb = (is_array($jawaban[$key]->jawaban)) ? implode(", ", $jawaban[$key]->jawaban) : $jawaban[$key]->jawaban;
+    			} else {
+    				if (is_array($jawaban[$key]->jawaban)) {
+    					foreach ($jawaban[$key]->jawaban as $jwban) {
+    						$valJawaban = $allJawabanSoal[$jwban];
+    						array_push($jwbArray, $valJawaban);
+    					}
+    				}
+    				$jwb = (is_array($jawaban[$key]->jawaban)) ? implode(", ", $jwbArray) : $allJawabanSoal[$jawaban[$key]->jawaban];
+    			}
+
+    			// $jwb = (is_array($jawaban[$key]->jawaban)) ? implode(", ", $jawaban[$key]->jawaban) : $jaba[$i]->jawaban;
+    			// $arrContainer['soal'.($i+1)] = strval($jwb);
+    			$arrContainer['soal'.($i+1)] = $jwb;
     		} else {
     			$arrContainer['soal'.($i+1)] = '-';
     		}	

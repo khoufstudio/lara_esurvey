@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Modules\Survey\Entities\Survey;
 use Modules\Survey\Entities\SurveyQuestion;
 use Modules\Survey\Entities\SurveyResult;
+use Modules\Survey\Entities\SurveyAnswer;
 use App\Exports\SurveyExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Auth;
@@ -71,29 +72,18 @@ class SurveyResultController extends Controller
     {
         $data = SurveyResult::where('survey_id', $id)->get();
         $jumlahSoal = SurveyQuestion::where('survey_id', $id)->max('urutan');
+        $soal = SurveyQuestion::where('survey_id', $id)->get();
 
         // dd($jumlahSoal);
 
         $arr = [];
 
         foreach ($data as $dt) {
-        	// echo "nama soal: " . $dt->survey_link->nama. "<br>";
-        	echo "nomer responden: " . $dt->id. "<br>";
-
         	$arrContainer = [];
 
         	$arrContainer['no_responden'] = $dt->id;
-
-        	// array_push($arr, ['no_responden' => $dt->id]);
-        	// echo "jawaban: " . $dt->jawaban. "<br>";
-        	// echo "====<br>";
-        	// echo "<pre>";
-        	// dd($dt->jawaban);
-        	// 
         	
 					$jawaban = json_decode($dt->jawaban);
-        	// dd($jawaban);
-        	// dd($jawaban[3]);
 
         	$urutan = [];
 
@@ -101,26 +91,41 @@ class SurveyResultController extends Controller
         		array_push($urutan, $jb->urutan);
         	}
 
-        	// dd($urutan);
-        	
+        	// $soal = SurveyAnswer::whe
+
+        	// dd($soal);
+        	$jwbArray = [];
         	for ($i = 0; $i < $jumlahSoal; $i++) { 
         		$key = array_search($i, $urutan);
         		if ($key !== false) {
-        		// if (in_array($i, $urutan)) {
-        		// if ($jawaban[$i]->urutan == $i) {
-        		// if (true) {
-        		// $urutan
-        			$jwb = (is_array($jawaban[$key]->jawaban)) ? implode(", ", $jawaban[$key]->jawaban) : $jawaban[$key]->jawaban;
-        			// $jwb = (is_array($jawaban[$i]->jawaban)) ? implode(", ", $jawaban[$i]->jawaban) : $jawaban[$i]->jawaban;
+    					// $jaba = SurveyAnswer::where('urutan', $i+1)->where('question_id', $soal[$i]->id)->get();
+    					$jaba = SurveyAnswer::where('question_id', $soal[$i]->id)->get();
+    					// dd($jaba);
+
+    					$allJawabanSoal = [];
+
+    					foreach ($jaba as $jb) {
+    						array_push($allJawabanSoal, $jb->jawaban);
+    					}
+        			
+        			if (is_string($jawaban[$key]->jawaban)) {
+        				$jwb = (is_array($jawaban[$key]->jawaban)) ? implode(", ", $jawaban[$key]->jawaban) : $jawaban[$key]->jawaban;
+        			} else {
+        				if (is_array($jawaban[$key]->jawaban)) {
+        					foreach ($jawaban[$key]->jawaban as $jwban) {
+        						$valJawaban = $allJawabanSoal[$jwban];
+        						array_push($jwbArray, $valJawaban);
+        					}
+        				}
+        				$jwb = (is_array($jawaban[$key]->jawaban)) ? implode(", ", $jwbArray) : $allJawabanSoal[$jawaban[$key]->jawaban];
+        			}
+        			
         			$arrContainer['soal'.($i+1)] = $jwb;
-        			// $arrContainer['soal'.($i+1)] = 'true';
         		} else {
 
         			$arrContainer['soal'.($i+1)] = '-';
         		}
-        		
-        	}
-        	
+        	}        	
         	
         	// foreach ($jawaban as $jb) {
         	// 	$jwb = (is_array($jb->jawaban)) ? implode(", ", $jb->jawaban) : $jb->jawaban;
@@ -128,12 +133,13 @@ class SurveyResultController extends Controller
         		// $arrContainer['soal'.($jb->urutan+1)] = $jwb;
         		// echo "soal: " . $jb->urutan . " - " . "jawaban: " . $jwb . "<br>";
         	// }
+        	// 
+        	// dd($jwbArray);
 
         	array_push($arr, $arrContainer);
         	// dd(json_decode($dt->jawaban));
         	// echo "<br>";
         }
-
         dd($arr);
 
         // return response()->json($arr);
@@ -161,9 +167,11 @@ class SurveyResultController extends Controller
         //
     }
 
-    public function download($id)
+    // public function download($id)
+    public function download(Request $request)
     {
     	// echo $id;
-    	return Excel::download(new SurveyExport($id), 'survey.xlsx');
+    	return Excel::download(new SurveyExport($request->id), 'survey.xlsx');
+    	// return Excel::download(new SurveyExport($id), 'survey.xlsx');
     }
 }

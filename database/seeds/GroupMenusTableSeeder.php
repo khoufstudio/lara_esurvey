@@ -251,6 +251,15 @@ class GroupMenusTableSeeder extends Seeder
                 'created_at' => '2019-08-28 08:01:37',
                 'updated_at' => '2019-08-28 08:01:39',
             ),
+            26 => 
+            array (
+                'id' => 40,
+                'id_user_group' => 1,
+                'id_menu' => 26,
+                'role' => 'ACRU',
+                'created_at' => '2019-09-24 04:19:31',
+                'updated_at' => '2019-09-24 04:19:34',
+            ),
         ));
         
         

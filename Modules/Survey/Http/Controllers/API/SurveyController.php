@@ -18,7 +18,7 @@ class SurveyController extends Controller
      */
     public function index()
     {
-    	$data = Survey::where('status', 0)->get();
+    	$data = Survey::where('status', 0)->orderBy('created_at', 'desc')->get();
 
     	return response()->json([
     		'success' => true,

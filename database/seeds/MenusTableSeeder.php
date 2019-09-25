@@ -317,6 +317,18 @@ class MenusTableSeeder extends Seeder
                 'created_at' => '2019-09-24 04:19:14',
                 'updated_at' => '2019-09-24 04:19:14',
             ),
+            25 => 
+            array (
+                'id' => 27,
+                'nama_menu' => 'Dashboard',
+                'parrent' => 0,
+                'nama_parrent' => NULL,
+                'link' => 'home',
+                'icon_menu' => 'icon-home4',
+                'urutan' => 0,
+                'created_at' => '2019-09-25 07:42:05',
+                'updated_at' => '2019-09-25 07:47:08',
+            ),
         ));
         
         

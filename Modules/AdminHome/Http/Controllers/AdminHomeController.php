@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Modules\Survey\Entities\Survey;
+use Modules\Survey\Entities\SurveyResult;
 
 class AdminHomeController extends Controller
 {
@@ -14,14 +16,26 @@ class AdminHomeController extends Controller
      * @return Response
      */
 
-     public function __construct()
-     {
-         $this->middleware('auth');
-     }
- 
+    public function __construct()
+    {
+    	$this->middleware('auth');
+    }
+
     public function index()
     {
-        return view('adminhome::index');
+    	$surveyData = Survey::count();
+    	$surveyResultData = SurveyResult::count();
+
+    	$data = [
+    		'survey_total' => $surveyData,
+    		'survey_result_total' => $surveyResultData,
+    	];
+
+
+    	// dd(["test"]);
+    	// return view('survey::index')->with('pages', $pages)->with('role', $role);
+
+    	return view('adminhome::index')->with('data', $data);
     }
 
     /**
@@ -30,7 +44,7 @@ class AdminHomeController extends Controller
      */
     public function create()
     {
-        return view('adminhome::create');
+    	return view('adminhome::create');
     }
 
     /**
@@ -50,7 +64,7 @@ class AdminHomeController extends Controller
      */
     public function show($id)
     {
-        return view('adminhome::show');
+    	return view('adminhome::show');
     }
 
     /**
@@ -60,7 +74,7 @@ class AdminHomeController extends Controller
      */
     public function edit($id)
     {
-        return view('adminhome::edit');
+    	return view('adminhome::edit');
     }
 
     /**
@@ -83,4 +97,4 @@ class AdminHomeController extends Controller
     {
         //
     }
-}
+  }

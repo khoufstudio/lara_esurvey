@@ -74,8 +74,6 @@ class SurveyResultController extends Controller
         $jumlahSoal = SurveyQuestion::where('survey_id', $id)->max('urutan');
         $soal = SurveyQuestion::where('survey_id', $id)->get();
 
-        // dd($jumlahSoal);
-
         $arr = [];
 
         foreach ($data as $dt) {
@@ -91,16 +89,11 @@ class SurveyResultController extends Controller
         		array_push($urutan, $jb->urutan);
         	}
 
-        	// $soal = SurveyAnswer::whe
-
-        	// dd($soal);
         	$jwbArray = [];
         	for ($i = 0; $i < $jumlahSoal; $i++) { 
         		$key = array_search($i, $urutan);
         		if ($key !== false) {
-    					// $jaba = SurveyAnswer::where('urutan', $i+1)->where('question_id', $soal[$i]->id)->get();
     					$jaba = SurveyAnswer::where('question_id', $soal[$i]->id)->get();
-    					// dd($jaba);
 
     					$allJawabanSoal = [];
 
@@ -110,40 +103,33 @@ class SurveyResultController extends Controller
         			
         			if (is_string($jawaban[$key]->jawaban)) {
         				$jwb = (is_array($jawaban[$key]->jawaban)) ? implode(", ", $jawaban[$key]->jawaban) : $jawaban[$key]->jawaban;
+        				$arrContainer['soal'.($i+1)] = $jwb;
         			} else {
-        				if (is_array($jawaban[$key]->jawaban)) {
+        				if (is_array($jawaban[$key]->jawaban) && !empty($jawaban[$key]->jawaban)) {
         					foreach ($jawaban[$key]->jawaban as $jwban) {
         						$valJawaban = $allJawabanSoal[$jwban];
         						array_push($jwbArray, $valJawaban);
         					}
-        				}
-        				$jwb = (is_array($jawaban[$key]->jawaban)) ? implode(", ", $jwbArray) : $allJawabanSoal[$jawaban[$key]->jawaban];
-        			}
-        			
-        			$arrContainer['soal'.($i+1)] = $jwb;
-        		} else {
+        					$jwb = (is_array($jawaban[$key]->jawaban)) ? implode(", ", $jwbArray) : $allJawabanSoal[$jawaban[$key]->jawaban];
+        					$arrContainer['soal'.($i+1)] = $jwb;
+        				} else {
+        					if (is_array($jawaban[$key]->jawaban) && empty($jawaban[$key]->jawaban)) {
+        						$jwb = "-";
+        					} else {
+      							$jwb = ((!is_null($jawaban[$key]->jawaban))) ? $allJawabanSoal[$jawaban[$key]->jawaban] : "-";
+        					}
 
+        					$arrContainer['soal'.($i+1)] = $jwb;
+        				}
+        			}
+        		} else {
         			$arrContainer['soal'.($i+1)] = '-';
         		}
         	}        	
-        	
-        	// foreach ($jawaban as $jb) {
-        	// 	$jwb = (is_array($jb->jawaban)) ? implode(", ", $jb->jawaban) : $jb->jawaban;
-        		// array_push($arr, ['soal'.$jb->urutan => $jwb]);
-        		// $arrContainer['soal'.($jb->urutan+1)] = $jwb;
-        		// echo "soal: " . $jb->urutan . " - " . "jawaban: " . $jwb . "<br>";
-        	// }
-        	// 
-        	// dd($jwbArray);
 
         	array_push($arr, $arrContainer);
-        	// dd(json_decode($dt->jawaban));
-        	// echo "<br>";
         }
         dd($arr);
-
-        // return response()->json($arr);
-        // return response()->json($data);
     }
 
     /**
@@ -170,7 +156,6 @@ class SurveyResultController extends Controller
     // public function download($id)
     public function download(Request $request)
     {
-    	// echo $id;
     	return Excel::download(new SurveyExport($request->id), 'survey.xlsx');
     	// return Excel::download(new SurveyExport($id), 'survey.xlsx');
     }

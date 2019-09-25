@@ -35,7 +35,7 @@ class SurveyExport implements FromCollection, WithHeadings
     	$arrContainer = [];
 
     	$arrContainer['no_responden'] = $dt->id;
-
+    	
 			$jawaban = json_decode($dt->jawaban);
 
     	$urutan = [];
@@ -43,15 +43,14 @@ class SurveyExport implements FromCollection, WithHeadings
     	foreach ($jawaban as $jb) {
     		array_push($urutan, $jb->urutan);
     	}
-    	
+
     	$jwbArray = [];
     	for ($i = 0; $i < $jumlahSoal; $i++) { 
     		$key = array_search($i, $urutan);
     		if ($key !== false) {
-    			// $jaba = SurveyAnswer::where('urutan', $i+1)->where('question_id', $soal[$key]->id)->get();
-    			$jaba = SurveyAnswer::where('question_id', $soal[$i]->id)->get();
+					$jaba = SurveyAnswer::where('question_id', $soal[$i]->id)->get();
 
-    			$allJawabanSoal = [];
+					$allJawabanSoal = [];
 
 					foreach ($jaba as $jb) {
 						array_push($allJawabanSoal, $jb->jawaban);
@@ -59,30 +58,33 @@ class SurveyExport implements FromCollection, WithHeadings
     			
     			if (is_string($jawaban[$key]->jawaban)) {
     				$jwb = (is_array($jawaban[$key]->jawaban)) ? implode(", ", $jawaban[$key]->jawaban) : $jawaban[$key]->jawaban;
+    				$arrContainer['soal'.($i+1)] = $jwb;
     			} else {
-    				if (is_array($jawaban[$key]->jawaban)) {
+    				if (is_array($jawaban[$key]->jawaban) && !empty($jawaban[$key]->jawaban)) {
     					foreach ($jawaban[$key]->jawaban as $jwban) {
     						$valJawaban = $allJawabanSoal[$jwban];
     						array_push($jwbArray, $valJawaban);
     					}
-    				}
-    				$jwb = (is_array($jawaban[$key]->jawaban)) ? implode(", ", $jwbArray) : $allJawabanSoal[$jawaban[$key]->jawaban];
-    			}
+    					$jwb = (is_array($jawaban[$key]->jawaban)) ? implode(", ", $jwbArray) : $allJawabanSoal[$jawaban[$key]->jawaban];
+    					$arrContainer['soal'.($i+1)] = $jwb;
+    				} else {
+    					if (is_array($jawaban[$key]->jawaban) && empty($jawaban[$key]->jawaban)) {
+    						$jwb = "-";
+    					} else {
+  							$jwb = ((!is_null($jawaban[$key]->jawaban))) ? $allJawabanSoal[$jawaban[$key]->jawaban] : "-";
+    					}
 
-    			// $jwb = (is_array($jawaban[$key]->jawaban)) ? implode(", ", $jawaban[$key]->jawaban) : $jaba[$i]->jawaban;
-    			// $arrContainer['soal'.($i+1)] = strval($jwb);
-    			$arrContainer['soal'.($i+1)] = $jwb;
+    					$arrContainer['soal'.($i+1)] = $jwb;
+    				}
+    			}
     		} else {
     			$arrContainer['soal'.($i+1)] = '-';
-    		}	
-    	}
-   
+    		}
+    	}        	
+
     	array_push($arr, $arrContainer);
-			
-		}
+    }
   	
-  	// return SurveyResult::all();
-  	// return response()->json($arr);
   	return collect($arr);
 	}
 

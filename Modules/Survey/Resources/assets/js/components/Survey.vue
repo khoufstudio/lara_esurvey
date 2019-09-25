@@ -23,11 +23,11 @@
 									<input type="radio" name="pertanyaanradio" :value="ans.urutan-1" v-model="checkedRadio">
 									<span class="p-radio-style"></span>
 								</label>
-								<label class="p-radio p-radio radio-color-secondary text-left">
+								<!-- <label class="p-radio p-radio radio-color-secondary text-left">
 									<span class="ml-3">Other: </span>
 									<input type="radio" name="pertanyaanradio" :value="3">
 									<span class="p-radio-style"></span>
-								</label>
+								</label> -->
 								<div class="text-right">
 									<button @click="previous" data-lightbox="inline" class="btn btn-warning btn-shadow btn-rounded mt-3">Kembali</button>
 									
@@ -54,7 +54,6 @@
 									</span>
 									<span v-else>
 										<button type="submit" data-lightbox="inline" class="btn btn-success btn-shadow btn-rounded mt-3">Submit</button>
-										<!-- <button @click.prevent="submit" data-lightbox="inline" class="btn btn-success btn-shadow btn-rounded mt-3">Submit</button> -->
 									</span>
 								</div>
 							</div>
@@ -70,7 +69,6 @@
 									</span>
 									<span v-else>
 										<button type="submit" data-lightbox="inline" class="btn btn-success btn-shadow btn-rounded mt-3">Submit</button>
-										<!-- <button @click.prevent="submit" data-lightbox="inline" class="btn btn-success btn-shadow btn-rounded mt-3">Submit</button> -->
 									</span>
 								</div>
 							</div>
@@ -137,8 +135,8 @@ export default {
 			
 				if (question != "kosong") {
 					// var soalJawaban
-					var jawabanContainer 
 					// soalJawaban.urutan = this.urutan;
+					var jawabanContainer 
 					
 					var tipePertanyaan = this.listQuestion[this.urutan].tipe_pertanyaan;
 					console.log(tipePertanyaan)
@@ -150,24 +148,20 @@ export default {
 						jawabanJSON.urutan = this.urutan
 						jawabanJSON.jawaban = jawabanRadio
 						this.jawaban.push(jawabanJSON)
-						// this.jawaban.push(`${this.urutan}, ${jawabanRadio}`)
 					} else if (tipePertanyaan == "checkbox") {
 						var jawabanJSON = new Object()
 						var jawabanCheckbox = this.checkedCheckbox;
 						jawabanJSON.urutan = this.urutan
 						jawabanJSON.jawaban = jawabanCheckbox
 						this.jawaban.push(jawabanJSON)
-						// this.jawaban.push(`${this.urutan}, ${jawabanCheckbox}`)
 					} else if (tipePertanyaan == "text") {
 						var jawabanJSON = new Object()
 						var jawabanText = this.inputText;
-						console.log(this.inputText)
 						jawabanJSON.urutan = this.urutan
 						jawabanJSON.jawaban = jawabanText
 						this.jawaban.push(jawabanJSON)
 					}
 					
-
 					var condition = question.condition;
 
 					if (typeof condition !== undefined && condition.length)  {
@@ -178,10 +172,8 @@ export default {
 							var loncatKe = condition[i].jump;
 							if (tipePertanyaan == "radiogroup") {
 								var jawabanKondisi = condition[i].answer;
-								// soalJawaban.jawaban = jawabanRadio
 								jawabanContainer = jawabanRadio
-								// console.log("urutan " + this.urutan)
-								// console.log("jawaban " + jawabanContainer)
+								// soalJawaban.jawaban = jawabanRadio
 								// this.jawaban.push([this.urutan, jawabanContainer])
 
 								if (jawabanRadio == jawabanKondisi) {
@@ -205,9 +197,7 @@ export default {
 								// soalJawaban.jawaban = jawabanCheckbox
 								// jawabanContainer = jawabanCheckbox
 								// jawaban = jawabanCheckbox.split(",")
-								console.log("urutan " + this.urutan)
 								// this.jawaban.push([this.urutan, jawabanContainer])
-								// console.log("jawaban " + jawaban)
 
 								for (var x = 0; x < jawabanKondisi.length; x++) {
 									jawabanKondisi[x] = parseInt(jawabanKondisi[x])
@@ -246,12 +236,44 @@ export default {
 
 				}
 			},
+			save: function() {
+				var question = (this.urutan > -1) ? this.listQuestion[this.urutan] : "kosong";
+			
+				if (question != "kosong") {
+					var jawabanContainer 
+					
+					var tipePertanyaan = this.listQuestion[this.urutan].tipe_pertanyaan;
+					console.log(tipePertanyaan)
+					
+					// masukin pertanyaan
+					if (tipePertanyaan == "radiogroup") {
+						var jawabanRadio = parseInt(this.checkedRadio);
+						var jawabanJSON = new Object()
+						jawabanJSON.urutan = this.urutan
+						jawabanJSON.jawaban = jawabanRadio
+						this.jawaban.push(jawabanJSON)
+					} else if (tipePertanyaan == "checkbox") {
+						var jawabanJSON = new Object()
+						var jawabanCheckbox = this.checkedCheckbox;
+						jawabanJSON.urutan = this.urutan
+						jawabanJSON.jawaban = jawabanCheckbox
+						this.jawaban.push(jawabanJSON)
+					} else if (tipePertanyaan == "text") {
+						var jawabanJSON = new Object()
+						var jawabanText = this.inputText;
+						jawabanJSON.urutan = this.urutan
+						jawabanJSON.jawaban = jawabanText
+						this.jawaban.push(jawabanJSON)
+					}
+				}
+			},
 			submit: function(e) {
 				e.preventDefault()
 
 				// save last value
+				this.save()
+
 				var jawabanSend = JSON.stringify(this.jawaban)
-				console.log(jawabanSend)
 				var vm = this
 				
 				// fungsi kirim udah jalan

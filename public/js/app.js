@@ -2232,8 +2232,6 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id'],
   name: 'Survey',
@@ -2277,8 +2275,8 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
       if (question != "kosong") {
         // var soalJawaban
-        var jawabanContainer; // soalJawaban.urutan = this.urutan;
-
+        // soalJawaban.urutan = this.urutan;
+        var jawabanContainer;
         var tipePertanyaan = this.listQuestion[this.urutan].tipe_pertanyaan;
         console.log(tipePertanyaan); // masukin pertanyaan
 
@@ -2287,17 +2285,16 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
           var jawabanJSON = new Object();
           jawabanJSON.urutan = this.urutan;
           jawabanJSON.jawaban = jawabanRadio;
-          this.jawaban.push(jawabanJSON); // this.jawaban.push(`${this.urutan}, ${jawabanRadio}`)
+          this.jawaban.push(jawabanJSON);
         } else if (tipePertanyaan == "checkbox") {
           var jawabanJSON = new Object();
           var jawabanCheckbox = this.checkedCheckbox;
           jawabanJSON.urutan = this.urutan;
           jawabanJSON.jawaban = jawabanCheckbox;
-          this.jawaban.push(jawabanJSON); // this.jawaban.push(`${this.urutan}, ${jawabanCheckbox}`)
+          this.jawaban.push(jawabanJSON);
         } else if (tipePertanyaan == "text") {
           var jawabanJSON = new Object();
           var jawabanText = this.inputText;
-          console.log(this.inputText);
           jawabanJSON.urutan = this.urutan;
           jawabanJSON.jawaban = jawabanText;
           this.jawaban.push(jawabanJSON);
@@ -2313,10 +2310,8 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
             var loncatKe = condition[i].jump;
 
             if (tipePertanyaan == "radiogroup") {
-              var jawabanKondisi = condition[i].answer; // soalJawaban.jawaban = jawabanRadio
-
-              jawabanContainer = jawabanRadio; // console.log("urutan " + this.urutan)
-              // console.log("jawaban " + jawabanContainer)
+              var jawabanKondisi = condition[i].answer;
+              jawabanContainer = jawabanRadio; // soalJawaban.jawaban = jawabanRadio
               // this.jawaban.push([this.urutan, jawabanContainer])
 
               if (jawabanRadio == jawabanKondisi) {
@@ -2339,9 +2334,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
               var jawabanKondisi = condition[i].answer.split(","); // soalJawaban.jawaban = jawabanCheckbox
               // jawabanContainer = jawabanCheckbox
               // jawaban = jawabanCheckbox.split(",")
-
-              console.log("urutan " + this.urutan); // this.jawaban.push([this.urutan, jawabanContainer])
-              // console.log("jawaban " + jawaban)
+              // this.jawaban.push([this.urutan, jawabanContainer])
 
               for (var x = 0; x < jawabanKondisi.length; x++) {
                 jawabanKondisi[x] = parseInt(jawabanKondisi[x]);
@@ -2379,11 +2372,40 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         this.jawaban.pop();
       }
     },
+    save: function save() {
+      var question = this.urutan > -1 ? this.listQuestion[this.urutan] : "kosong";
+
+      if (question != "kosong") {
+        var jawabanContainer;
+        var tipePertanyaan = this.listQuestion[this.urutan].tipe_pertanyaan;
+        console.log(tipePertanyaan); // masukin pertanyaan
+
+        if (tipePertanyaan == "radiogroup") {
+          var jawabanRadio = parseInt(this.checkedRadio);
+          var jawabanJSON = new Object();
+          jawabanJSON.urutan = this.urutan;
+          jawabanJSON.jawaban = jawabanRadio;
+          this.jawaban.push(jawabanJSON);
+        } else if (tipePertanyaan == "checkbox") {
+          var jawabanJSON = new Object();
+          var jawabanCheckbox = this.checkedCheckbox;
+          jawabanJSON.urutan = this.urutan;
+          jawabanJSON.jawaban = jawabanCheckbox;
+          this.jawaban.push(jawabanJSON);
+        } else if (tipePertanyaan == "text") {
+          var jawabanJSON = new Object();
+          var jawabanText = this.inputText;
+          jawabanJSON.urutan = this.urutan;
+          jawabanJSON.jawaban = jawabanText;
+          this.jawaban.push(jawabanJSON);
+        }
+      }
+    },
     submit: function submit(e) {
       e.preventDefault(); // save last value
 
+      this.save();
       var jawabanSend = JSON.stringify(this.jawaban);
-      console.log(jawabanSend);
       var vm = this; // fungsi kirim udah jalan
 
       axios.post('/api/survey_result', {
@@ -6381,33 +6403,6 @@ var render = function() {
                                             ]
                                           )
                                         }),
-                                        _vm._v(" "),
-                                        _c(
-                                          "label",
-                                          {
-                                            staticClass:
-                                              "p-radio p-radio radio-color-secondary text-left"
-                                          },
-                                          [
-                                            _c(
-                                              "span",
-                                              { staticClass: "ml-3" },
-                                              [_vm._v("Other: ")]
-                                            ),
-                                            _vm._v(" "),
-                                            _c("input", {
-                                              attrs: {
-                                                type: "radio",
-                                                name: "pertanyaanradio"
-                                              },
-                                              domProps: { value: 3 }
-                                            }),
-                                            _vm._v(" "),
-                                            _c("span", {
-                                              staticClass: "p-radio-style"
-                                            })
-                                          ]
-                                        ),
                                         _vm._v(" "),
                                         _c(
                                           "div",

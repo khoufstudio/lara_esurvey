@@ -156,7 +156,10 @@ class SurveyResultController extends Controller
     // public function download($id)
     public function download(Request $request)
     {
-    	return Excel::download(new SurveyExport($request->id), 'survey.xlsx');
+    	$survey = Survey::find($request->id);
+    	$nama = $survey->nama;
+    	
+    	return Excel::download(new SurveyExport($request->id), $nama.'.xlsx');
     	// return Excel::download(new SurveyExport($id), 'survey.xlsx');
     }
 }

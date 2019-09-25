@@ -23,8 +23,10 @@ class SurveyController extends Controller
     {
         if (get_role(Auth::user()->id_user_group) != 'FALSE') {
             $pages = Survey::orderBy('created_at', 'desc')
-                    ->where('user_id', Auth::user()->id)
-                    ->paginate(10);
+            					->when(Auth::user()->id != 1,function($q) {
+	                    	return $q->where('user_id', Auth::user()->id);
+            					})
+	                    ->paginate(10);
             $role = get_role(Auth::user()->id_user_group);
             return view('survey::index')->with('pages', $pages)->with('role', $role);
         } else {

@@ -2232,6 +2232,8 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['id'],
   name: 'Survey',
@@ -2255,8 +2257,6 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     getApi: function getApi() {
       var _this = this;
 
-      // let idSurvey = (this.id > 0) ? this.id : 'a'
-      // axios.get("/api/survey/" + idSurvey)
       axios.get("/api/survey/" + this.id).then(function (_ref) {
         var data = _ref.data;
         _this.listSurvey = data.data;
@@ -2331,10 +2331,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
               }
             } else if (tipePertanyaan == "checkbox") {
               var jawabanCheckbox = this.checkedCheckbox;
-              var jawabanKondisi = condition[i].answer.split(","); // soalJawaban.jawaban = jawabanCheckbox
-              // jawabanContainer = jawabanCheckbox
-              // jawaban = jawabanCheckbox.split(",")
-              // this.jawaban.push([this.urutan, jawabanContainer])
+              var jawabanKondisi = condition[i].answer.split(",");
 
               for (var x = 0; x < jawabanKondisi.length; x++) {
                 jawabanKondisi[x] = parseInt(jawabanKondisi[x]);
@@ -2368,9 +2365,12 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     },
     previous: function previous() {
       if (this.urutan > -1) {
-        this.urutan = this.backTo;
+        // this.urutan = this.backTo
+        this.urutan--;
         this.jawaban.pop();
-      }
+      } // console.log(this.urutan)
+      // console.log(this.backTo)
+
     },
     save: function save() {
       var question = this.urutan > -1 ? this.listQuestion[this.urutan] : "kosong";

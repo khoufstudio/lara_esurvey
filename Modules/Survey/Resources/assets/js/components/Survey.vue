@@ -1,5 +1,6 @@
 <template>
 	<div class="content">
+		<!-- <form id="msform" action="#" method="post"> -->
 		<form id="msform" action="#" @submit="submit($event)" method="post">
 			<div v-if="!loading">
 				<fieldset>
@@ -78,6 +79,7 @@
 
 				<fieldset>
 					<div class="col-md-8 mt-5" style="margin: 0 auto;" v-if="urutan == -2">
+					<!-- <div class="col-md-8 mt-5" style="margin: 0 auto;" v-if="urutan == -2"> -->
 						<div class="widget text-center border-box p-cb">
 							<i class="fa fa-4x mb-3 fa-check-circle text-success"></i>
 							<h2 class="survey-title">Sukses</h2>
@@ -114,8 +116,6 @@ export default {
 		},
 		methods: {
 			getApi: function() {
-				// let idSurvey = (this.id > 0) ? this.id : 'a'
-				// axios.get("/api/survey/" + idSurvey)
 				axios.get("/api/survey/" + this.id)
 					.then(({data}) => {
 						this.listSurvey = data.data
@@ -194,10 +194,6 @@ export default {
 							} else if (tipePertanyaan == "checkbox") {
 								var jawabanCheckbox = this.checkedCheckbox;
 								var jawabanKondisi = condition[i].answer.split(",");
-								// soalJawaban.jawaban = jawabanCheckbox
-								// jawabanContainer = jawabanCheckbox
-								// jawaban = jawabanCheckbox.split(",")
-								// this.jawaban.push([this.urutan, jawabanContainer])
 
 								for (var x = 0; x < jawabanKondisi.length; x++) {
 									jawabanKondisi[x] = parseInt(jawabanKondisi[x])
@@ -231,10 +227,12 @@ export default {
 			},
 			previous: function() {
 				if (this.urutan > -1) {
-					this.urutan = this.backTo
+					// this.urutan = this.backTo
+					this.urutan--
 					this.jawaban.pop()
-
 				}
+				// console.log(this.urutan)
+				// console.log(this.backTo)
 			},
 			save: function() {
 				var question = (this.urutan > -1) ? this.listQuestion[this.urutan] : "kosong";

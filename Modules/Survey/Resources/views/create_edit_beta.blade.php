@@ -57,6 +57,7 @@
 							<label class="col-form-label col-lg-2">Nama Survey</label>
 							<div class="col-lg-10">
 								<input type="text" name="nama_survey" class="form-control" value="{{ $data->nama ?? "" }}" placeholder="Nama Survey">
+								<!-- <div class="ui-slider-disabled mb-5 ui-slider ui-corner-all ui-slider-horizontal ui-slider-rtl ui-widget ui-widget-content ui-state-disabled"><div class="ui-slider-range ui-corner-all ui-widget-header ui-slider-range-min" style="width: 50%;"></div><span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default" style="left: 50%;"></span></div> -->
 							</div>
 						</div>
 
@@ -79,6 +80,20 @@
 							</div>
 						</div>
 
+						{{-- Tanggal Berlaku --}}
+						<div class="form-group row">
+							<label class="col-form-label col-lg-2">Tanggal Berlaku</label>
+							<div class="col-lg-3">
+								<input class="form-control" type="date" name="date_from" id="date_from">
+							</div>
+							<div class="col-lg-1 text-center">
+								<i class="icon-arrow-right8" style="line-height: 2.5;"></i>
+							</div>
+							<div class="col-lg-3">
+								<input class="form-control" type="date" name="date_to" id="date_to">
+							</div>
+						</div>
+
 						<div class="button-add clearfix mb-2">
 							<div class="btn-group float-right">
 								<button type="button" class="btn bg-teal-400 btn-labeled btn-labeled-left dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><b><i class="icon-compose"></i></b> Tambah Pertanyaan</button>
@@ -86,6 +101,7 @@
 									<a href="#" class="dropdown-item item-question">Text</a>
 									<a href="#" class="dropdown-item item-question">Checkbox</a>
 									<a href="#" class="dropdown-item item-question">Radio</a>
+									<a href="#" class="dropdown-item item-question">Slider</a>
 								</div>
 							</div>
 						</div>
@@ -112,6 +128,23 @@
 													<div class="form-group text-left"> 
 														<label><span class="nox">{{ $question->urutan }}.</span>  <span class="val">{{ $question->pertanyaan }}</span></label>
 														<input type="text" name="name" id="name" class="form-control" placeholder="Tipe jawaban = {{ $question->tipe_text }}" disabled>
+													</div>
+													<div class="choices-container"></div>
+												</li>
+										@elseif ($question->tipe_pertanyaan == "slider")
+											@php
+											$json_val = '{
+												"type": "slider", 
+												"urutan": "'.$question->urutan.'", 
+												"name": "'.$question->pertanyaan.'", 
+												"isRequired": "true" }'
+												@endphp
+												<li class="alert alert-primary border-0 alert-dismissible">
+													<span class="editx actx"><i class="icon-pencil7"></i></span> &nbsp; <span class="closex actx"><i class="icon-close2"></i></span>
+													<span class="json_val">{{ $json_val }}</span>
+													<div class="form-group text-left"> 
+														<label><span class="nox">{{ $question->urutan }}.</span>  <span class="val">{{ $question->pertanyaan }}</span></label>
+														<input type="range" name="slider" class="form-control" disabled>
 													</div>
 													<div class="choices-container"></div>
 												</li>
@@ -223,6 +256,30 @@
 		</div>
 	</div>
 
+	<!-- Modal Edit Pertanyaan Slider -->
+	<div id="modal_edit_question_slider" class="modal fade"  tabindex="-1" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header bg-info">
+					<h6 class="modal-title">EDIT PERTANYAAN</h6>
+					<button type="button" class="close" data-dismiss="modal">×</button>
+				</div>
+
+				<div class="modal-body">
+					@csrf
+					<div class="form-group">
+						<label>Pertanyaan</label>
+						<input type="slider" name="modal_slider_pertanyaan" id="modal_slider_pertanyaan" class="form-control" required="" placeholder="Silahkan isi pertanyaan">
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-link" data-dismiss="modal">Tutup</button>
+					<button type="submit" class="btn bg-info btn-action modal-slider-simpan">Simpan</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!-- Modal Edit Pertanyaan Radio dan Checkbox -->
 	<div class="modal fade" id="modal_cb" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -325,7 +382,28 @@
 @section('script')
 	<script>
 		$(document).ready(function() {
-	    // $('#sortable').sortable();
+			var now = new Date();
+      var day = ("0" + now.getDate()).slice(-2);
+      var month = ("0" + (now.getMonth() + 1)).slice(-2);
+      var lastDay = new Date(now.getFullYear(), month, 0).getDate();
+      var startDate = now.getFullYear()+"-"+(month)+"-"+"01" ;
+      var endDate = now.getFullYear()+"-"+(month)+"-"+(lastDay) ;
+
+      var dateFromEdit = '{{ $data->date_from ?? "" }}';
+      dateFromEdit = dateFromEdit.substring(0, 10);
+      var dateToEdit = '{{ $data->date_to ?? "" }}';
+      dateToEdit = dateToEdit.substring(0, 10);
+
+      if (dateToEdit == "") {
+      	$('#date_from').val(startDate);
+	      $('#date_to').val(endDate);
+      } else {
+	      $('#date_from').val(dateFromEdit);
+	      $('#date_to').val(dateToEdit);
+      }
+
+
+	   
 	    $('#sortable').sortable({
 	    	stop: function( event, ui ) { noSoal(); }
 	    });
@@ -357,33 +435,31 @@
 					</li>` 
 					);
 			} else if (jenisInput == 'Checkbox'){
-				// var json_val = '{"type": "checkbox", "name": "soal checkbox", "isRequired": "true", "visibleIf": "1 greater 0", "choices": [{"1": "pilihan1"}, {"2": "pilihan2"}, {"3": "pilihan3"}], "urutan":"1", "condition": ""}';
 				var json_val = '{"type": "checkbox", "name": "soal checkbox", "isRequired": "true", "visibleIf": "1 greater 0", "choices": ["pilihan1", "pilihan2", "pilihan3"], "urutan":"1", "condition": ""}';
 				$( "#sortable" ).append(
 					`<li class="alert alert-primary border-0 alert-dismissible">
-					<span class="editx actx"><i class="icon-pencil7"></i></span> &nbsp; <span class="closex actx"><i class="icon-trash"></i></span>
-					<span class="json_val">${json_val}</span>
-					<div class="form-group text-left">
-					<label><span class="nox">1.</span>  <span class="val">soal checkbox</span></label>
-					<div class="choices-container">
-					<div class="custom-control custom-checkbox">
-					<input type="checkbox" class="custom-control-input" id="custom_checkbox_stacked_checked_disabled" checked="" disabled="">
-					<label class="custom-control-label" for="custom_checkbox_stacked_checked_disabled">Pilihan 1</label>
-					</div>
-					<div class="custom-control custom-checkbox">
-					<input type="checkbox" class="custom-control-input" id="custom_checkbox_stacked_checked_disabled" checked="" disabled="">
-					<label class="custom-control-label" for="custom_checkbox_stacked_checked_disabled">Pilihan 2</label>
-					</div>
-					<div class="custom-control custom-checkbox">
-					<input type="checkbox" class="custom-control-input" id="custom_checkbox_stacked_checked_disabled" checked="" disabled="">
-					<label class="custom-control-label" for="custom_checkbox_stacked_checked_disabled">Pilihan 3</label>
-					</div>
-					</div>  
-					</div>
+						<span class="editx actx"><i class="icon-pencil7"></i></span> &nbsp; <span class="closex actx"><i class="icon-trash"></i></span>
+						<span class="json_val">${json_val}</span>
+						<div class="form-group text-left">
+							<label><span class="nox">1.</span>  <span class="val">soal checkbox</span></label>
+							<div class="choices-container">
+								<div class="custom-control custom-checkbox">
+									<input type="checkbox" class="custom-control-input" id="custom_checkbox_stacked_checked_disabled" checked="" disabled="">
+									<label class="custom-control-label" for="custom_checkbox_stacked_checked_disabled">Pilihan 1</label>
+								</div>
+								<div class="custom-control custom-checkbox">
+									<input type="checkbox" class="custom-control-input" id="custom_checkbox_stacked_checked_disabled" checked="" disabled="">
+									<label class="custom-control-label" for="custom_checkbox_stacked_checked_disabled">Pilihan 2</label>
+								</div>
+								<div class="custom-control custom-checkbox">
+									<input type="checkbox" class="custom-control-input" id="custom_checkbox_stacked_checked_disabled" checked="" disabled="">
+									<label class="custom-control-label" for="custom_checkbox_stacked_checked_disabled">Pilihan 3</label>
+								</div>
+							</div>  
+						</div>
 					</li>` 
 					);
 			} else if (jenisInput == 'Radio'){
-				// var json_val = '{"type": "radiogroup", "name": "soal radio", "visibleIf": "1 greater 0", "isRequired": "true", "choices": [{"1": "pilihan1"}, {"2": "pilihan2"}, {"3": "pilihan3"}], "urutan":"2", "condition": ""}';
 				var json_val = '{"type": "radiogroup", "name": "soal radio", "visibleIf": "1 greater 0", "isRequired": "true", "choices": ["pilihan1", "pilihan2", "pilihan3" ], "urutan":"2", "condition": ""}';
 				$( "#sortable" ).append(`
 					<li class="alert alert-primary border-0 alert-dismissible">
@@ -408,6 +484,19 @@
 					</div>
 					</span>
 					</li>` );
+			} else if (jenisInput == 'Slider') {
+				var json_val = '{"type": "slider", "name": "Ini soal slider", "isRequired": "true", "urutan":"3", "condition": "" }';
+				$( "#sortable" ).append( `
+					<li class="alert alert-primary border-0 alert-dismissible">
+					<span class="editx actx"><i class="icon-pencil7"></i></span> &nbsp; <span class="closex actx"><i class="icon-trash"></i></span>
+					<span class="json_val">${json_val}</span>
+					<div class="form-group text-left">
+					<label><span class="nox">1.</span>  <span class="val">Ini soal slider</span></label>
+					<input type="range" name="slider" class="form-control" disabled>
+					</div>
+					<div class="choices-container"></div>
+					</li>` 
+					);
 			}
 			noSoal();    
 		});
@@ -427,6 +516,11 @@
 				$('#modal_text_input_tipe').val(soal.type_input);
 
 				$('#modal_edit_question_text').modal('show');
+			} if (soal.type == 'slider') {
+				$('#modal_slider_pertanyaan').val(soal.name);
+				// $('#modal_text_input_tipe').val(soal.type_input);
+
+				$('#modal_edit_question_slider').modal('show');
 			} else { 
 	      // untuk checkbox dan radio button
 	      $('#container-answer').empty();
@@ -499,6 +593,24 @@
 			$('li .json_val').eq(liParent).text(soalSave);
 
 			$('#modal_edit_question_text').modal('hide');
+		});
+
+		$('.modal-slider-simpan').on('click', function(e) {
+			var sliderPertanyaan = $('#modal_slider_pertanyaan').val();
+			var tipeinputPertanyaan = $('#modal_slider_input_tipe').val();
+
+			soal.name = sliderPertanyaan;
+			soal.type_input = tipeinputPertanyaan;
+
+			var soalSave = JSON.stringify(soal);
+
+			$('li .val').eq(liParent).text(sliderPertanyaan);
+
+			$('#pertanyaan-container').val(soalSave);
+
+			$('li .json_val').eq(liParent).text(soalSave);
+
+			$('#modal_edit_question_slider').modal('hide');
 		});
 
 		$('.modal-cb-rb-simpan').on('click', function(e) {

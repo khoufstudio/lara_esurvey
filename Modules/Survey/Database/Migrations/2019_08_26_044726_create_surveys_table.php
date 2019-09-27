@@ -22,7 +22,7 @@ class CreateSurveysTable extends Migration
     		$table->boolean('status')->default(0)->comment('0 public, 1 private');
     		$table->integer('user_id')->nullable()->comment('user creator');
         $table->timestamp('date_from')->comment('tanggal awal quiz')->default(DB::raw('CURRENT_TIMESTAMP'));
-        $table->timestamp('date_to')->comment('tanggal akhir quiz')->default(''2030-09-27 17:04:46'');
+        $table->timestamp('date_to')->comment('tanggal akhir quiz')->default('2030-09-27 17:04:46');
     		$table->timestamps();
     	});
     }

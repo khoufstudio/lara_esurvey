@@ -2366,7 +2366,13 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     previous: function previous() {
       if (this.urutan > -1) {
         // this.urutan = this.backTo
-        this.urutan--;
+        if (this.urutan == this.backTo) {
+          this.urutan--;
+        } else {
+          this.urutan = this.backTo;
+        } // this.urutan--
+
+
         this.jawaban.pop();
       } // console.log(this.urutan)
       // console.log(this.backTo)

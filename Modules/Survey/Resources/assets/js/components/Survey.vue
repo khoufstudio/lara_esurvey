@@ -227,8 +227,14 @@ export default {
 			},
 			previous: function() {
 				if (this.urutan > -1) {
-					// this.urutan = this.backTo
-					this.urutan--
+          // this.urutan = this.backTo
+
+          if (this.urutan == this.backTo) {
+            this.urutan--
+          } else {
+            this.urutan = this.backTo
+          }
+					// this.urutan--
 					this.jawaban.pop()
 				}
 				// console.log(this.urutan)

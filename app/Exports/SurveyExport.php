@@ -44,13 +44,14 @@ class SurveyExport implements FromCollection, WithHeadings
     		array_push($urutan, $jb->urutan);
     	}
 
-    	$jwbArray = [];
+    	// $jwbArray = [];
     	for ($i = 0; $i < $jumlahSoal; $i++) { 
     		$key = array_search($i, $urutan);
     		if ($key !== false) {
 					$jaba = SurveyAnswer::where('question_id', $soal[$i]->id)->get();
 
-					$allJawabanSoal = [];
+          $allJawabanSoal = [];
+          $jwbArray = [];
 
 					foreach ($jaba as $jb) {
 						array_push($allJawabanSoal, $jb->jawaban);

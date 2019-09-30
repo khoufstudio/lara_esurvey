@@ -95,7 +95,8 @@ class SurveyResultController extends Controller
         		if ($key !== false) {
     					$jaba = SurveyAnswer::where('question_id', $soal[$i]->id)->get();
 
-    					$allJawabanSoal = [];
+              $allJawabanSoal = [];
+              $jwbArray = [];
 
     					foreach ($jaba as $jb) {
     						array_push($allJawabanSoal, $jb->jawaban);

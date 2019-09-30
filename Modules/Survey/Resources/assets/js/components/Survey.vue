@@ -24,11 +24,6 @@
 									<input type="radio" name="pertanyaanradio" :value="ans.urutan-1" v-model="checkedRadio">
 									<span class="p-radio-style"></span>
 								</label>
-								<!-- <label class="p-radio p-radio radio-color-secondary text-left">
-									<span class="ml-3">Other: </span>
-									<input type="radio" name="pertanyaanradio" :value="3">
-									<span class="p-radio-style"></span>
-								</label> -->
 								<div class="text-right">
 									<button @click="previous" data-lightbox="inline" class="btn btn-warning btn-shadow btn-rounded mt-3">Kembali</button>
 									
@@ -47,6 +42,27 @@
 									<input type="checkbox" name="pertanyaancheckbox" :value="ans.urutan-1" v-model="checkedCheckbox">
 									<span class="p-checkbox-style"></span>
 								</label>
+								<div class="text-right">
+									<button @click="previous" data-lightbox="inline" class="btn btn-warning btn-shadow btn-rounded mt-3">Kembali</button>
+									
+									<span v-if="index != listQuestion.length-1">
+										<button @click="next" data-lightbox="inline" class="btn btn-success btn-shadow btn-rounded mt-3">Berikutnya</button>
+									</span>
+									<span v-else>
+										<button type="submit" data-lightbox="inline" class="btn btn-success btn-shadow btn-rounded mt-3">Submit</button>
+									</span>
+								</div>
+							</div>
+
+              <div v-else-if="lq.tipe_pertanyaan == 'slider'">
+								  <range-slider
+                    class="slider"
+                    min="0"
+                    max="100"
+                    step="1"
+                    v-model="inputText">
+                    <!-- v-model="sliderValue" -->
+                  </range-slider>
 								<div class="text-right">
 									<button @click="previous" data-lightbox="inline" class="btn btn-warning btn-shadow btn-rounded mt-3">Kembali</button>
 									
@@ -95,213 +111,227 @@
 </template>
 
 <script>
-export default {
-	props: ['id'],
+  import RangeSlider from 'vue-range-slider'
+  // you probably need to import built-in style
+  import 'vue-range-slider/dist/vue-range-slider.css'
 
-  name: 'Survey',
+  export default {
+    props: ['id'],
 
-  data: function() {
-			return {
-				listSurvey: null,
-				listQuestion: null,
-				loading: true,
-				urutan: -1,
-				checkedCheckbox: [],
-				checkedRadio: '',
-				inputText: '',
-				backTo: '',
-				surveyId: null, // untuk submit database
-				jawaban: [] // untuk submit database
-			}
-		},
-		methods: {
-			getApi: function() {
-				axios.get("/api/survey/" + this.id)
-					.then(({data}) => {
-						this.listSurvey = data.data
-						this.listQuestion = data.question_answer
-						this.surveyId = data.data.id
-						console.log(data.data)
-						// console.log(data.data.id)
-					})
-					.catch(error => {
-						// console.log(error)
-						this.$router.push('/') 
-					})
-					.finally(() => this.loading = false)
-			},
-			next: function() {
-				var question = (this.urutan > -1) ? this.listQuestion[this.urutan] : "kosong";
-			
-				if (question != "kosong") {
-					// var soalJawaban
-					// soalJawaban.urutan = this.urutan;
-					var jawabanContainer 
-					
-					var tipePertanyaan = this.listQuestion[this.urutan].tipe_pertanyaan;
-					console.log(tipePertanyaan)
-					
-					// masukin pertanyaan
-					if (tipePertanyaan == "radiogroup") {
-						var jawabanRadio = parseInt(this.checkedRadio);
-						var jawabanJSON = new Object()
-						jawabanJSON.urutan = this.urutan
-						jawabanJSON.jawaban = jawabanRadio
-						this.jawaban.push(jawabanJSON)
-					} else if (tipePertanyaan == "checkbox") {
-						var jawabanJSON = new Object()
-						var jawabanCheckbox = this.checkedCheckbox;
-						jawabanJSON.urutan = this.urutan
-						jawabanJSON.jawaban = jawabanCheckbox
-						this.jawaban.push(jawabanJSON)
-					} else if (tipePertanyaan == "text") {
-						var jawabanJSON = new Object()
-						var jawabanText = this.inputText;
-						jawabanJSON.urutan = this.urutan
-						jawabanJSON.jawaban = jawabanText
-						this.jawaban.push(jawabanJSON)
-					}
-					
-					var condition = question.condition;
+    name: 'Survey',
 
-					if (typeof condition !== undefined && condition.length)  {
-						// var jawabanRadio = parseInt(this.checkedRadio)-1;
-						var jawabanRadio = parseInt(this.checkedRadio);
+    data: function() {
+        return {
+          listSurvey: null,
+          listQuestion: null,
+          loading: true,
+          urutan: -1,
+          checkedCheckbox: [],
+          checkedRadio: '',
+          inputText: '',
+          backTo: '',
+          surveyId: null, // untuk submit database
+          jawaban: [] // untuk submit database
+        }
+      },
+      components: {
+        RangeSlider
+      },
+      methods: {
+        getApi: function() {
+          axios.get("/api/survey/" + this.id)
+            .then(({data}) => {
+              this.listSurvey = data.data
+              this.listQuestion = data.question_answer
+              this.surveyId = data.data.id
+              console.log(data.data)
+              // console.log(data.data.id)
+            })
+            .catch(error => {
+              // console.log(error)
+              this.$router.push('/') 
+            })
+            .finally(() => this.loading = false)
+        },
+        next: function() {
+          var question = (this.urutan > -1) ? this.listQuestion[this.urutan] : "kosong";
+        
+          if (question != "kosong") {
+            // var soalJawaban
+            // soalJawaban.urutan = this.urutan;
+            var jawabanContainer 
+            
+            var tipePertanyaan = this.listQuestion[this.urutan].tipe_pertanyaan;
+            console.log(tipePertanyaan)
 
-						for (var i = 0; i < condition.length; i++) {
-							var loncatKe = condition[i].jump;
-							if (tipePertanyaan == "radiogroup") {
-								var jawabanKondisi = condition[i].answer;
-								jawabanContainer = jawabanRadio
-								// soalJawaban.jawaban = jawabanRadio
-								// this.jawaban.push([this.urutan, jawabanContainer])
+            this.save()
+            
+            // masukin pertanyaan
+            // if (tipePertanyaan == "radiogroup") {
+            //   var jawabanRadio = parseInt(this.checkedRadio);
+            //   var jawabanJSON = new Object()
+            //   jawabanJSON.urutan = this.urutan
+            //   jawabanJSON.jawaban = jawabanRadio
+            //   this.jawaban.push(jawabanJSON)
+            // } else if (tipePertanyaan == "checkbox") {
+            //   var jawabanJSON = new Object()
+            //   var jawabanCheckbox = this.checkedCheckbox;
+            //   jawabanJSON.urutan = this.urutan
+            //   jawabanJSON.jawaban = jawabanCheckbox
+            //   this.jawaban.push(jawabanJSON)
+            // } else if (tipePertanyaan == "text") {
+            //   var jawabanJSON = new Object()
+            //   var jawabanText = this.inputText;
+            //   jawabanJSON.urutan = this.urutan
+            //   jawabanJSON.jawaban = jawabanText
+            //   this.jawaban.push(jawabanJSON)
+            // }
+            
+            var condition = question.condition;
 
-								if (jawabanRadio == jawabanKondisi) {
-									console.log("loncat ke soal " + loncatKe)
+            if (typeof condition !== undefined && condition.length)  {
+              // var jawabanRadio = parseInt(this.checkedRadio)-1;
+              var jawabanRadio = parseInt(this.checkedRadio);
 
-									if (loncatKe == 'e') {
-										this.submit()
-									} else if (loncatKe == 's') {
-										this.backTo = this.urutan
-										this.urutan++
-									} else {
-										this.backTo = this.urutan
-										this.urutan = loncatKe-1
-									}
+              for (var i = 0; i < condition.length; i++) {
+                var loncatKe = condition[i].jump;
+                if (tipePertanyaan == "radiogroup") {
+                  var jawabanKondisi = condition[i].answer;
+                  jawabanContainer = jawabanRadio
+                  // soalJawaban.jawaban = jawabanRadio
+                  // this.jawaban.push([this.urutan, jawabanContainer])
 
-									return
-								}
-							} else if (tipePertanyaan == "checkbox") {
-								var jawabanCheckbox = this.checkedCheckbox;
-								var jawabanKondisi = condition[i].answer.split(",");
+                  if (jawabanRadio == jawabanKondisi) {
+                    console.log("loncat ke soal " + loncatKe)
 
-								for (var x = 0; x < jawabanKondisi.length; x++) {
-									jawabanKondisi[x] = parseInt(jawabanKondisi[x])
-								}
+                    if (loncatKe == 'e') {
+                      this.submit()
+                    } else if (loncatKe == 's') {
+                      this.backTo = this.urutan
+                      this.urutan++
+                    } else {
+                      this.backTo = this.urutan
+                      this.urutan = loncatKe-1
+                    }
 
-								if (jawabanCheckbox.join(",") == jawabanKondisi.join(",")) {
-									console.log("loncat ke soal " + loncatKe)
+                    return
+                  }
+                } else if (tipePertanyaan == "checkbox") {
+                  var jawabanCheckbox = this.checkedCheckbox;
+                  var jawabanKondisi = condition[i].answer.split(",");
 
-									if (loncatKe == 'e') {
-										this.submit()
-									} else if (loncatKe == 's') {
-										this.backTo = this.urutan
-										this.urutan++
-									} else {
-										this.backTo = this.urutan
-										this.urutan = loncatKe-1
-									}
+                  for (var x = 0; x < jawabanKondisi.length; x++) {
+                    jawabanKondisi[x] = parseInt(jawabanKondisi[x])
+                  }
 
-									return
-								}
-							} else {
-								console.log("jawaban " + jawaban) 
-							}
-						}
-					}
-					// this.jawaban.push(soalJawaban) 
-				}
+                  if (jawabanCheckbox.join(",") == jawabanKondisi.join(",")) {
+                    console.log("loncat ke soal " + loncatKe)
 
-				this.urutan++
-				this.backTo = this.urutan-1 
-			},
-			previous: function() {
-				if (this.urutan > -1) {
-          // this.urutan = this.backTo
+                    if (loncatKe == 'e') {
+                      this.submit()
+                    } else if (loncatKe == 's') {
+                      this.backTo = this.urutan
+                      this.urutan++
+                    } else {
+                      this.backTo = this.urutan
+                      this.urutan = loncatKe-1
+                    }
 
-          if (this.urutan == this.backTo) {
-            this.urutan--
-          } else {
-            this.urutan = this.backTo
+                    return
+                  }
+                } else {
+                  console.log("jawaban " + jawaban) 
+                }
+              }
+            }
+            // this.jawaban.push(soalJawaban) 
           }
-					// this.urutan--
-					this.jawaban.pop()
-				}
-				// console.log(this.urutan)
-				// console.log(this.backTo)
-			},
-			save: function() {
-				var question = (this.urutan > -1) ? this.listQuestion[this.urutan] : "kosong";
-			
-				if (question != "kosong") {
-					var jawabanContainer 
-					
-					var tipePertanyaan = this.listQuestion[this.urutan].tipe_pertanyaan;
-					console.log(tipePertanyaan)
-					
-					// masukin pertanyaan
-					if (tipePertanyaan == "radiogroup") {
-						var jawabanRadio = parseInt(this.checkedRadio);
-						var jawabanJSON = new Object()
-						jawabanJSON.urutan = this.urutan
-						jawabanJSON.jawaban = jawabanRadio
-						this.jawaban.push(jawabanJSON)
-					} else if (tipePertanyaan == "checkbox") {
-						var jawabanJSON = new Object()
-						var jawabanCheckbox = this.checkedCheckbox;
-						jawabanJSON.urutan = this.urutan
-						jawabanJSON.jawaban = jawabanCheckbox
-						this.jawaban.push(jawabanJSON)
-					} else if (tipePertanyaan == "text") {
-						var jawabanJSON = new Object()
-						var jawabanText = this.inputText;
-						jawabanJSON.urutan = this.urutan
-						jawabanJSON.jawaban = jawabanText
-						this.jawaban.push(jawabanJSON)
-					}
-				}
-			},
-			submit: function(e) {
-				e.preventDefault()
 
-				// save last value
-				this.save()
+          this.urutan++
+          this.backTo = this.urutan-1 
+        },
+        previous: function() {
+          if (this.urutan > -1) {
+            // this.urutan = this.backTo
 
-				var jawabanSend = JSON.stringify(this.jawaban)
-				var vm = this
-				
-				// fungsi kirim udah jalan
-				axios.post('/api/survey_result', {
-					survey_id: this.surveyId,
-					jawaban: jawabanSend
-				})
-				.then(function(response) {
-					console.log(response)
-					vm.urutan = -2
-				})
-				.catch(function(err) {
-					console.log(err)
-				})
-			}
-		},
-		mounted: function() {
-			this.getApi()
-		}
-}
+            if (this.urutan == this.backTo) {
+              this.urutan--
+            } else {
+              this.urutan = this.backTo
+            }
+            // this.urutan--
+            this.jawaban.pop()
+          }
+          // console.log(this.urutan)
+          // console.log(this.backTo)
+        },
+        save: function() {
+          var question = (this.urutan > -1) ? this.listQuestion[this.urutan] : "kosong";
+        
+          if (question != "kosong") {
+            var jawabanContainer 
+            
+            var tipePertanyaan = this.listQuestion[this.urutan].tipe_pertanyaan;
+            console.log(tipePertanyaan)
+            
+            // masukin pertanyaan
+            if (tipePertanyaan == "radiogroup") {
+              var jawabanRadio = parseInt(this.checkedRadio);
+              var jawabanJSON = new Object()
+              jawabanJSON.urutan = this.urutan
+              jawabanJSON.jawaban = jawabanRadio
+              this.jawaban.push(jawabanJSON)
+            } else if (tipePertanyaan == "checkbox") {
+              var jawabanJSON = new Object()
+              var jawabanCheckbox = this.checkedCheckbox;
+              jawabanJSON.urutan = this.urutan
+              jawabanJSON.jawaban = jawabanCheckbox
+              this.jawaban.push(jawabanJSON)
+            } else if (tipePertanyaan == "text" || tipePertanyaan == "slider") {
+              var jawabanJSON = new Object()
+              var jawabanText = this.inputText;
+              jawabanJSON.urutan = this.urutan
+              jawabanJSON.jawaban = jawabanText
+              this.jawaban.push(jawabanJSON)
+            }
+          }
+        },
+        submit: function(e) {
+          e.preventDefault()
+
+          // save last value
+          this.save()
+
+          var jawabanSend = JSON.stringify(this.jawaban)
+          var vm = this
+          
+          // fungsi kirim udah jalan
+          axios.post('/api/survey_result', {
+            survey_id: this.surveyId,
+            jawaban: jawabanSend
+          })
+          .then(function(response) {
+            console.log(response)
+            vm.urutan = -2
+          })
+          .catch(function(err) {
+            console.log(err)
+          })
+        }
+      },
+      mounted: function() {
+        this.getApi()
+      }
+  }
 </script>
 
 <style lang="css" scoped>
 	.survey-title {
 		text-transform: capitalize;
-	}
+  }
+
+  .slider {
+    /* overwrite slider styles */
+    width: 100%;
+  }
 </style>		

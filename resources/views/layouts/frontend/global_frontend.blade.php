@@ -65,7 +65,7 @@
 
 	<!--Template functions-->
 	<script src="{{ asset('frontend_assets/js/functions.js') }}"></script>
-	<script src="/js/app.js"></script>
+  <script src="/js/app.js"></script>
 
 </body>
 </html>

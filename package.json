@@ -27,6 +27,7 @@
         "laravel-vue-pagination": "^2.3.0",
         "vue-loading-overlay": "^3.2.0",
         "vue-progressbar": "^0.7.5",
+        "vue-range-slider": "^0.6.0",
         "vue-router": "^3.0.6"
     }
 }

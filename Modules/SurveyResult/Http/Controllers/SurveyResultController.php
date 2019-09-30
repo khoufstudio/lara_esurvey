@@ -102,7 +102,8 @@ class SurveyResultController extends Controller
     						array_push($allJawabanSoal, $jb->jawaban);
     					}
         			
-        			if (is_string($jawaban[$key]->jawaban)) {
+        			// if (is_string($jawaban[$key]->jawaban) || is_integer($jawaban[$key]->jawaban)) {
+        			if (!is_array($jawaban[$key]->jawaban)) {
         				$jwb = (is_array($jawaban[$key]->jawaban)) ? implode(", ", $jawaban[$key]->jawaban) : $jawaban[$key]->jawaban;
         				$arrContainer['soal'.($i+1)] = $jwb;
         			} else {

@@ -51,7 +51,10 @@ Vue.use(Loading, {
   });
 
 window.Fire = new Vue;
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('statistik', require('./components/Statistik.vue').default);
+
+Vue.component('example-component', require('./components/ExampleComponent.vue'));
+
 
 Vue.component('pagination', require('laravel-vue-pagination'));
 

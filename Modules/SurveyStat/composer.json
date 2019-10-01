@@ -1,0 +1,25 @@
+{
+    "name": "nwidart/surveystat",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Modules\\SurveyStat\\Providers\\SurveyStatServiceProvider"
+            ],
+            "aliases": {
+                
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\SurveyStat\\": ""
+        }
+    }
+}

@@ -21,13 +21,16 @@
 	<!-- Core JS files -->
 	<script src="{{ asset('global_assets/js/main/jquery.min.js') }}"></script>
 	<script src="{{ asset('global_assets/js/main/bootstrap.bundle.min.js') }}"></script>
-	<script src="{{ asset('global_assets/js/plugins/loaders/blockui.min.js') }}"></script>
+  <script src="{{ asset('global_assets/js/plugins/loaders/blockui.min.js') }}"></script>
 	<!-- /core JS files -->
 	<!-- /core JS files -->
 
 	<!-- Theme JS files -->
   <script src="{{ asset('js/backend/app.js') }}" defer></script>
-	<!-- /theme JS files -->
+  <!-- /theme JS files -->
+  
+  {{-- Chart JS --}}
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
 
 </head>
 

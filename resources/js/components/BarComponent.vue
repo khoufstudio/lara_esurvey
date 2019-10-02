@@ -24,18 +24,6 @@
     },
     methods: {
       fillData () {
-      	// this.label.forEach((item, index) => {
-      	// 	console.log(item)
-      	// }) 
-      	// 
-      	// 
-      	// console.log(this.label)
-      	// this.label.forEach((item, index) => {
-      	// 	console.log(item)
-      	// })
-      	// 
-      	// console.log(this.label);
-     
       	this.label.forEach((el) => {
       		this.labelJawaban.push(el.jawaban)
       		this.labelJumlah.push(el.jumlah)
@@ -79,7 +67,8 @@
 	            ticks: {
                 suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
                 // OR //
-                beginAtZero: true   // minimum value will be 0.
+                beginAtZero: true,   // minimum value will be 0.
+                stepSize: 1
 	            }
 		        }]
 		    	}

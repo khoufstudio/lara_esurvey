@@ -7,7 +7,7 @@
           <div class="header-elements">
             <form action="#">
               <select id="select_survey" class="form-control wmin-200" @change="getSurvey" v-model="selectedSurvey">
-                <option value="#" disabled selected>Pilih Survey</option>
+                <option value="0" disabled>Pilih Survey</option>
                 <option :value="ls.id" v-for="ls in listSurvey">{{ls.nama}}</option>
               </select>
             </form>
@@ -24,7 +24,13 @@
           </div>
           <div class="card-body">
             <div class="col-md-12">
-              <BarComponent :label="ss.jumlah"></BarComponent>
+            	<!-- <div v-if="ss.tipe_pertanyaan == 'checkbox'"> -->
+            	<div v-if="ss.tipe_pertanyaan == 'checkbox' || ss.tipe_pertanyaan == 'radiogroup'">
+              	<BarComponent :label="ss.jumlah"></BarComponent>
+            	</div>
+            	<div v-else>
+            		<h5>Tipe pertanyaan ini belum bisa divisualisasikan</h5>
+            	</div>
             </div>
           </div>
         </div>
@@ -45,7 +51,7 @@
 	  data () {
 	    return {
 	    	listSurvey: null,
-	    	selectedSurvey: '',
+	    	selectedSurvey: '0',
 	    	filterSeen: false,
 	    	surveyStat: null,
 	    	// label: ['test', 'test2', 'test3']

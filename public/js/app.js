@@ -2305,27 +2305,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         var jawabanContainer;
         var tipePertanyaan = this.listQuestion[this.urutan].tipe_pertanyaan;
         console.log(tipePertanyaan);
-        this.save(); // masukin pertanyaan
-        // if (tipePertanyaan == "radiogroup") {
-        //   var jawabanRadio = parseInt(this.checkedRadio);
-        //   var jawabanJSON = new Object()
-        //   jawabanJSON.urutan = this.urutan
-        //   jawabanJSON.jawaban = jawabanRadio
-        //   this.jawaban.push(jawabanJSON)
-        // } else if (tipePertanyaan == "checkbox") {
-        //   var jawabanJSON = new Object()
-        //   var jawabanCheckbox = this.checkedCheckbox;
-        //   jawabanJSON.urutan = this.urutan
-        //   jawabanJSON.jawaban = jawabanCheckbox
-        //   this.jawaban.push(jawabanJSON)
-        // } else if (tipePertanyaan == "text") {
-        //   var jawabanJSON = new Object()
-        //   var jawabanText = this.inputText;
-        //   jawabanJSON.urutan = this.urutan
-        //   jawabanJSON.jawaban = jawabanText
-        //   this.jawaban.push(jawabanJSON)
-        // }
-
+        this.save();
         var condition = question.condition;
 
         if (_typeof(condition) !== undefined && condition.length) {
@@ -2353,6 +2333,8 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
                   this.urutan = loncatKe - 1;
                 }
 
+                this.checkedCheckbox = [];
+                this.checkedRadio = '';
                 return;
               }
             } else if (tipePertanyaan == "checkbox") {
@@ -2376,6 +2358,8 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
                   this.urutan = loncatKe - 1;
                 }
 
+                this.checkedCheckbox = [];
+                this.checkedRadio = '';
                 return;
               }
             } else {
@@ -2384,8 +2368,12 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
           }
         } // this.jawaban.push(soalJawaban) 
 
-      }
+      } // clear input
 
+
+      this.checkedCheckbox = [];
+      this.checkedRadio = '';
+      this.inputText = '';
       this.urutan++;
       this.backTo = this.urutan - 1;
     },
@@ -2395,14 +2383,21 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         if (this.urutan == this.backTo) {
           this.urutan--;
         } else {
-          this.urutan = this.backTo;
+          if (this.urutan == 0) {
+            this.urutan--; // urutan = -1
+          } else {
+            this.urutan = this.backTo;
+          }
         } // this.urutan--
 
 
         this.jawaban.pop();
-      } // console.log(this.urutan)
-      // console.log(this.backTo)
+      } // clear input
 
+
+      this.checkedCheckbox = [];
+      this.checkedRadio = '';
+      this.inputText = '';
     },
     save: function save() {
       var question = this.urutan > -1 ? this.listQuestion[this.urutan] : "kosong";
@@ -2494,17 +2489,6 @@ __webpack_require__.r(__webpack_exports__);
     fillData: function fillData() {
       var _this = this;
 
-      // this.label.forEach((item, index) => {
-      // 	console.log(item)
-      // }) 
-      // 
-      // 
-      // console.log(this.label)
-      // this.label.forEach((item, index) => {
-      // 	console.log(item)
-      // })
-      // 
-      // console.log(this.label);
       this.label.forEach(function (el) {
         _this.labelJawaban.push(el.jawaban);
 
@@ -2534,8 +2518,9 @@ __webpack_require__.r(__webpack_exports__);
               suggestedMin: 0,
               // minimum will be 0, unless there is a lower value.
               // OR //
-              beginAtZero: true // minimum value will be 0.
-
+              beginAtZero: true,
+              // minimum value will be 0.
+              stepSize: 1
             }
           }]
         }
@@ -2714,6 +2699,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Statistik',
@@ -2723,7 +2714,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       listSurvey: null,
-      selectedSurvey: '',
+      selectedSurvey: '0',
       filterSeen: false,
       surveyStat: null // label: ['test', 'test2', 'test3']
 
@@ -39911,11 +39902,9 @@ var render = function() {
                     }
                   },
                   [
-                    _c(
-                      "option",
-                      { attrs: { value: "#", disabled: "", selected: "" } },
-                      [_vm._v("Pilih Survey")]
-                    ),
+                    _c("option", { attrs: { value: "0", disabled: "" } }, [
+                      _vm._v("Pilih Survey")
+                    ]),
                     _vm._v(" "),
                     _vm._l(_vm.listSurvey, function(ls) {
                       return _c("option", { domProps: { value: ls.id } }, [
@@ -39958,12 +39947,26 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c("div", { staticClass: "card-body" }, [
-                    _c(
-                      "div",
-                      { staticClass: "col-md-12" },
-                      [_c("BarComponent", { attrs: { label: ss.jumlah } })],
-                      1
-                    )
+                    _c("div", { staticClass: "col-md-12" }, [
+                      ss.tipe_pertanyaan == "checkbox" ||
+                      ss.tipe_pertanyaan == "radiogroup"
+                        ? _c(
+                            "div",
+                            [
+                              _c("BarComponent", {
+                                attrs: { label: ss.jumlah }
+                              })
+                            ],
+                            1
+                          )
+                        : _c("div", [
+                            _c("h5", [
+                              _vm._v(
+                                "Tipe pertanyaan ini belum bisa divisualisasikan"
+                              )
+                            ])
+                          ])
+                    ])
                   ])
                 ])
               ]

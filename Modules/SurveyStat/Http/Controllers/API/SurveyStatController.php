@@ -69,71 +69,43 @@ class SurveyStatController extends Controller
       $ans = [];
       foreach ($data as $dt) {
       	$ans = $dt->answer;
-      	foreach ($jawaban as $jwb) {
-      		foreach ($jwb as $jb) {
-      			if ($jb->urutan == $dt->urutan-1) {
-      			// if ($jb["urutan"] == $dt->urutan-1) {
-      			if (is_array($jb->jawaban)) {
-      				foreach ($jb->jawaban as $jbx) {
-      					array_push($jumlah, $jbx);
-      				}
-      				// array_push($jumlah, implode(",", $jb->jawaban));
-      			} else {
-      				array_push($jumlah, $jb->jawaban);
-      			}
-      			}
-      		}
+
+      	if ($dt->tipe_pertanyaan == "checkbox" || $dt->tipe_pertanyaan == "radiogroup") {
+      	// if ($dt->tipe_pertanyaan == "checkbox") {
+	      	foreach ($jawaban as $jwb) {
+	      		foreach ($jwb as $jb) {
+	      			if ($jb->urutan == $dt->urutan-1) {
+	      			// if ($jb["urutan"] == $dt->urutan-1) {
+	      			if (is_array($jb->jawaban)) {
+	      				foreach ($jb->jawaban as $jbx) {
+	      					array_push($jumlah, $jbx);
+	      				}
+	      				// array_push($jumlah, implode(",", $jb->jawaban));
+	      			} else {
+	      				array_push($jumlah, $jb->jawaban);
+	      			}
+	      			}
+	      		}
+	      	}
+
+	      	$jumlah = array_count_values($jumlah);
+
+	      	$hasil = [];
+	      	foreach ($jumlah as $key => $jmlh) {
+	      		array_push($hasil, ['jawaban' => $ans[$key]->jawaban, 'jumlah' => $jmlh]);
+	      		// array_push($hasil, ["test".$key => $jmlh]);
+	      	}
+	      	$test["jumlah"] = $hasil;
+
       	}
 
-      	// dd($jumlah);
-      	// 
-      	$jumlah = array_count_values($jumlah);
-
-      	// $survey_pertanyaan = SurveyAnswer::
-      	// 
-      	// dd($ans[0]);
-
-      	$hasil = [];
-      	foreach ($jumlah as $key => $jmlh) {
-
-
-      		array_push($hasil, ['jawaban' => $ans[$key]->jawaban, 'jumlah' => $jmlh]);
-      		// array_push($hasil, ["test".$key => $jmlh]);
-      	}
-
-
-      	$test = [];
       	$test["pertanyaan"] = $dt->pertanyaan;
+      	$test["tipe_pertanyaan"] = $dt->tipe_pertanyaan;
       	$test["urutan"] = $dt->urutan-1;
-      	// $test["jumlah"] = $jumlah;
-      	$test["jumlah"] = $hasil;
-      	// $test["jumlah"] = json_encode($jumlah);
+
       	array_push($pertanyaan, $test);
+      	$test = [];
       	$jumlah = []; 
-      }
-
-      // dd($surveyResult);
-      // dd($pertanyaan);
-      // dd($urutan);
-      // 
-      
-
-      
-
-      // dd($jawaban);
-
-      $result = [];
-      foreach($jawaban as $jb) {
-      	//echo $jb["urutan"];
-      	// dd($jb);
-      	foreach ($jb as $j) {
-      		// $jb
-      		array_push($result, $j);
-      	}
-      	// if ($jb->urutan) {
-      		
-      	// }
-
       }
 
 

@@ -166,27 +166,6 @@
 
             this.save()
             
-            // masukin pertanyaan
-            // if (tipePertanyaan == "radiogroup") {
-            //   var jawabanRadio = parseInt(this.checkedRadio);
-            //   var jawabanJSON = new Object()
-            //   jawabanJSON.urutan = this.urutan
-            //   jawabanJSON.jawaban = jawabanRadio
-            //   this.jawaban.push(jawabanJSON)
-            // } else if (tipePertanyaan == "checkbox") {
-            //   var jawabanJSON = new Object()
-            //   var jawabanCheckbox = this.checkedCheckbox;
-            //   jawabanJSON.urutan = this.urutan
-            //   jawabanJSON.jawaban = jawabanCheckbox
-            //   this.jawaban.push(jawabanJSON)
-            // } else if (tipePertanyaan == "text") {
-            //   var jawabanJSON = new Object()
-            //   var jawabanText = this.inputText;
-            //   jawabanJSON.urutan = this.urutan
-            //   jawabanJSON.jawaban = jawabanText
-            //   this.jawaban.push(jawabanJSON)
-            // }
-            
             var condition = question.condition;
 
             if (typeof condition !== undefined && condition.length)  {
@@ -214,6 +193,9 @@
                       this.urutan = loncatKe-1
                     }
 
+                    this.checkedCheckbox = []
+          					this.checkedRadio = ''
+
                     return
                   }
                 } else if (tipePertanyaan == "checkbox") {
@@ -237,6 +219,9 @@
                       this.urutan = loncatKe-1
                     }
 
+                    this.checkedCheckbox = []
+										this.checkedRadio = ''
+
                     return
                   }
                 } else {
@@ -246,6 +231,11 @@
             }
             // this.jawaban.push(soalJawaban) 
           }
+
+          // clear input
+          this.checkedCheckbox = []
+					this.checkedRadio = ''
+					this.inputText = ''
 
           this.urutan++
           this.backTo = this.urutan-1 
@@ -257,13 +247,20 @@
             if (this.urutan == this.backTo) {
               this.urutan--
             } else {
-              this.urutan = this.backTo
+            	if (this.urutan == 0) {
+            		this.urutan-- // urutan = -1
+            	} else {
+              	this.urutan = this.backTo
+            	}
             }
             // this.urutan--
             this.jawaban.pop()
           }
-          // console.log(this.urutan)
-          // console.log(this.backTo)
+
+          // clear input
+          this.checkedCheckbox = []
+					this.checkedRadio = ''
+					this.inputText = ''
         },
         save: function() {
           var question = (this.urutan > -1) ? this.listQuestion[this.urutan] : "kosong";

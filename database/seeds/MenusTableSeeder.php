@@ -26,8 +26,8 @@ class MenusTableSeeder extends Seeder
                 'link' => '#',
                 'icon_menu' => 'icon-cogs',
                 'urutan' => 1,
-                'created_at' => '2019-03-25 08:56:03',
-                'updated_at' => '2019-04-11 09:32:32',
+                'created_at' => '2019-03-25 01:56:03',
+                'updated_at' => '2019-04-11 02:32:32',
             ),
             1 => 
             array (
@@ -38,8 +38,8 @@ class MenusTableSeeder extends Seeder
                 'link' => 'roles',
                 'icon_menu' => 'icon-accessibility',
                 'urutan' => 3,
-                'created_at' => '2019-03-25 16:14:10',
-                'updated_at' => '2019-04-23 02:56:17',
+                'created_at' => '2019-03-25 09:14:10',
+                'updated_at' => '2019-04-22 19:56:17',
             ),
             2 => 
             array (
@@ -50,8 +50,8 @@ class MenusTableSeeder extends Seeder
                 'link' => 'menus',
                 'icon_menu' => 'icon-list2',
                 'urutan' => 1,
-                'created_at' => '2019-03-26 00:00:00',
-                'updated_at' => '2019-04-23 02:55:28',
+                'created_at' => '2019-03-25 17:00:00',
+                'updated_at' => '2019-04-22 19:55:28',
             ),
             3 => 
             array (
@@ -62,8 +62,8 @@ class MenusTableSeeder extends Seeder
                 'link' => 'users',
                 'icon_menu' => 'icon-people',
                 'urutan' => 2,
-                'created_at' => '2019-03-25 17:31:04',
-                'updated_at' => '2019-04-23 02:56:46',
+                'created_at' => '2019-03-25 10:31:04',
+                'updated_at' => '2019-04-22 19:56:46',
             ),
             4 => 
             array (
@@ -74,8 +74,8 @@ class MenusTableSeeder extends Seeder
                 'link' => '#',
                 'icon_menu' => 'icon-earth',
                 'urutan' => 2,
-                'created_at' => '2019-03-25 17:32:23',
-                'updated_at' => '2019-04-11 09:34:41',
+                'created_at' => '2019-03-25 10:32:23',
+                'updated_at' => '2019-04-11 02:34:41',
             ),
             5 => 
             array (
@@ -86,8 +86,8 @@ class MenusTableSeeder extends Seeder
                 'link' => 'berita',
                 'icon_menu' => 'icon-newspaper2',
                 'urutan' => NULL,
-                'created_at' => '2019-03-25 17:32:55',
-                'updated_at' => '2019-03-28 04:43:28',
+                'created_at' => '2019-03-25 10:32:55',
+                'updated_at' => '2019-03-27 21:43:28',
             ),
             6 => 
             array (
@@ -98,8 +98,8 @@ class MenusTableSeeder extends Seeder
                 'link' => 'developer',
                 'icon_menu' => 'icon-circle-code',
                 'urutan' => 4,
-                'created_at' => '2019-03-26 04:01:39',
-                'updated_at' => '2019-04-11 09:36:37',
+                'created_at' => '2019-03-25 21:01:39',
+                'updated_at' => '2019-04-11 02:36:37',
             ),
             7 => 
             array (
@@ -110,8 +110,8 @@ class MenusTableSeeder extends Seeder
                 'link' => 'blogcategories',
                 'icon_menu' => 'icon-three-bars',
                 'urutan' => NULL,
-                'created_at' => '2019-03-28 04:20:36',
-                'updated_at' => '2019-03-28 07:42:07',
+                'created_at' => '2019-03-27 21:20:36',
+                'updated_at' => '2019-03-28 00:42:07',
             ),
             8 => 
             array (
@@ -122,8 +122,8 @@ class MenusTableSeeder extends Seeder
                 'link' => 'blogs',
                 'icon_menu' => 'icon-newspaper',
                 'urutan' => NULL,
-                'created_at' => '2019-03-28 04:44:27',
-                'updated_at' => '2019-03-28 07:41:46',
+                'created_at' => '2019-03-27 21:44:27',
+                'updated_at' => '2019-03-28 00:41:46',
             ),
             9 => 
             array (
@@ -134,8 +134,8 @@ class MenusTableSeeder extends Seeder
                 'link' => 'pages',
                 'icon_menu' => 'icon-stack',
                 'urutan' => NULL,
-                'created_at' => '2019-03-28 04:47:04',
-                'updated_at' => '2019-03-28 07:40:54',
+                'created_at' => '2019-03-27 21:47:04',
+                'updated_at' => '2019-03-28 00:40:54',
             ),
             10 => 
             array (
@@ -146,8 +146,8 @@ class MenusTableSeeder extends Seeder
                 'link' => 'frontend_menus',
                 'icon_menu' => 'icon-menu2',
                 'urutan' => 4,
-                'created_at' => '2019-03-28 04:49:15',
-                'updated_at' => '2019-04-23 02:57:01',
+                'created_at' => '2019-03-27 21:49:15',
+                'updated_at' => '2019-04-22 19:57:01',
             ),
             11 => 
             array (
@@ -158,8 +158,8 @@ class MenusTableSeeder extends Seeder
                 'link' => '#',
                 'icon_menu' => 'icon-movie',
                 'urutan' => 3,
-                'created_at' => '2019-04-11 09:10:18',
-                'updated_at' => '2019-04-12 02:32:02',
+                'created_at' => '2019-04-11 02:10:18',
+                'updated_at' => '2019-04-11 19:32:02',
             ),
             12 => 
             array (
@@ -170,8 +170,8 @@ class MenusTableSeeder extends Seeder
                 'link' => 'album_photos',
                 'icon_menu' => 'icon-images3',
                 'urutan' => 1,
-                'created_at' => '2019-04-12 02:31:10',
-                'updated_at' => '2019-04-12 04:13:14',
+                'created_at' => '2019-04-11 19:31:10',
+                'updated_at' => '2019-04-11 21:13:14',
             ),
             13 => 
             array (
@@ -182,8 +182,8 @@ class MenusTableSeeder extends Seeder
                 'link' => 'video_galleries',
                 'icon_menu' => 'icon-video-camera',
                 'urutan' => 2,
-                'created_at' => '2019-04-12 02:33:04',
-                'updated_at' => '2019-04-12 02:33:04',
+                'created_at' => '2019-04-11 19:33:04',
+                'updated_at' => '2019-04-11 19:33:04',
             ),
             14 => 
             array (
@@ -194,8 +194,8 @@ class MenusTableSeeder extends Seeder
                 'link' => '#',
                 'icon_menu' => 'icon-files-empty2',
                 'urutan' => 3,
-                'created_at' => '2019-04-16 08:09:46',
-                'updated_at' => '2019-04-16 08:09:46',
+                'created_at' => '2019-04-16 01:09:46',
+                'updated_at' => '2019-04-16 01:09:46',
             ),
             15 => 
             array (
@@ -206,8 +206,8 @@ class MenusTableSeeder extends Seeder
                 'link' => 'file_categories',
                 'icon_menu' => 'icon-file-text2',
                 'urutan' => 1,
-                'created_at' => '2019-04-16 08:11:26',
-                'updated_at' => '2019-04-16 08:11:26',
+                'created_at' => '2019-04-16 01:11:26',
+                'updated_at' => '2019-04-16 01:11:26',
             ),
             16 => 
             array (
@@ -218,8 +218,8 @@ class MenusTableSeeder extends Seeder
                 'link' => 'file_uploads',
                 'icon_menu' => 'icon-file-upload',
                 'urutan' => 2,
-                'created_at' => '2019-04-16 08:12:38',
-                'updated_at' => '2019-04-16 08:12:38',
+                'created_at' => '2019-04-16 01:12:38',
+                'updated_at' => '2019-04-16 01:12:38',
             ),
             17 => 
             array (
@@ -230,8 +230,8 @@ class MenusTableSeeder extends Seeder
                 'link' => 'sliders',
                 'icon_menu' => 'icon-image3',
                 'urutan' => 4,
-                'created_at' => '2019-04-22 06:32:04',
-                'updated_at' => '2019-04-22 06:42:54',
+                'created_at' => '2019-04-21 23:32:04',
+                'updated_at' => '2019-04-21 23:42:54',
             ),
             18 => 
             array (
@@ -242,8 +242,8 @@ class MenusTableSeeder extends Seeder
                 'link' => 'runningtext',
                 'icon_menu' => 'icon-text-width',
                 'urutan' => 5,
-                'created_at' => '2019-04-22 09:19:23',
-                'updated_at' => '2019-04-22 09:19:23',
+                'created_at' => '2019-04-22 02:19:23',
+                'updated_at' => '2019-04-22 02:19:23',
             ),
             19 => 
             array (
@@ -254,8 +254,8 @@ class MenusTableSeeder extends Seeder
                 'link' => 'links',
                 'icon_menu' => 'icon-link',
                 'urutan' => 6,
-                'created_at' => '2019-04-22 09:21:10',
-                'updated_at' => '2019-04-22 09:21:10',
+                'created_at' => '2019-04-22 02:21:10',
+                'updated_at' => '2019-04-22 02:21:10',
             ),
             20 => 
             array (
@@ -266,8 +266,8 @@ class MenusTableSeeder extends Seeder
                 'link' => 'survey',
                 'icon_menu' => 'icon-compose',
                 'urutan' => 5,
-                'created_at' => '2019-08-26 04:44:15',
-                'updated_at' => '2019-08-26 04:44:15',
+                'created_at' => '2019-08-25 21:44:15',
+                'updated_at' => '2019-08-25 21:44:15',
             ),
             21 => 
             array (
@@ -278,8 +278,8 @@ class MenusTableSeeder extends Seeder
                 'link' => 'responden',
                 'icon_menu' => 'icon-users',
                 'urutan' => 6,
-                'created_at' => '2019-08-26 07:08:58',
-                'updated_at' => '2019-08-26 07:12:50',
+                'created_at' => '2019-08-26 00:08:58',
+                'updated_at' => '2019-08-26 00:12:50',
             ),
             22 => 
             array (
@@ -290,8 +290,8 @@ class MenusTableSeeder extends Seeder
                 'link' => 'users',
                 'icon_menu' => 'icon-people',
                 'urutan' => 7,
-                'created_at' => '2019-08-27 03:57:19',
-                'updated_at' => '2019-08-27 03:58:30',
+                'created_at' => '2019-08-26 20:57:19',
+                'updated_at' => '2019-08-26 20:58:30',
             ),
             23 => 
             array (
@@ -302,8 +302,8 @@ class MenusTableSeeder extends Seeder
                 'link' => 'users',
                 'icon_menu' => 'icon-people',
                 'urutan' => 8,
-                'created_at' => '2019-08-27 04:42:49',
-                'updated_at' => '2019-08-27 04:42:49',
+                'created_at' => '2019-08-26 21:42:49',
+                'updated_at' => '2019-08-26 21:42:49',
             ),
             24 => 
             array (
@@ -314,8 +314,8 @@ class MenusTableSeeder extends Seeder
                 'link' => 'surveyresult',
                 'icon_menu' => 'icon-graph',
                 'urutan' => 10,
-                'created_at' => '2019-09-24 04:19:14',
-                'updated_at' => '2019-09-24 04:19:14',
+                'created_at' => '2019-09-23 21:19:14',
+                'updated_at' => '2019-09-23 21:19:14',
             ),
             25 => 
             array (
@@ -326,8 +326,20 @@ class MenusTableSeeder extends Seeder
                 'link' => 'home',
                 'icon_menu' => 'icon-home4',
                 'urutan' => 0,
-                'created_at' => '2019-09-25 07:42:05',
-                'updated_at' => '2019-09-25 07:47:08',
+                'created_at' => '2019-09-25 00:42:05',
+                'updated_at' => '2019-09-25 00:47:08',
+            ),
+            26 => 
+            array (
+                'id' => 28,
+                'nama_menu' => 'Survey Statistik',
+                'parrent' => 0,
+                'nama_parrent' => NULL,
+                'link' => 'surveystat',
+                'icon_menu' => 'icon-graph',
+                'urutan' => 11,
+                'created_at' => '2019-09-30 08:22:08',
+                'updated_at' => '2019-09-30 08:22:08',
             ),
         ));
         

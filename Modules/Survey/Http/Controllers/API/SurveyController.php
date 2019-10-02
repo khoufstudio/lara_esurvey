@@ -10,6 +10,8 @@ use Modules\Survey\Entities\SurveyQuestion;
 use Modules\Survey\Entities\SurveyCondition;
 use Modules\Survey\Entities\SurveyResult;
 
+use Carbon\Carbon;
+
 class SurveyController extends Controller
 {
     /**
@@ -18,11 +20,17 @@ class SurveyController extends Controller
      */
     public function index()
     {
-    	$data = Survey::where('status', 0)->orderBy('created_at', 'desc')->get();
+    	$tanggalSekarang = Carbon::now()->toDateTimeString();
+    	$data = Survey::where('status', 0)
+    						->where('date_from', '<=', $tanggalSekarang)
+    						->where('date_to', '>=', $tanggalSekarang)
+    						->orderBy('created_at', 'desc')
+    						->get();
 
     	return response()->json([
     		'success' => true,
-    		'data' => $data
+    		'data' => $data,
+    		//'tanggal_sekarang' => Carbon::now()->toDateTimeString()
     	]);
     }
 
